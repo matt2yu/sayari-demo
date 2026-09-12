@@ -5,6 +5,7 @@ need to be pinned. No network access.
 """
 
 import time
+import typing
 
 import pytest
 from sayari.core.api_error import ApiError
@@ -39,7 +40,7 @@ def test_retry_status_excludes_client_errors():
 
 def test_backoff_honours_retry_after_header():
     class _Resp:
-        headers = {"Retry-After": "7"}
+        headers: typing.ClassVar = {"Retry-After": "7"}
 
     exc = ApiError(status_code=429, body=None)
     exc.response = _Resp()
@@ -48,7 +49,7 @@ def test_backoff_honours_retry_after_header():
 
 def test_backoff_caps_absurd_retry_after():
     class _Resp:
-        headers = {"Retry-After": "9999"}
+        headers: typing.ClassVar = {"Retry-After": "9999"}
 
     exc = ApiError(status_code=429, body=None)
     exc.response = _Resp()

@@ -23,7 +23,8 @@ import pathlib
 import threading
 import time
 from collections import Counter, deque
-from typing import Any, Callable, Literal
+from collections.abc import Callable
+from typing import Any, Literal
 
 from dotenv import load_dotenv
 from sayari.client import Sayari
