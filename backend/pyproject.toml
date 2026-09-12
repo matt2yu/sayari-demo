@@ -1,0 +1,28 @@
+[project]
+name = "sayari-demo-backend"
+version = "0.1.0"
+description = "Sayari FDE exercise — device restriction screening pipeline and API"
+# The sayari SDK declares >=3.8,<4.0 but ships classifiers only through 3.12
+# and is untested above it. Pin rather than discover this at runtime.
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "sayari>=0.1.43",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "python-dotenv>=1.0",
+    "httpx>=0.27",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3",
+    "ruff>=0.7",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
