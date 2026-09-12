@@ -1,0 +1,26 @@
+name,address,country,brand,product,category
+Ring LLC,"1523 26th Street, Santa Monica, CA 90404",USA,Ring,Video Doorbell,camera
+Blink Home LLC,"Andover, Massachusetts",USA,Blink,Outdoor Security Camera,camera
+Arlo Technologies Inc,"2200 Faraday Avenue, Carlsbad, CA 92008",USA,Arlo,Pro Wireless Camera,camera
+Wyze Labs Inc,"4030 Lake Washington Blvd NE, Kirkland, WA 98033",USA,Wyze,Cam v3,camera
+Hangzhou Ezviz Network Co Ltd,"No. 555 Qianmo Road, Binjiang District, Hangzhou, Zhejiang",CHN,EZVIZ,Indoor Security Camera,camera
+Reolink Innovation Limited,"Shenzhen, Guangdong",CHN,Reolink,Argus PT Camera,camera
+Amcrest Industries LLC,"Houston, Texas",USA,Amcrest,IP Security Camera,camera
+Anker Innovations Limited,"Shenzhen, Guangdong",CHN,Eufy,SoloCam / RoboVac,camera
+TP-Link Technologies Co Ltd,"South Building, No. 5 Keyuan Road, Nanshan District, Shenzhen",CHN,TP-Link,Archer Wi-Fi Router,router
+Netgear Inc,"350 East Plumeria Drive, San Jose, CA 95134",USA,Netgear,Nighthawk Router,router
+ASUSTeK Computer Inc,"15 Li-Te Road, Beitou District, Taipei 112",TWN,ASUS,RT-AX Router,router
+D-Link Corporation,"No. 289, Sinhu 3rd Road, Neihu District, Taipei 114",TWN,D-Link,Wi-Fi 6 Router,router
+Ubiquiti Inc,"685 Third Avenue, New York, NY 10017",USA,Ubiquiti,UniFi Access Point,router
+Shenzhen Tenda Technology Co Ltd,"Shenzhen, Guangdong",CHN,Tenda,Nova Mesh Wi-Fi,router
+iRobot Corporation,"8 Crosby Drive, Bedford, MA 01730",USA,iRobot,Roomba,vacuum
+Beijing Roborock Technology Co Ltd,Beijing,CHN,Roborock,S8 Robot Vacuum,vacuum
+Ecovacs Robotics Co Ltd,"Suzhou, Jiangsu",CHN,Ecovacs,Deebot Robot Vacuum,vacuum
+Dreame Innovation Technology Co Ltd,"Suzhou, Jiangsu",CHN,Dreame,Robot Vacuum,vacuum
+TCL Technology Group Corporation,"TCL Technology Building, Huizhou, Guangdong",CHN,TCL,4K Smart TV,tv
+Hisense Visual Technology Co Ltd,"218 Qianwangang Road, Qingdao, Shandong",CHN,Hisense,ULED Smart TV,tv
+Vizio Inc,"39 Tesla, Irvine, CA 92618",USA,Vizio,Smart TV,tv
+Sonos Inc,"301 Coromar Drive, Santa Barbara, CA 93117",USA,Sonos,Era Smart Speaker,audio
+Anker Innovations Limited,"Shenzhen, Guangdong",CHN,Anker,Soundcore Speaker,audio
+Shenzhen Intellirocks Tech Co Ltd,"Shenzhen, Guangdong",CHN,Govee,Smart LED Light Strip,lighting
+Lutron Electronics Co Inc,"7200 Suter Road, Coopersburg, PA 18036",USA,Lutron,Caseta Smart Dimmer,lighting
