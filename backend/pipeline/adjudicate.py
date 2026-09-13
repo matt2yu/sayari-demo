@@ -14,8 +14,13 @@ from __future__ import annotations
 
 from typing import Any
 
-from .matching import is_composite_party, is_logistics, name_matches
-from .paths import read_stage, write_stage
+from .matching import (
+    distinctive_tokens,
+    is_composite_party,
+    is_logistics,
+    name_matches,
+)
+from .paths import fingerprint, load_products, read_stage, write_stage
 
 
 def _rejection_reason(product: dict[str, Any], candidate: dict[str, Any]) -> str | None:
@@ -45,6 +50,27 @@ def _rejection_reason(product: dict[str, Any], candidate: dict[str, Any]) -> str
     queried = candidate.get("queried_name") or product["brand"]
     if not name_matches(queried, label):
         return f"label does not match the searched name {queried!r}"
+
+    # Name matching so far is one-directional: it asks whether the query's words
+    # appear in the label. That accepts any longer company name built around the
+    # same word -- searching "Ring LLC" keeps RING CONCIERGE (jewellery), X-RING
+    # PROTECTIVE TRAINING and ELLIS RING FAMILY MANAGEMENT, and RING CONCIERGE's
+    # 414 shipments were being counted as Ring's.
+    #
+    # Sayari scores all of those `weak`. So for weak matches we also look the other
+    # way: if the label introduces distinctive words the query never had, it is a
+    # different company. Anchors and trade-sourced candidates carry no
+    # match_strength and are unaffected.
+    if candidate.get("match_strength") == "weak":
+        wanted = set(distinctive_tokens(queried))
+        extra = [
+            token for token in distinctive_tokens(label)
+            if token not in wanted and not any(token.startswith(w) or w.startswith(token)
+                                               for w in wanted)
+        ]
+        if extra:
+            return (f"weak match introducing unrelated terms {extra[:3]} absent from "
+                    f"the searched name {queried!r}")
     return None
 
 
@@ -92,11 +118,19 @@ def adjudicate_one(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def run() -> list[dict[str, Any]]:
-    rows = [adjudicate_one(row) for row in read_stage("01_candidates")]
+    # Re-read products.json rather than trusting the copy stage 1 embedded. Reject
+    # rules are tuned by hand against what resolution actually returned, and tuning
+    # them must not require re-running resolution.
+    current = {p["id"]: p for p in load_products()}
+    candidates = read_stage("01_candidates")
+    rows = [
+        adjudicate_one({**row, "product": current.get(row["product"]["id"], row["product"])})
+        for row in candidates
+    ]
     for row in rows:
         status = f"{len(row['family'])} kept" if row["resolved"] else "UNRESOLVED"
         print(f"  adjudicate {row['brand']:10} {status:>14}  {len(row['rejected'])} rejected")
-    write_stage("02_families", rows)
+    write_stage("02_families", rows, consumed=fingerprint(candidates))
     return rows
 
 

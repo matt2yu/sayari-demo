@@ -25,7 +25,7 @@ from typing import Any
 import httpx
 
 from .matching import normalise, token_match
-from .paths import CACHE, read_stage, write_stage
+from .paths import CACHE, fingerprint, read_stage, write_stage
 
 OFAC_SDN_URL = "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV"
 
@@ -165,11 +165,12 @@ def assess(row: dict[str, Any], sdn: set[str]) -> dict[str, Any]:
 
 def run(refresh_sdn: bool = False) -> list[dict[str, Any]]:
     sdn = ofac_sdn_names(refresh=refresh_sdn)
-    rows = [assess(row, sdn) for row in read_stage("03_enriched")]
+    enriched = read_stage("03_enriched")
+    rows = [assess(row, sdn) for row in enriched]
     for row in rows:
         regimes = sorted({h["regime"] for h in row["regime_hits"]})
         print(f"  external {row['brand']:10} {len(row['regime_hits']):>2} hit(s)  {regimes}")
-    write_stage("04_external", rows)
+    write_stage("04_external", rows, consumed=fingerprint(enriched))
     return rows
 
 

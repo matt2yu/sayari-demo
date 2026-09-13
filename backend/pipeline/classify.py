@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from .paths import read_stage, write_stage
+from .paths import fingerprint, read_stage, write_stage
 
 # Ordered from the least to the most constrained buyer. Each persona inherits the
 # regimes above it, which is why the same product changes colour as you move down.
@@ -131,13 +131,14 @@ def classify_one(row: dict[str, Any]) -> dict[str, Any]:
 
 
 def run() -> list[dict[str, Any]]:
-    rows = [classify_one(row) for row in read_stage("04_external")]
+    external_rows = read_stage("04_external")
+    rows = [classify_one(row) for row in external_rows]
     for row in rows:
         summary = " ".join(
             f"{p['key'][:4]}={row['verdicts'][p['key']]['status'][:4]}" for p in PERSONAS
         )
         print(f"  classify {row['brand']:10} {summary}")
-    write_stage("05_classified", rows)
+    write_stage("05_classified", rows, consumed=fingerprint(external_rows))
     return rows
 
 
