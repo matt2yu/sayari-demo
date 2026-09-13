@@ -40,6 +40,8 @@ export function ImpactBar({
             products carries a restriction we can identify.
           </>
         ) : (
+          // "before purchase" belongs to the diligence clause only: a prohibition
+          // is not something you resolve before buying, it is a bar on buying.
           <>
             {counts.prohibited > 0 && (
               <>
@@ -47,18 +49,17 @@ export function ImpactBar({
                   {counts.prohibited}
                 </span>{" "}
                 {counts.prohibited === 1 ? "product is" : "products are"}{" "}
-                <span className="text-stop">prohibited</span>
-                {counts.review > 0 && " and "}
+                <span className="text-stop">prohibited outright</span>
+                {counts.review > 0 ? ", and " : "."}
               </>
             )}
             {counts.review > 0 && (
               <>
                 <span className="font-semibold text-check">{counts.review}</span>{" "}
                 {counts.review === 1 ? "needs" : "need"}{" "}
-                <span className="text-check">diligence</span>
+                <span className="text-check">diligence</span> before purchase.
               </>
-            )}{" "}
-            before purchase.
+            )}
           </>
         )}
       </p>
@@ -77,15 +78,6 @@ export function ImpactBar({
           ) : null,
         )}
       </div>
-
-      {flagged === 0 && (
-        <p className="mt-3 text-sm text-muted">
-          Same products, same data.{" "}
-          <span className="text-fg">Switch to Federal Contractor</span> and seven
-          of them become a problem — because Section 889 binds contractors, not
-          households.
-        </p>
-      )}
 
       <div className="mt-2.5 flex flex-wrap gap-x-5 gap-y-1 text-xs text-faint">
         {SPLIT.map((status) => (

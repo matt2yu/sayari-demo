@@ -125,12 +125,47 @@ def ofac_sdn_records(refresh: bool = False) -> dict[str, dict[str, Any]]:
     return records
 
 
+# Section 889 covers a named company "or any subsidiary or affiliate". Whether an
+# ownership link clears that bar is a question about the size of the stake, so we
+# read it rather than assume it. Below the threshold the link is a diligence
+# trigger; at or above it, the statutory language is met on its face.
+AFFILIATE_THRESHOLD_PCT = 25
+
+
+def shareholding_pct(client: Any, owned_id: str, owner_label: str) -> int | None:
+    """Largest reported stake the named owner holds in this entity, if published."""
+    try:
+        entity = client.get_entity(owned_id, relationships_limit=50)
+    except Exception:  # noqa: BLE001
+        return None
+    rels = entity.relationships
+    rels = rels.dict() if hasattr(rels, "dict") else rels
+    wanted = normalise(owner_label)
+    best: list[int] = []
+    for rel in (rels or {}).get("data", []):
+        target = rel.get("target") or {}
+        label = target.get("translated_label") or target.get("label") or ""
+        if normalise(label) != wanted:
+            continue
+        for infos in (rel.get("types") or {}).values():
+            for info in infos:
+                for share in (info.get("attributes") or {}).get("shares") or []:
+                    pct = share.get("percentage")
+                    if isinstance(pct, (int, float)):
+                        best.append(int(pct))
+    return max(best) if best else None
+
+
 def _listed_as(label: str | None) -> list[str]:
     """Which statutory list entries this label matches."""
     return [listed for stem, listed in LIST_STEMS.items() if token_match(stem, label)]
 
 
-def assess(row: dict[str, Any], sdn: dict[str, dict[str, Any]]) -> dict[str, Any]:
+def assess(
+    row: dict[str, Any],
+    sdn: dict[str, dict[str, Any]],
+    client: Any = None,
+) -> dict[str, Any]:
     """Find every regime hit for one product, with the evidence that supports it."""
     hits: list[dict[str, Any]] = []
 
@@ -162,9 +197,14 @@ def assess(row: dict[str, Any], sdn: dict[str, dict[str, Any]]) -> dict[str, Any
                 continue
             for hop in chain["hops"]:
                 for listed in _listed_as(hop.get("label")) or []:
+                    pct = (
+                        shareholding_pct(client, row["family"][0]["id"], hop["label"])
+                        if client and row.get("family") else None
+                    )
                     for regime in (SECTION_889, FCC_COVERED):
                         add(regime, "owner", owner=hop["label"], matched=listed,
-                            hops=hop["hop"], edge=hop["edge"], via_factor=flag["id"])
+                            hops=hop["hop"], edge=hop["edge"], via_factor=flag["id"],
+                            stake_pct=pct)
                 if normalise(hop.get("label")) in sdn:
                     add(OFAC, "owner", owner=hop["label"], matched="OFAC SDN",
                         hops=hop["hop"], edge=hop["edge"], via_factor=flag["id"])
@@ -205,10 +245,10 @@ def assess(row: dict[str, Any], sdn: dict[str, dict[str, Any]]) -> dict[str, Any
     return {**row, "regime_hits": unique}
 
 
-def run(refresh_sdn: bool = False) -> list[dict[str, Any]]:
+def run(refresh_sdn: bool = False, client: Any = None) -> list[dict[str, Any]]:
     sdn = ofac_sdn_records(refresh=refresh_sdn)
     enriched = read_stage("03b_sanctions")
-    rows = [assess(row, sdn) for row in enriched]
+    rows = [assess(row, sdn, client) for row in enriched]
     for row in rows:
         regimes = sorted({h["regime"] for h in row["regime_hits"]})
         print(f"  external {row['brand']:10} {len(row['regime_hits']):>2} hit(s)  {regimes}")

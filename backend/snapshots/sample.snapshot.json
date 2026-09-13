@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T02:45:30.201832+00:00",
+ "generated_at": "2026-09-13T03:03:24.897086+00:00",
  "product_count": 25,
  "personas": [
   {
@@ -634,8 +634,10 @@
    "complete": false
   },
   "this_invocation": {
-   "total_calls": 0,
-   "by_endpoint": {},
+   "total_calls": 6,
+   "by_endpoint": {
+    "entity": 6
+   },
    "retries": {}
   },
   "account_usage_last_30d": {
@@ -6161,7 +6163,8 @@
      "matched": "Hangzhou Hikvision Digital Technology",
      "hops": 1,
      "edge": "has_shareholder",
-     "via_factor": "owned_by_chinese_soe"
+     "via_factor": "owned_by_chinese_soe",
+     "stake_pct": 60
     },
     {
      "regime": "fcc_covered",
@@ -6173,7 +6176,8 @@
      "matched": "Hangzhou Hikvision Digital Technology",
      "hops": 1,
      "edge": "has_shareholder",
-     "via_factor": "owned_by_chinese_soe"
+     "via_factor": "owned_by_chinese_soe",
+     "stake_pct": 60
     },
     {
      "regime": "ofac_sdn",
@@ -6205,76 +6209,55 @@
        "citation": "47 CFR 1.50002",
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
-       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
-      },
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (14 shipments). All of them predate the designation date."
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list, holding 60% of the shares."
       }
      ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: Section 889, FY2019 NDAA",
+     "status": "prohibited",
+     "headline": "Prohibited: Section 889, FY2019 NDAA",
      "reasons": [
       {
        "authority": "Section 889, FY2019 NDAA",
        "citation": "Pub. L. 115-232; 48 CFR 52.204-25",
        "binds": "federal agencies and federal contractors",
-       "severity": "review",
-       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
+       "severity": "prohibited",
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list, holding 60% of the shares."
       },
       {
        "authority": "FCC Covered List",
        "citation": "47 CFR 1.50002",
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
-       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
-      },
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (14 shipments). All of them predate the designation date."
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list, holding 60% of the shares."
       }
      ],
      "coverage_warning": null
     },
     "dod": {
-     "status": "review",
-     "headline": "Diligence required: Section 889, FY2019 NDAA",
+     "status": "prohibited",
+     "headline": "Prohibited: Section 889, FY2019 NDAA",
      "reasons": [
       {
        "authority": "Section 889, FY2019 NDAA",
        "citation": "Pub. L. 115-232; 48 CFR 52.204-25",
        "binds": "federal agencies and federal contractors",
-       "severity": "review",
-       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
+       "severity": "prohibited",
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list, holding 60% of the shares."
       },
       {
        "authority": "FCC Covered List",
        "citation": "47 CFR 1.50002",
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
-       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
-      },
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (14 shipments). All of them predate the designation date."
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list, holding 60% of the shares."
       }
      ],
      "coverage_warning": null
     }
    },
-   "worst_status": "review"
+   "worst_status": "prohibited"
   },
   {
    "id": "reolink",
@@ -9472,31 +9455,15 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (1 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (1 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "dod": {
@@ -9509,13 +9476,6 @@
        "binds": "Department of Defense procurement only",
        "severity": "prohibited",
        "detail": "Sayari records this entity on the list directly (usa_section_1260h)"
-      },
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (1 shipments). All of them predate the designation date."
       }
      ],
      "coverage_warning": null
@@ -17479,49 +17439,25 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (34 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (34 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "dod": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (34 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     }
    },
-   "worst_status": "review"
+   "worst_status": "no_restriction"
   },
   {
    "id": "tenda",
@@ -18763,49 +18699,25 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (199 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (199 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "dod": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (199 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     }
    },
-   "worst_status": "review"
+   "worst_status": "no_restriction"
   },
   {
    "id": "irobot",
@@ -21136,49 +21048,25 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "dod": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     }
    },
-   "worst_status": "review"
+   "worst_status": "no_restriction"
   },
   {
    "id": "dreame",
@@ -25114,49 +25002,25 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (69 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (69 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "dod": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (69 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     }
    },
-   "worst_status": "review"
+   "worst_status": "no_restriction"
   },
   {
    "id": "hisense",
@@ -27206,49 +27070,25 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     },
     "dod": {
-     "status": "review",
-     "headline": "Diligence required: OFAC Specially Designated Nationals",
-     "reasons": [
-      {
-       "authority": "OFAC Specially Designated Nationals",
-       "citation": "31 CFR 501",
-       "binds": "all US persons -- blocking sanctions",
-       "severity": "review",
-       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
-      }
-     ],
+     "status": "no_restriction",
+     "headline": "No restriction identified",
+     "reasons": [],
      "coverage_warning": null
     }
    },
-   "worst_status": "review"
+   "worst_status": "no_restriction"
   },
   {
    "id": "vizio",

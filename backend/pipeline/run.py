@@ -131,7 +131,7 @@ def main(start: str = "resolve", refresh_sdn: bool = False) -> dict[str, Any]:
         sanctions.run(client)
     if "external" in todo:
         print("\n[5/6] external enrichment")
-        external.run(refresh_sdn=refresh_sdn)
+        external.run(refresh_sdn=refresh_sdn, client=client)
     if "classify" in todo:
         print("\n[6/6] classify")
         classify.run()

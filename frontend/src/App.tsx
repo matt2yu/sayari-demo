@@ -69,15 +69,10 @@ export default function App() {
           Who's allowed to buy this?
         </h1>
         <p className="mt-3 text-[15px] leading-relaxed text-muted">
-          Twenty-five ordinary smart-home devices, screened against US restriction
-          regimes.{" "}
-          <span className="text-fg">
-            &ldquo;Legal&rdquo; is not a property of the product — it is a property
-            of the buyer.
-          </span>{" "}
-          TP-Link is the best-selling router brand in America and sits on a
-          Department of Defense prohibition list. Both are true. Nothing on the box
-          tells you which situation you are in.
+          25 popular smart home devices, screened against US restriction regimes
+          using Sayari&rsquo;s knowledge graph. Whether a product is restricted is
+          not a fact about the product. It depends entirely on who is buying it,
+          so pick a buyer and the answers change.
         </p>
       </header>
 
