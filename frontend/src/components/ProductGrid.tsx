@@ -1,9 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Flag } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { ProductCard } from "../types";
 import { ORDER, STATUS } from "../status";
 import { logoFor } from "../brands";
+import { LEVEL_TONE, categoryLabel } from "../risk";
 
 function Logo({ id, brand }: { id: string; brand: string }) {
   const [failed, setFailed] = useState(false);
@@ -72,7 +73,8 @@ export function ProductGrid({
           2 · What you are buying
         </h2>
         <span className="text-xs text-faint">
-          Most constrained first. Select any product for the evidence behind it.
+          Most constrained first. The chip is the legal verdict; the flag beneath
+          it is Sayari&rsquo;s risk assessment, which is a separate question.
         </span>
       </div>
 
@@ -121,7 +123,29 @@ export function ProductGrid({
 
                   {verdict.status !== "no_restriction" && (
                     <p className="line-clamp-2 text-[11px] leading-snug text-muted">
-                      {verdict.headline.replace(/^(Prohibited|Diligence required): /, "")}
+                      {verdict.headline.replace(/^(Prohibited|Needs review): /, "")}
+                    </p>
+                  )}
+
+                  {/* Sayari's risk assessment, shown even when nothing is
+                      restricted. "No restriction" is a statement about law; these
+                      flags are a different axis, and hiding them would imply a
+                      clean bill of health the data does not support. */}
+                  {card.flag_count > 0 && (
+                    <p className="flex items-start gap-1 text-[11px] leading-snug text-faint">
+                      <Flag
+                        size={10}
+                        className={`mt-0.5 shrink-0 ${
+                          LEVEL_TONE[card.risk_level ?? ""] ?? "text-faint"
+                        }`}
+                      />
+                      <span>
+                        <span className={LEVEL_TONE[card.risk_level ?? ""]}>
+                          {card.risk_level}
+                        </span>{" "}
+                        risk ·{" "}
+                        {card.risk_categories.slice(0, 2).map(categoryLabel).join(", ")}
+                      </span>
                     </p>
                   )}
 
