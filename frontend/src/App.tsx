@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { ChevronDown, Loader2 } from "lucide-react";
 import type { Meta, ProductCard, ProductDetail } from "./types";
 import { ProductGrid } from "./components/ProductGrid";
 import { DetailPanel } from "./components/DetailPanel";
-import { PersonaSwitch } from "./components/PersonaSwitch";
+import { PersonaPicker } from "./components/PersonaPicker";
+import { ImpactBar } from "./components/ImpactBar";
 import "./App.css";
 
 const API = "http://localhost:8000";
@@ -35,24 +37,22 @@ export default function App() {
       .then((r) => r.json())
       .then(setSelected);
 
-  if (error) return <div className="error">{error}</div>;
-  if (!meta) return <div className="loading">Loading…</div>;
+  useEffect(() => {
+    const esc = (e: KeyboardEvent) => e.key === "Escape" && setSelected(null);
+    window.addEventListener("keydown", esc);
+    return () => window.removeEventListener("keydown", esc);
+  }, []);
 
-  const counts = cards.reduce(
-    (acc, card) => {
-      const status = card.verdicts[persona]?.status ?? "no_restriction";
-      acc[status] = (acc[status] ?? 0) + 1;
-      return acc;
-    },
-    {} as Record<string, number>,
-  );
+  if (error)
+    return <div className="mx-auto max-w-lg p-12 text-sm text-check">{error}</div>;
 
-  const activePersona = meta.personas.find((p) => p.key === persona);
+  if (!meta)
+    return (
+      <div className="flex h-screen items-center justify-center gap-2 text-sm text-faint">
+        <Loader2 size={16} className="animate-spin" /> Loading screening data…
+      </div>
+    );
 
-  // Two different numbers, deliberately kept apart. The snapshot cost is what
-  // building this data actually took. The account figure includes every
-  // exploratory call made during development, so it runs several times higher --
-  // showing it alone would misstate what the app costs to run.
   const cost = meta.api.snapshot_cost;
   const accountTotal = Object.values(meta.api.account_usage_last_30d ?? {}).reduce(
     (a: number, b) => a + (Number(b) || 0),
@@ -60,85 +60,76 @@ export default function App() {
   );
 
   return (
-    <div className="app">
-      <header>
-        <h1>Who's allowed to buy this?</h1>
-        <p className="thesis">
-          Twenty-five consumer smart devices, screened against US restriction
-          regimes. <strong>“Legal” is not a property of the product — it is a
-          property of the buyer.</strong> Change who is asking and the same shelf
-          re-tiers.
+    <div className="mx-auto max-w-6xl px-6 pb-24 pt-12">
+      <header className="mb-10 max-w-3xl">
+        <p className="mb-2 text-xs font-medium uppercase tracking-[0.18em] text-faint">
+          Sayari · supply chain screening
+        </p>
+        <h1 className="text-4xl font-semibold leading-tight tracking-tight text-fg">
+          Who's allowed to buy this?
+        </h1>
+        <p className="mt-3 text-[15px] leading-relaxed text-muted">
+          25 popular smart home devices, screened against US restriction regimes
+          using Sayari&rsquo;s knowledge graph. Whether a product is restricted is
+          not a fact about the product. It depends entirely on who is buying it,
+          so pick a buyer and the answers change.
         </p>
       </header>
 
-      <PersonaSwitch
+      <PersonaPicker
         personas={meta.personas}
+        cards={cards}
         active={persona}
         onChange={setPersona}
       />
 
-      <div className="summary">
-        <span className="blurb">{activePersona?.blurb}</span>
-        <span className="tally">
-          <b>{counts.prohibited ?? 0}</b> prohibited ·{" "}
-          <b>{counts.review ?? 0}</b> diligence required ·{" "}
-          <b>{counts.no_restriction ?? 0}</b> no restriction identified
-        </span>
-      </div>
+      <ImpactBar cards={cards} persona={persona} personas={meta.personas} />
 
       <ProductGrid cards={cards} persona={persona} onSelect={open} />
 
-      <footer>
-        <details>
-          <summary>What this data cannot see ({meta.caveats.length})</summary>
-          <ul>
-            {meta.caveats.map((caveat) => (
-              <li key={caveat}>{caveat}</li>
+      <footer className="mt-14 space-y-2 border-t border-line pt-6 text-xs text-faint">
+        <Disclosure title={`What this data cannot see (${meta.caveats.length})`}>
+          <ul className="mt-2 space-y-1.5 pl-4">
+            {meta.caveats.map((c) => (
+              <li key={c} className="list-disc leading-relaxed">{c}</li>
             ))}
           </ul>
-        </details>
-        <details>
-          <summary>Restriction regimes and who they bind</summary>
-          <ul>
-            {meta.regimes.map((regime) => (
-              <li key={regime.key}>
-                <b>{regime.authority}</b> — binds {regime.binds}.{" "}
-                <span className="cite">{regime.citation}</span>
-                <div className="scope">{regime.scope}</div>
+        </Disclosure>
+
+        <Disclosure title="Restriction regimes and who they bind">
+          <ul className="mt-2 space-y-3 pl-4">
+            {meta.regimes.map((r) => (
+              <li key={r.key} className="list-disc leading-relaxed">
+                <span className="text-muted">{r.authority}</span> — binds {r.binds}.{" "}
+                <span className="text-faint/80">{r.citation}</span>
+                <div className="mt-0.5 text-faint/80">{r.scope}</div>
               </li>
             ))}
           </ul>
-        </details>
-        <details>
-          <summary>
-            API cost — {cost.total.toLocaleString()} Sayari calls built this
-            snapshot
-          </summary>
-          <ul>
+        </Disclosure>
+
+        <Disclosure
+          title={`API cost — ${cost.total.toLocaleString()} Sayari calls built this snapshot`}
+        >
+          <ul className="mt-2 space-y-1.5 pl-4">
             {Object.entries(cost.by_stage).map(([stage, n]) => (
-              <li key={stage}>
+              <li key={stage} className="list-disc">
                 {stage} — {n.toLocaleString()} calls
               </li>
             ))}
-            {!cost.complete && (
-              <li>
-                Some stages were restored from the snapshot rather than re-run, so
-                their original cost is not counted here.
-              </li>
-            )}
             {accountTotal > 0 && (
-              <li>
+              <li className="list-disc leading-relaxed">
                 Separately, {accountTotal.toLocaleString()} calls were metered
-                against the account over 30 days. That figure includes exploratory
-                work during development and is <b>not</b> the cost of running this
-                app.
+                against the account over 30 days. That includes exploratory work
+                during development and is <b>not</b> what this app costs to run.
               </li>
             )}
           </ul>
-        </details>
-        <p className="provenance">
+        </Disclosure>
+
+        <p className="pt-2 text-faint/70">
           Snapshot {new Date(meta.generated_at).toLocaleString()} · source{" "}
-          {meta.source}
+          {meta.source} · {meta.product_count} products
         </p>
       </footer>
 
@@ -151,5 +142,23 @@ export default function App() {
         />
       )}
     </div>
+  );
+}
+
+function Disclosure({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <details className="group">
+      <summary className="flex cursor-pointer list-none items-center gap-1.5 py-1 hover:text-muted">
+        <ChevronDown size={12} className="transition-transform group-open:rotate-180" />
+        {title}
+      </summary>
+      {children}
+    </details>
   );
 }
