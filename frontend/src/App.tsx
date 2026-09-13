@@ -49,6 +49,15 @@ export default function App() {
 
   const activePersona = meta.personas.find((p) => p.key === persona);
 
+  // Calls the pipeline made in its last stage vs what Sayari actually metered on
+  // the account. The former is near zero when only the tail was re-run, which
+  // reads as "this used no API" -- misleading for a deliverable whose whole point
+  // is the API usage.
+  const measured = Object.values(meta.api.usage_last_30d ?? {}).reduce(
+    (a: number, b) => a + (Number(b) || 0),
+    0,
+  );
+
   return (
     <div className="app">
       <header>
@@ -101,8 +110,19 @@ export default function App() {
         </details>
         <p className="provenance">
           Snapshot {new Date(meta.generated_at).toLocaleString()} · source{" "}
-          {meta.source} · {meta.api.total_calls} Sayari API calls in the run that
-          built it
+          {meta.source} · {meta.api.total_calls} Sayari API calls in the final
+          stage
+          {measured > 0 && (
+            <>
+              {" "}
+              · {measured.toLocaleString()} measured against the account over 30
+              days (
+              {Object.entries(meta.api.usage_last_30d ?? {})
+                .map(([k, v]) => `${k} ${v}`)
+                .join(", ")}
+              )
+            </>
+          )}
         </p>
       </footer>
 
