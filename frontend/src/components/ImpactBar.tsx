@@ -57,7 +57,7 @@ export function ImpactBar({
               <>
                 <span className="font-semibold text-check">{counts.review}</span>{" "}
                 {counts.review === 1 ? "needs" : "need"}{" "}
-                <span className="text-check">diligence</span> before purchase.
+                <span className="text-check">review</span> before purchase.
               </>
             )}
           </>

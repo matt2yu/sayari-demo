@@ -18,8 +18,8 @@ export const STATUS = {
     bar: "bg-stop",
   },
   review: {
-    label: "Diligence required",
-    short: "Check first",
+    label: "Needs review",
+    short: "Needs review",
     verb: "must review before buying",
     dot: "bg-check",
     text: "text-check",
@@ -29,7 +29,7 @@ export const STATUS = {
   },
   no_restriction: {
     label: "No restriction found",
-    short: "Clear",
+    short: "No restriction",
     verb: "can buy",
     dot: "bg-clear",
     text: "text-clear",
