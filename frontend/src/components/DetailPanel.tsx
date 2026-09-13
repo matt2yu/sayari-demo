@@ -13,6 +13,7 @@ import {
 import type { Chain, Persona, ProductDetail } from "../types";
 import { STATUS } from "../status";
 import { logoFor } from "../brands";
+import { LISTING_EFFECT } from "../risk";
 
 function Section({
   icon: Icon,
@@ -214,33 +215,34 @@ export function DetailPanel({
             <Section
               icon={BadgeAlert}
               title="Listed directly"
-              hint="The entity is named on the list itself. Nothing is inferred and no relationship is traversed, which is what makes this a prohibition rather than a risk signal. Severity levels below are Sayari's own scale and appear on unrestricted products too."
+              hint="The entity is named on the list itself. Nothing is inferred and no relationship is traversed, which is what makes this a prohibition rather than a risk signal."
             >
               {directListings.map((flag) => {
                 const carriers = detail.family.filter((m) =>
                   flag.carried_by.includes(m.id),
                 );
+                const hit = detail.regime_hits.find(
+                  (h) => h.how === "seed_risk" && h.factor === flag.id,
+                );
+                const effect = hit ? LISTING_EFFECT[hit.regime] : undefined;
                 return (
                   <div
                     key={flag.id}
                     className="mb-3 rounded-lg border border-stop/35 bg-stop/5 p-3 last:mb-0"
                   >
+                    {/* The badge states what the listing DOES, not that it
+                        exists -- the paragraph already says the entity is on the
+                        list. Sayari's severity level is deliberately absent here:
+                        "high" appears on unrestricted products throughout the
+                        grid, so showing it beside a prohibition would imply the
+                        severity scale decides the verdict. It does not. */}
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="text-sm font-medium text-fg">
                         {flag.label ?? flag.id}
                       </span>
-                      {/* What makes this a prohibition is that the entity is on
-                          the list itself, not that Sayari scored it "high" --
-                          "high" appears on unrestricted products too, so
-                          colouring the level here would imply the severity scale
-                          decides the verdict. It does not. The level renders
-                          neutrally, exactly as it does everywhere else. */}
-                      <span className="rounded border border-stop/45 bg-stop/10 px-1.5 py-px text-[10px] uppercase tracking-wide text-stop">
-                        on the list itself
-                      </span>
-                      {flag.level && (
-                        <span className="rounded border border-line px-1.5 py-px text-[10px] uppercase text-faint">
-                          {flag.level}
+                      {effect && (
+                        <span className="rounded border border-stop/45 bg-stop/10 px-1.5 py-px text-[10px] uppercase tracking-wide text-stop">
+                          {effect.badge}
                         </span>
                       )}
                     </div>
@@ -258,8 +260,17 @@ export function DetailPanel({
                       </p>
                     ))}
 
+                    {effect && (
+                      <p
+                        className={`mt-2 text-xs leading-relaxed ${
+                          effect.isSanction ? "text-stop" : "text-check"
+                        }`}
+                      >
+                        {effect.effect}
+                      </p>
+                    )}
                     {flag.description && (
-                      <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                      <p className="mt-2 text-[11px] leading-relaxed text-faint">
                         {flag.description}
                       </p>
                     )}
