@@ -53,13 +53,38 @@ def test_backoff_caps_absurd_retry_after():
 
     exc = ApiError(status_code=429, body=None)
     exc.response = _Resp()
-    assert SayariClient._backoff(exc, attempt=0) == 30.0
+    # Capped at MAX_BACKOFF_SECONDS, which must exceed the 60s standard-tier block
+    # so a legitimate Retry-After of ~60 is honoured in full rather than truncated.
+    assert SayariClient._backoff(exc, attempt=0) == 75.0
 
 
 def test_backoff_falls_back_to_exponential():
     exc = ApiError(status_code=500, body=None)
     assert SayariClient._backoff(exc, attempt=0) == 0.5
     assert SayariClient._backoff(exc, attempt=3) == 4.0
+
+
+def test_429_without_retry_after_waits_out_the_tier_block():
+    """Exponential backoff tops out around 8s; the standard block is a full minute,
+    so backing off exponentially burns every attempt inside the block and reports a
+    failure that was only ever a wait. This regression cost us a whole pipeline run.
+    """
+    exc = ApiError(status_code=429, body=None)
+    assert SayariClient._backoff(exc, attempt=0, tier="standard") == 60.0
+    assert SayariClient._backoff(exc, attempt=4, tier="standard") == 60.0
+    assert SayariClient._backoff(exc, attempt=0, tier="advanced") == 10.0
+
+
+def test_html_error_page_is_treated_as_transient():
+    """Under load the edge answers with a Cloudflare interstitial instead of JSON.
+    An HTML body from a JSON API is always infrastructure, never a real answer."""
+    exc = ApiError(status_code=403, body="<!doctype html><html>Cloudflare</html>")
+    assert SayariClient._is_transient(exc) is True
+
+
+def test_genuine_client_errors_are_not_transient():
+    assert SayariClient._is_transient(ApiError(status_code=404, body={"messages": ["Not Found"]})) is False
+    assert SayariClient._is_transient(ApiError(status_code=422, body={"messages": ["bad"]})) is False
 
 
 def test_missing_credentials_raise_clearly(monkeypatch):
