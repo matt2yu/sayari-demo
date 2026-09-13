@@ -15,11 +15,18 @@ import datetime as dt
 import json
 from typing import Any
 
-from . import adjudicate, classify, enrich, external, ontology, resolve
+from . import adjudicate, classify, enrich, external, ontology, resolve, sanctions
 from .client import SayariClient
-from .paths import SNAPSHOT, check_chain, read_stage
+from .paths import (
+    SAMPLE_SNAPSHOT,
+    SNAPSHOT,
+    check_chain,
+    fingerprint,
+    read_stage,
+    write_stage,
+)
 
-STAGES = ["resolve", "adjudicate", "enrich", "external", "classify"]
+STAGES = ["resolve", "adjudicate", "enrich", "sanctions", "external", "classify"]
 
 # Shipped in the snapshot and rendered in the UI, not buried in the report. Every
 # one of these bounds a claim the app makes.
@@ -76,19 +83,22 @@ def main(start: str = "resolve", refresh_sdn: bool = False) -> dict[str, Any]:
     client = SayariClient()
 
     if "resolve" in todo:
-        print("\n[1/5] resolve")
+        print("\n[1/6] resolve")
         resolve.run(client)
     if "adjudicate" in todo:
-        print("\n[2/5] adjudicate")
+        print("\n[2/6] adjudicate")
         adjudicate.run()
     if "enrich" in todo:
-        print("\n[3/5] enrich")
+        print("\n[3/6] enrich")
         enrich.run(client)
+    if "sanctions" in todo:
+        print("\n[4/6] sanctions dating")
+        sanctions.run(client)
     if "external" in todo:
-        print("\n[4/5] external enrichment")
+        print("\n[5/6] external enrichment")
         external.run(refresh_sdn=refresh_sdn)
     if "classify" in todo:
-        print("\n[5/5] classify")
+        print("\n[6/6] classify")
         classify.run()
 
     rows = read_stage("05_classified")
@@ -105,7 +115,36 @@ def main(start: str = "resolve", refresh_sdn: bool = False) -> dict[str, Any]:
 
 
 ARTIFACT_NAMES = ["01_candidates", "02_families", "03_enriched",
-                  "04_external", "05_classified"]
+                  "03b_sanctions", "04_external", "05_classified"]
+
+
+def rehydrate() -> int:
+    """Rebuild stage artifacts from the snapshot, without touching the API.
+
+    The snapshot carries every row the later stages produced, so the chain can be
+    reconstructed from it. Useful because stage artifacts are intermediate and
+    gitignored: a fresh clone, or a branch switch that predates the ignore rule,
+    leaves the snapshot intact and the stages gone. Rebuilding beats spending
+    hundreds of API calls to recover data we already have.
+    """
+    source = SNAPSHOT if SNAPSHOT.exists() else SAMPLE_SNAPSHOT
+    if not source.exists():
+        raise SystemExit("No snapshot to rehydrate from. Run the pipeline.")
+    rows = json.loads(source.read_text())["products"]
+
+    # 05 is the snapshot's rows verbatim; the earlier stages are projections of it.
+    external_rows = [{k: v for k, v in r.items()
+                      if k not in ("verdicts", "worst_status")} for r in rows]
+    sanctions_rows = [{k: v for k, v in r.items() if k != "regime_hits"}
+                      for r in external_rows]
+    enriched_rows = [{k: v for k, v in r.items() if k != "sanctioned_trade"}
+                     for r in sanctions_rows]
+    write_stage("03_enriched", enriched_rows)
+    write_stage("03b_sanctions", sanctions_rows, consumed=fingerprint(enriched_rows))
+    write_stage("04_external", external_rows, consumed=fingerprint(sanctions_rows))
+    write_stage("05_classified", rows, consumed=fingerprint(external_rows))
+    print(f"rehydrated 03/04/05 from {source.name} ({len(rows)} products, 0 API calls)")
+    return len(rows)
 
 
 def check() -> bool:
@@ -138,7 +177,12 @@ if __name__ == "__main__":
                         help="re-download the OFAC SDN list instead of using the cache")
     parser.add_argument("--check", action="store_true",
                         help="verify stage freshness without running anything")
+    parser.add_argument("--rehydrate", action="store_true",
+                        help="rebuild stage artifacts from the snapshot, no API calls")
     args = parser.parse_args()
     if args.check:
         raise SystemExit(0 if check() else 1)
+    if args.rehydrate:
+        rehydrate()
+        raise SystemExit(0)
     main(start=args.start, refresh_sdn=args.refresh_sdn)

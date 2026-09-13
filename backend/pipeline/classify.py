@@ -33,6 +33,10 @@ PERSONAS = [
         # household -- so listing it here would tell a consumer they are prohibited
         # from something they are not.
         "regimes": ["ofac_sdn"],
+        # ...and only where the product's own entity is listed. A brand having once
+        # shipped to a sanctioned counterparty is a supply-chain diligence question
+        # for a business, not something that restricts a household from buying a TV.
+        "applies_to": ["direct", "seed_risk", "owner"],
     },
     {
         "key": "enterprise",
@@ -62,11 +66,24 @@ PROHIBITED, REVIEW, NO_RESTRICTION = "prohibited", "review", "no_restriction"
 # diligence trigger: Section 889's reach to "subsidiaries and affiliates" is a legal
 # question about a specific corporate relationship, not something a name match
 # settles. Calling it prohibited would overstate what the data supports.
-HOW_SEVERITY = {"direct": PROHIBITED, "seed_risk": PROHIBITED, "owner": REVIEW}
+HOW_SEVERITY = {
+    "direct": PROHIBITED,
+    "seed_risk": PROHIBITED,
+    "owner": REVIEW,
+    # The brand is not the sanctioned party here -- a counterparty it shipped to is.
+    # Every such relationship in this dataset also predates the designation, so
+    # treating it as a prohibition on the brand would be plainly wrong.
+    "trade_counterparty": REVIEW,
+}
 
 
 def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]:
-    applicable = [h for h in row["regime_hits"] if h["regime"] in persona["regimes"]]
+    allowed_how = persona.get("applies_to")
+    applicable = [
+        h for h in row["regime_hits"]
+        if h["regime"] in persona["regimes"]
+        and (allowed_how is None or h["how"] in allowed_how)
+    ]
     if not applicable:
         return {
             "status": NO_RESTRICTION,
@@ -86,6 +103,15 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
                       f"{hit['matched']}")
         elif hit["how"] == "direct":
             detail = f"{hit['entity']} is listed as {hit['matched']}"
+        elif hit["how"] == "trade_counterparty":
+            after = hit.get("post_designation", 0)
+            detail = (
+                f"Shipped to {hit['counterparty']}, on the OFAC SDN list"
+                + (f" under programme {hit['program']}" if hit.get('program') else '')
+                + f" ({hit.get('shipments', 0):,} shipments). "
+                + (f"{after} of them on or after designation."
+                   if after else "All of them predate the designation date.")
+            )
         else:
             detail = f"Sayari records this entity on the list directly ({hit['factor']})"
         reasons.append({
