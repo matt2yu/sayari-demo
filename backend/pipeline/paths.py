@@ -32,13 +32,22 @@ def fingerprint(payload: Any) -> str:
     return hashlib.sha256(blob).hexdigest()[:16]
 
 
-def write_stage(name: str, rows: Any, consumed: str | None = None) -> pathlib.Path:
+def write_stage(
+    name: str,
+    rows: Any,
+    consumed: str | None = None,
+    calls: dict[str, int] | None = None,
+) -> pathlib.Path:
     """Persist a stage's output along with the fingerprint of its input.
 
     Timestamps are not enough to tell whether a stage ran against current data --
     re-running stages out of order, or a chain that silently short-circuits, leaves
     a mtime that looks fresh over stale content. Recording what each stage actually
     consumed makes that detectable instead of guessable.
+
+    `calls` records the API calls that stage made. Stages are routinely re-run
+    individually, so a single run's counter is not the cost of the snapshot --
+    summing the per-stage figures is.
     """
     ARTIFACTS.mkdir(parents=True, exist_ok=True)
     path = ARTIFACTS / f"{name}.json"
@@ -49,6 +58,7 @@ def write_stage(name: str, rows: Any, consumed: str | None = None) -> pathlib.Pa
             "rows": len(rows) if hasattr(rows, "__len__") else None,
             "self": fingerprint(rows),
             "consumed": consumed,
+            "calls": calls or {},
         },
         "rows": rows,
     }
