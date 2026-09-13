@@ -110,6 +110,7 @@ def _anchors(product: dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def run(client: SayariClient) -> list[dict[str, Any]]:
+    before = sum(client.calls.values())
     rows = []
     for product in load_products():
         candidates: dict[str, dict[str, Any]] = {}
@@ -123,7 +124,9 @@ def run(client: SayariClient) -> list[dict[str, Any]]:
             candidates.setdefault(candidate["id"], candidate)
         rows.append({"product": product, "candidates": list(candidates.values())})
         print(f"  resolve  {product['brand']:10} {len(candidates):>3} candidates")
-    write_stage("01_candidates", rows)  # stage 1 consumes products.json, not an artifact
+    # stage 1 consumes products.json, not an artifact, so it has no `consumed`
+    write_stage("01_candidates", rows,
+                calls={"total": sum(client.calls.values()) - before})
     return rows
 
 

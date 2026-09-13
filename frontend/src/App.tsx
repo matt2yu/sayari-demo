@@ -49,11 +49,12 @@ export default function App() {
 
   const activePersona = meta.personas.find((p) => p.key === persona);
 
-  // Calls the pipeline made in its last stage vs what Sayari actually metered on
-  // the account. The former is near zero when only the tail was re-run, which
-  // reads as "this used no API" -- misleading for a deliverable whose whole point
-  // is the API usage.
-  const measured = Object.values(meta.api.usage_last_30d ?? {}).reduce(
+  // Two different numbers, deliberately kept apart. The snapshot cost is what
+  // building this data actually took. The account figure includes every
+  // exploratory call made during development, so it runs several times higher --
+  // showing it alone would misstate what the app costs to run.
+  const cost = meta.api.snapshot_cost;
+  const accountTotal = Object.values(meta.api.account_usage_last_30d ?? {}).reduce(
     (a: number, b) => a + (Number(b) || 0),
     0,
   );
@@ -108,21 +109,36 @@ export default function App() {
             ))}
           </ul>
         </details>
+        <details>
+          <summary>
+            API cost — {cost.total.toLocaleString()} Sayari calls built this
+            snapshot
+          </summary>
+          <ul>
+            {Object.entries(cost.by_stage).map(([stage, n]) => (
+              <li key={stage}>
+                {stage} — {n.toLocaleString()} calls
+              </li>
+            ))}
+            {!cost.complete && (
+              <li>
+                Some stages were restored from the snapshot rather than re-run, so
+                their original cost is not counted here.
+              </li>
+            )}
+            {accountTotal > 0 && (
+              <li>
+                Separately, {accountTotal.toLocaleString()} calls were metered
+                against the account over 30 days. That figure includes exploratory
+                work during development and is <b>not</b> the cost of running this
+                app.
+              </li>
+            )}
+          </ul>
+        </details>
         <p className="provenance">
           Snapshot {new Date(meta.generated_at).toLocaleString()} · source{" "}
-          {meta.source} · {meta.api.total_calls} Sayari API calls in the final
-          stage
-          {measured > 0 && (
-            <>
-              {" "}
-              · {measured.toLocaleString()} measured against the account over 30
-              days (
-              {Object.entries(meta.api.usage_last_30d ?? {})
-                .map(([k, v]) => `${k} ${v}`)
-                .join(", ")}
-              )
-            </>
-          )}
+          {meta.source}
         </p>
       </footer>
 

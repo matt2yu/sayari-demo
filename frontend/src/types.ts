@@ -171,8 +171,14 @@ export interface Meta {
   regimes: Regime[];
   caveats: string[];
   api: {
-    total_calls: number;
-    by_endpoint: Record<string, number>;
-    usage_last_30d?: Record<string, number>;
+    /** Calls actually spent building this snapshot, summed across stages. */
+    snapshot_cost: {
+      total: number;
+      by_stage: Record<string, number>;
+      complete: boolean;
+    };
+    /** Whole-account metering over 30 days. Includes development, so it is much
+     *  larger than the snapshot cost and must never be presented as it. */
+    account_usage_last_30d?: Record<string, number>;
   };
 }

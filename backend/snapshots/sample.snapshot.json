@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T02:18:43.473335+00:00",
+ "generated_at": "2026-09-13T02:37:14.349516+00:00",
  "product_count": 25,
  "personas": [
   {
@@ -624,10 +624,29 @@
   }
  },
  "api": {
-  "total_calls": 0,
-  "by_endpoint": {},
-  "retries": {},
-  "usage_last_30d": {
+  "snapshot_cost": {
+   "total": 267,
+   "by_stage": {
+    "01_candidates": 115,
+    "03_enriched": 128,
+    "03b_sanctions": 24
+   },
+   "complete": false
+  },
+  "this_invocation": {
+   "total_calls": 267,
+   "by_endpoint": {
+    "resolution": 90,
+    "trade_suppliers": 25,
+    "entity_summary": 128,
+    "entity": 12,
+    "trade_shipments": 12
+   },
+   "retries": {
+    "entity_summary": 2
+   }
+  },
+  "account_usage_last_30d": {
    "entity": 16,
    "resolve": 354,
    "search": 181,
