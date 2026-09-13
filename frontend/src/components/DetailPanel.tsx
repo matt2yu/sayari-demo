@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
+  BadgeAlert,
   ArrowRight,
   Check,
   ExternalLink,
@@ -88,6 +89,17 @@ export function DetailPanel({
   const verdict = detail.verdicts[persona];
   const seed = detail.flags.filter((f) => f.risk_type === "seed");
   const network = detail.flags.filter((f) => f.risk_type !== "seed");
+  // A seed flag means the entity is on the list itself, with nothing in between.
+  // That is the strongest evidence in the dataset, but it has no chain to draw,
+  // so without its own block it reads as weaker than an inherited listing purely
+  // because there is less to look at. TP-Link is exactly this case.
+  const directListings = detail.flags.filter(
+    (f) =>
+      f.risk_type === "seed" &&
+      detail.regime_hits.some(
+        (h) => h.how === "seed_risk" && h.factor === f.id,
+      ),
+  );
   const ownership = detail.flags.flatMap((f) =>
     (f.chains ?? [])
       .filter((c) => c.kind === "ownership" && c.hops.some((h) => h.label))
@@ -197,6 +209,70 @@ export function DetailPanel({
               </p>
             )}
           </Section>
+
+          {directListings.length > 0 && (
+            <Section
+              icon={BadgeAlert}
+              title="Listed directly"
+              hint="The entity is named on the list itself. Nothing is inferred and no relationship is traversed, which is what makes this a prohibition rather than a risk signal. Severity levels below are Sayari's own scale and appear on unrestricted products too."
+            >
+              {directListings.map((flag) => {
+                const carriers = detail.family.filter((m) =>
+                  flag.carried_by.includes(m.id),
+                );
+                return (
+                  <div
+                    key={flag.id}
+                    className="mb-3 rounded-lg border border-stop/35 bg-stop/5 p-3 last:mb-0"
+                  >
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-sm font-medium text-fg">
+                        {flag.label ?? flag.id}
+                      </span>
+                      {/* What makes this a prohibition is that the entity is on
+                          the list itself, not that Sayari scored it "high" --
+                          "high" appears on unrestricted products too, so
+                          colouring the level here would imply the severity scale
+                          decides the verdict. It does not. The level renders
+                          neutrally, exactly as it does everywhere else. */}
+                      <span className="rounded border border-stop/45 bg-stop/10 px-1.5 py-px text-[10px] uppercase tracking-wide text-stop">
+                        on the list itself
+                      </span>
+                      {flag.level && (
+                        <span className="rounded border border-line px-1.5 py-px text-[10px] uppercase text-faint">
+                          {flag.level}
+                        </span>
+                      )}
+                    </div>
+
+                    {carriers.map((m) => (
+                      <p key={m.id} className="mt-2 text-xs text-fg">
+                        {m.label}
+                        {m.translated_label && m.translated_label !== m.label && (
+                          <span className="text-faint"> · {m.translated_label}</span>
+                        )}
+                        <span className="text-faint">
+                          {" "}
+                          · {m.countries.slice(0, 3).join(", ")}
+                        </span>
+                      </p>
+                    ))}
+
+                    {flag.description && (
+                      <p className="mt-2 text-[11px] leading-relaxed text-muted">
+                        {flag.description}
+                      </p>
+                    )}
+                    {flag.sources.length > 0 && (
+                      <p className="mt-1.5 text-[10px] text-faint">
+                        Source: {flag.sources.join("; ")}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </Section>
+          )}
 
           {ownership.length > 0 && (
             <Section
