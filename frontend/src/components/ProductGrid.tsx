@@ -73,8 +73,9 @@ export function ProductGrid({
           2 · What you are buying
         </h2>
         <span className="text-xs text-faint">
-          Most constrained first. The chip is the legal verdict; the flag beneath
-          it is Sayari&rsquo;s risk assessment, which is a separate question.
+          Most constrained first. Restricted products name the statute; the rest
+          carry Sayari&rsquo;s risk assessment, which is a separate question from
+          whether anything is barred.
         </span>
       </div>
 
@@ -127,11 +128,17 @@ export function ProductGrid({
                     </p>
                   )}
 
-                  {/* Sayari's risk assessment, shown even when nothing is
-                      restricted. "No restriction" is a statement about law; these
-                      flags are a different axis, and hiding them would imply a
-                      clean bill of health the data does not support. */}
-                  {card.flag_count > 0 && (
+                  {/* Sayari's risk assessment, shown ONLY where there is no legal
+                      restriction. It exists to answer "this says no restriction,
+                      but is it actually clean?" -- and hiding it would imply a
+                      clean bill of health the data does not support.
+
+                      Once a product is restricted that question is already
+                      answered by the statute above, and repeating "high risk" on
+                      every card regardless of verdict made the three states look
+                      identical at a glance. Restricted cards lead with the law;
+                      the full flag list is still in the detail panel. */}
+                  {verdict.status === "no_restriction" && card.flag_count > 0 && (
                     <p className="flex items-start gap-1 text-[11px] leading-snug text-faint">
                       <Flag
                         size={10}
