@@ -26,17 +26,24 @@ from collections import Counter, deque
 from collections.abc import Callable
 from typing import Any, Literal
 
+import httpx
 from dotenv import load_dotenv
 from sayari.client import Sayari
 from sayari.core.api_error import ApiError
+
+BASE_URL = "https://api.sayari.com"
 
 Tier = Literal["standard", "advanced"]
 
 # Documented at /api/key-concepts/rate-limits. Budgets are per endpoint; we apply
 # them per tier, which is stricter than required and therefore safe.
+# Documented budgets are 200/60s and 15/10s. We run below both: a full-pipeline run
+# at the documented standard rate still drew 429s, so the effective ceiling is lower
+# than published (or shared across endpoints rather than per-endpoint). Headroom is
+# cheaper than a minute-long block mid-run.
 TIER_BUDGET: dict[Tier, tuple[int, float]] = {
-    "standard": (200, 60.0),   # 200 requests / 60s
-    "advanced": (15, 10.0),    # 15 requests / 10s
+    "standard": (120, 60.0),   # documented: 200 / 60s
+    "advanced": (12, 10.0),    # documented:  15 / 10s
 }
 
 # Retried regardless of tier. 429 is rate limiting; the 5xx family and 408/409 are
@@ -44,8 +51,13 @@ TIER_BUDGET: dict[Tier, tuple[int, float]] = {
 # it just burns quota.
 RETRY_STATUS = frozenset({408, 409, 429, 500, 502, 503, 504, 520})
 
+# On breach Sayari blocks the caller for the tier's window -- a full minute on the
+# standard tier. Exponential backoff never reaches that, so a 429 must wait out the
+# block rather than retrying into it.
+TIER_BLOCK_SECONDS: dict[str, float] = {"standard": 60.0, "advanced": 10.0}
+
 MAX_ATTEMPTS = 5
-MAX_BACKOFF_SECONDS = 30.0
+MAX_BACKOFF_SECONDS = 75.0
 
 
 class _TokenBucket:
@@ -108,16 +120,39 @@ class SayariClient:
             try:
                 return fn()
             except ApiError as exc:
-                status = getattr(exc, "status_code", None)
-                if status not in RETRY_STATUS or attempt == MAX_ATTEMPTS - 1:
+                if not self._is_transient(exc) or attempt == MAX_ATTEMPTS - 1:
                     raise
                 self.retries[label] += 1
-                time.sleep(self._backoff(exc, attempt))
+                time.sleep(self._backoff(exc, attempt, tier))
         raise RuntimeError("unreachable")
 
     @staticmethod
-    def _backoff(exc: ApiError, attempt: int) -> float:
-        """Honour Retry-After when present, else exponential backoff."""
+    def _is_transient(exc: ApiError) -> bool:
+        """Whether this failure is worth retrying.
+
+        Status alone is not enough. Under sustained load the edge (Cloudflare)
+        answers with an HTML interstitial instead of JSON; the SDK then fails to
+        decode it and re-raises with whatever status the edge used, which is not
+        always in the documented set. An HTML body from a JSON API is always
+        infrastructure, never a real answer, so treat it as transient.
+        """
+        if getattr(exc, "status_code", None) in RETRY_STATUS:
+            return True
+        body = getattr(exc, "body", None)
+        if isinstance(body, str):
+            head = body.lstrip()[:200].lower()
+            return head.startswith(("<!doctype", "<html")) or "cloudflare" in head
+        return False
+
+    @staticmethod
+    def _backoff(exc: ApiError, attempt: int, tier: Tier = "standard") -> float:
+        """How long to wait before retrying.
+
+        Retry-After wins when the server sends it. Otherwise a 429 waits out the
+        tier's full block window -- exponential backoff tops out around 8s and the
+        standard block is 60s, so backing off exponentially just burns all the
+        attempts inside the block and reports a failure that was only ever a wait.
+        """
         headers = getattr(getattr(exc, "response", None), "headers", None) or {}
         raw = headers.get("Retry-After") or headers.get("retry-after")
         if raw:
@@ -125,6 +160,8 @@ class SayariClient:
                 return min(float(raw), MAX_BACKOFF_SECONDS)
             except (TypeError, ValueError):
                 pass
+        if getattr(exc, "status_code", None) == 429:
+            return TIER_BLOCK_SECONDS.get(tier, 60.0)
         return min(0.5 * (2 ** attempt), MAX_BACKOFF_SECONDS)
 
     # ------------------------------------------------------------ standard tier
@@ -150,8 +187,25 @@ class SayariClient:
         """GET /v1/ontology/risk_factors -- the glossary we render flags with.
 
         Note this is /v1/ontology/risk_factors, not /v1/risk_factors (which 404s).
+
+        Fetched raw rather than through `ontology.get_risk_factors()`: the SDK's
+        model marks `do_not_render_metadata` as required, the API omits it on most
+        factors, and the typed call fails validation on ~100 of them. The raw
+        payload is well-formed -- only the SDK's schema is out of date.
         """
-        return self._guard("ontology", "standard", lambda: self._sdk.ontology.get_risk_factors())
+        return self._guard("ontology", "standard", lambda: self.raw_get("/v1/ontology/risk_factors"))
+
+    def raw_get(self, path: str) -> Any:
+        """Un-modelled GET, for endpoints where the SDK's schema rejects valid data.
+
+        Reuses the SDK's OAuth token so there is still exactly one auth path.
+        """
+        # get_headers() carries the Authorization header and refreshes the token
+        # when needed, so raw calls stay on the SDK's single auth path.
+        headers = {**self._sdk._client_wrapper.get_headers(), "Accept": "application/json"}  # noqa: SLF001
+        response = httpx.get(f"{BASE_URL}{path}", headers=headers, timeout=60.0)
+        response.raise_for_status()
+        return response.json()
 
     def usage(self, **kwargs: Any) -> Any:
         """GET /v1/usage. Note the trailing underscore on `from_`."""

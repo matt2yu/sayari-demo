@@ -19,7 +19,9 @@
     "                     resolution quality.",
     "  parent             Corporate parent where the brand is not its own top company.",
     "                     Recorded as context, never asserted as a finding -- ownership",
-    "                     findings must come from the graph, not from this file."
+    "                     findings must come from the graph, not from this file.",
+    "  reject_patterns    Case-insensitive substrings that disqualify a candidate even when the brand token matches. Derived from candidates actually returned by the live API, not hypothetical. 'Ring' needs the longest list because RING is a common noun in industrial company names and token matching cannot save us there.",
+    "  anchor_entity_ids  Hand-verified entity ids, always included in the family. These pin IDENTITY, not data: every run re-fetches their risk, ownership and shipments live, and resolution still runs alongside and can add entities. The anchor exists because resolution is query-sensitive -- adding an address hint changed EZVIZ's result set and dropped the registry node carrying the Hikvision/CETC chain -- so a refresh can gain findings but cannot silently lose a node."
   ],
   "version": "2026-09-12",
   "products": [
@@ -29,11 +31,44 @@
       "product": "Video Doorbell",
       "category": "camera",
       "legal_name": "Ring LLC",
-      "resolution_aliases": ["Bot Home Automation, Inc.", "Ring Protect Inc."],
+      "resolution_aliases": [
+        "Bot Home Automation, Inc.",
+        "Ring Protect Inc."
+      ],
       "hq_address": "1523 26th Street, Santa Monica, CA 90404",
       "country": "USA",
       "parent": "Amazon.com, Inc.",
-      "notes": "Does not resolve under 'Ring LLC'. Expect zero trade records: Amazon imports on its behalf, so absence of shipment data is a coverage gap, not a clean bill of health."
+      "notes": "Does not resolve under 'Ring LLC'. Expect zero trade records: Amazon imports on its behalf, so absence of shipment data is a coverage gap, not a clean bill of health.",
+      "reject_patterns": [
+        "piston",
+        "shriram",
+        "rolex",
+        "ring travellers",
+        "npr manufactur",
+        "asp global",
+        "ring container",
+        "ring power",
+        "ring-o-matic",
+        "triple ring",
+        "team wendy"
+      ],
+      "anchor_entity_ids": [
+        {
+          "id": "Ydr1vnz-YrnNvdJSZR-aIw",
+          "label": "BOT HOME AUTOMATION, INC.",
+          "why": "Ring's pre-Amazon legal name; HQ 1523 26th St Santa Monica"
+        },
+        {
+          "id": "QvJLaTcTo5uUBc5yumRBvA",
+          "label": "RING PROTECT INC.",
+          "why": "subscription entity at the same HQ address"
+        },
+        {
+          "id": "0oZud-3vFd691cuFxHkOrQ",
+          "label": "RING LLC",
+          "why": "stub reached via RING PROTECT has_shareholder"
+        }
+      ]
     },
     {
       "id": "blink",
@@ -41,11 +76,20 @@
       "product": "Outdoor Security Camera",
       "category": "camera",
       "legal_name": "Blink Home LLC",
-      "resolution_aliases": ["Immedia Semiconductor LLC"],
+      "resolution_aliases": [
+        "Immedia Semiconductor LLC"
+      ],
       "hq_address": "Andover, Massachusetts",
       "country": "USA",
       "parent": "Amazon.com, Inc.",
-      "notes": "Reject 'Blink Field Limited' (CHN) and 'Blink Bioscience' - unrelated companies sharing the token."
+      "notes": "Reject 'Blink Field Limited' (CHN) and 'Blink Bioscience' - unrelated companies sharing the token.",
+      "reject_patterns": [
+        "blink field",
+        "blink bioscience",
+        "blink home repair",
+        "blink home renovation"
+      ],
+      "anchor_entity_ids": []
     },
     {
       "id": "arlo",
@@ -57,7 +101,13 @@
       "hq_address": "2200 Faraday Avenue, Carlsbad, CA 92008",
       "country": "USA",
       "parent": null,
-      "notes": "Reject 'Homnyue-Arlo (Taiwan) Chemical Fibers' - token collision."
+      "notes": "Reject 'Homnyue-Arlo (Taiwan) Chemical Fibers' - token collision.",
+      "reject_patterns": [
+        "homnyue",
+        "chemical fibers",
+        "arlo aluminum"
+      ],
+      "anchor_entity_ids": []
     },
     {
       "id": "wyze",
@@ -69,7 +119,9 @@
       "hq_address": "4030 Lake Washington Blvd NE, Kirkland, WA 98033",
       "country": "USA",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "ezviz",
@@ -77,11 +129,26 @@
       "product": "Indoor Security Camera",
       "category": "camera",
       "legal_name": "Hangzhou Ezviz Network Co Ltd",
-      "resolution_aliases": ["EZVIZ Inc"],
+      "resolution_aliases": [
+        "EZVIZ Inc"
+      ],
       "hq_address": "No. 555 Qianmo Road, Binjiang District, Hangzhou, Zhejiang",
       "country": "CHN",
       "parent": "Hangzhou Hikvision Digital Technology Co., Ltd.",
-      "notes": "Headline case. Carries no restriction listing of its own; ownership traverses to Hikvision then CETC. The registry node and the trade node are separate entities - both are needed."
+      "notes": "Headline case. Carries no restriction listing of its own; ownership traverses to Hikvision then CETC. The registry node and the trade node are separate entities - both are needed.",
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "g-2-7qHwf3zTVP4AdGgO3Q",
+          "label": "Hangzhou Ezviz Network Co., Ltd. (registry)",
+          "why": "carries the ownership chain to Hikvision and CETC"
+        },
+        {
+          "id": "lY2c5kW6o-91YAXCVUyHhg",
+          "label": "HANGZHOU EZVIZ NETWORK CO.,LTD (trade)",
+          "why": "33k shipment records; separate node from the registry entity"
+        }
+      ]
     },
     {
       "id": "reolink",
@@ -89,11 +156,17 @@
       "product": "Argus PT Camera",
       "category": "camera",
       "legal_name": "Reolink Innovation Limited",
-      "resolution_aliases": ["Reolink Technology Pte. Ltd."],
+      "resolution_aliases": [
+        "Reolink Technology Pte. Ltd."
+      ],
       "hq_address": "Shenzhen, Guangdong",
       "country": "CHN",
       "parent": null,
-      "notes": "Regression case: 'REOLINK EZTECH DIGITAL INC' matches the token 'ZTE' on a substring search (e-ZTE-ch). Must not be reported as an FCC Covered List hit."
+      "notes": "Regression case: 'REOLINK EZTECH DIGITAL INC' matches the token 'ZTE' on a substring search (e-ZTE-ch). Must not be reported as an FCC Covered List hit.",
+      "reject_patterns": [
+        "eztech"
+      ],
+      "anchor_entity_ids": []
     },
     {
       "id": "amcrest",
@@ -101,11 +174,15 @@
       "product": "IP Security Camera",
       "category": "camera",
       "legal_name": "Amcrest Industries LLC",
-      "resolution_aliases": ["Amcrest Technologies LLC"],
+      "resolution_aliases": [
+        "Amcrest Technologies LLC"
+      ],
       "hq_address": "Houston, Texas",
       "country": "USA",
       "parent": null,
-      "notes": "Widely reported as sharing hardware lineage with Dahua. Report only what the graph supports - do not assert the Dahua link from this note."
+      "notes": "Widely reported as sharing hardware lineage with Dahua. Report only what the graph supports - do not assert the Dahua link from this note.",
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "eufy",
@@ -113,11 +190,21 @@
       "product": "SoloCam / RoboVac",
       "category": "camera",
       "legal_name": "Anker Innovations Limited",
-      "resolution_aliases": ["Eufy Security"],
+      "resolution_aliases": [
+        "Eufy Security"
+      ],
       "hq_address": "Shenzhen, Guangdong",
       "country": "CHN",
       "parent": "Anker Innovations Limited",
-      "notes": "Sub-brand of Anker; resolves to the same entity family. Kept separate because shoppers treat it as a distinct brand - that is the point of the exercise."
+      "notes": "Sub-brand of Anker; resolves to the same entity family. Kept separate because shoppers treat it as a distinct brand - that is the point of the exercise.",
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "FTKunATklAYANQ2JHUFOPg",
+          "label": "ANKER INNOVATIONS LIMITED",
+          "why": "Eufy is an Anker sub-brand and shares its entity family"
+        }
+      ]
     },
     {
       "id": "tp-link",
@@ -125,11 +212,21 @@
       "product": "Archer Wi-Fi Router",
       "category": "router",
       "legal_name": "TP-Link Technologies Co Ltd",
-      "resolution_aliases": ["TP-Link Corporation Limited"],
+      "resolution_aliases": [
+        "TP-Link Corporation Limited"
+      ],
       "hq_address": "South Building, No. 5 Keyuan Road, Nanshan District, Shenzhen",
       "country": "CHN",
       "parent": null,
-      "notes": "Second headline case: seed usa_section_1260h. Resolution alone lands on a small Vietnamese subsidiary and loses both the 1260H flag and ~553k shipments - the trade-side entity must be gathered too."
+      "notes": "Second headline case: seed usa_section_1260h. Resolution alone lands on a small Vietnamese subsidiary and loses both the 1260H flag and ~553k shipments - the trade-side entity must be gathered too.",
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "o-4yYr_x1-0RY2-Bk598vw",
+          "label": "TP-LINK TECHNOLOGIES CO.,LTD.",
+          "why": "carries seed usa_section_1260h; 556k shipments"
+        }
+      ]
     },
     {
       "id": "netgear",
@@ -137,11 +234,15 @@
       "product": "Nighthawk Router",
       "category": "router",
       "legal_name": "Netgear Inc",
-      "resolution_aliases": ["Netgear Asia Pte Ltd"],
+      "resolution_aliases": [
+        "Netgear Asia Pte Ltd"
+      ],
       "hq_address": "350 East Plumeria Drive, San Jose, CA 95134",
       "country": "USA",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "asus",
@@ -149,11 +250,15 @@
       "product": "RT-AX Router",
       "category": "router",
       "legal_name": "ASUSTeK Computer Inc",
-      "resolution_aliases": ["ASUS Global Pte Ltd"],
+      "resolution_aliases": [
+        "ASUS Global Pte Ltd"
+      ],
       "hq_address": "15 Li-Te Road, Beitou District, Taipei 112",
       "country": "TWN",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "d-link",
@@ -161,11 +266,15 @@
       "product": "Wi-Fi 6 Router",
       "category": "router",
       "legal_name": "D-Link Corporation",
-      "resolution_aliases": ["D-Link International Pte Ltd"],
+      "resolution_aliases": [
+        "D-Link International Pte Ltd"
+      ],
       "hq_address": "No. 289, Sinhu 3rd Road, Neihu District, Taipei 114",
       "country": "TWN",
       "parent": null,
-      "notes": "Large entity family spread across regional subsidiaries; screen the family, not one node."
+      "notes": "Large entity family spread across regional subsidiaries; screen the family, not one node.",
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "ubiquiti",
@@ -173,11 +282,15 @@
       "product": "UniFi Access Point",
       "category": "router",
       "legal_name": "Ubiquiti Inc",
-      "resolution_aliases": ["Ubiquiti Networks Inc"],
+      "resolution_aliases": [
+        "Ubiquiti Networks Inc"
+      ],
       "hq_address": "685 Third Avenue, New York, NY 10017",
       "country": "USA",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "tenda",
@@ -189,7 +302,15 @@
       "hq_address": "Shenzhen, Guangdong",
       "country": "CHN",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "rsUpGM-pz3ZjTZ358cfOEA",
+          "label": "SHENZHEN TENDA TECHNOLOGY CO.,LTD",
+          "why": "primary trade entity"
+        }
+      ]
     },
     {
       "id": "irobot",
@@ -201,7 +322,9 @@
       "hq_address": "8 Crosby Drive, Bedford, MA 01730",
       "country": "USA",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "roborock",
@@ -209,11 +332,15 @@
       "product": "S8 Robot Vacuum",
       "category": "vacuum",
       "legal_name": "Beijing Roborock Technology Co Ltd",
-      "resolution_aliases": ["Roborock (HK) Limited"],
+      "resolution_aliases": [
+        "Roborock (HK) Limited"
+      ],
       "hq_address": "Beijing",
       "country": "CHN",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "ecovacs",
@@ -221,11 +348,15 @@
       "product": "Deebot Robot Vacuum",
       "category": "vacuum",
       "legal_name": "Ecovacs Robotics Co Ltd",
-      "resolution_aliases": ["Ecovacs Global Pte. Ltd."],
+      "resolution_aliases": [
+        "Ecovacs Global Pte. Ltd."
+      ],
       "hq_address": "Suzhou, Jiangsu",
       "country": "CHN",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "dreame",
@@ -233,11 +364,15 @@
       "product": "Robot Vacuum",
       "category": "vacuum",
       "legal_name": "Dreame Innovation Technology Co Ltd",
-      "resolution_aliases": ["Dreame International (Hongkong) Limited"],
+      "resolution_aliases": [
+        "Dreame International (Hongkong) Limited"
+      ],
       "hq_address": "Suzhou, Jiangsu",
       "country": "CHN",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "tcl",
@@ -245,11 +380,22 @@
       "product": "4K Smart TV",
       "category": "tv",
       "legal_name": "TCL Technology Group Corporation",
-      "resolution_aliases": ["TCL Moka International Limited", "TCL Overseas Marketing Limited"],
+      "resolution_aliases": [
+        "TCL Moka International Limited",
+        "TCL Overseas Marketing Limited"
+      ],
       "hq_address": "TCL Technology Building, Huizhou, Guangdong",
       "country": "CHN",
       "parent": null,
-      "notes": "Largest family in the list (~59 candidate nodes, 3.5M shipment records). Sanctions-dating case: shipments to an OFAC-SDN Russian consignee must be split pre/post designation."
+      "notes": "Largest family in the list (~59 candidate nodes, 3.5M shipment records). Sanctions-dating case: shipments to an OFAC-SDN Russian consignee must be split pre/post designation.",
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "5xYjazeKDmifTpZ30yMDgw",
+          "label": "TCL MOKA INTERNATIONAL LIMITED",
+          "why": "shipper in the dated OFAC-SDN consignee evidence"
+        }
+      ]
     },
     {
       "id": "hisense",
@@ -257,11 +403,21 @@
       "product": "ULED Smart TV",
       "category": "tv",
       "legal_name": "Hisense Visual Technology Co Ltd",
-      "resolution_aliases": ["Hisense International Co., Ltd."],
+      "resolution_aliases": [
+        "Hisense International Co., Ltd."
+      ],
       "hq_address": "218 Qianwangang Road, Qingdao, Shandong",
       "country": "CHN",
       "parent": null,
-      "notes": null
+      "notes": null,
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "Vvt3TcPyj_-f3DNJ9Cx2LQ",
+          "label": "HISENSE INTERNATIONAL CO., LTD",
+          "why": "group trade entity"
+        }
+      ]
     },
     {
       "id": "vizio",
@@ -269,11 +425,15 @@
       "product": "Smart TV",
       "category": "tv",
       "legal_name": "Vizio Inc",
-      "resolution_aliases": ["Vizio Holding Corp"],
+      "resolution_aliases": [
+        "Vizio Holding Corp"
+      ],
       "hq_address": "39 Tesla, Irvine, CA 92618",
       "country": "USA",
       "parent": "Walmart Inc.",
-      "notes": "US importer with almost no trade records under its own name - same coverage caveat as Ring."
+      "notes": "US importer with almost no trade records under its own name - same coverage caveat as Ring.",
+      "reject_patterns": [],
+      "anchor_entity_ids": []
     },
     {
       "id": "sonos",
@@ -285,7 +445,11 @@
       "hq_address": "301 Coromar Drive, Santa Barbara, CA 93117",
       "country": "USA",
       "parent": null,
-      "notes": "Reject 'Arvato Digital Services' - a fulfilment vendor, not Sonos."
+      "notes": "Reject 'Arvato Digital Services' - a fulfilment vendor, not Sonos.",
+      "reject_patterns": [
+        "arvato"
+      ],
+      "anchor_entity_ids": []
     },
     {
       "id": "anker",
@@ -297,7 +461,15 @@
       "hq_address": "Shenzhen, Guangdong",
       "country": "CHN",
       "parent": null,
-      "notes": "Shares an entity family with Eufy."
+      "notes": "Shares an entity family with Eufy.",
+      "reject_patterns": [],
+      "anchor_entity_ids": [
+        {
+          "id": "FTKunATklAYANQ2JHUFOPg",
+          "label": "ANKER INNOVATIONS LIMITED",
+          "why": "primary Anker entity"
+        }
+      ]
     },
     {
       "id": "govee",
@@ -305,11 +477,19 @@
       "product": "Smart LED Light Strip",
       "category": "lighting",
       "legal_name": "Shenzhen Intellirocks Tech Co Ltd",
-      "resolution_aliases": ["Govee Moments Trading Limited"],
+      "resolution_aliases": [
+        "Govee Moments Trading Limited"
+      ],
       "hq_address": "Shenzhen, Guangdong",
       "country": "CHN",
       "parent": null,
-      "notes": "Reject 'Gove Aluminium Finance' - token collision."
+      "notes": "Reject 'Gove Aluminium Finance' - token collision.",
+      "reject_patterns": [
+        "gove aluminium",
+        "bridge toyota",
+        "limitless"
+      ],
+      "anchor_entity_ids": []
     },
     {
       "id": "lutron",
@@ -321,7 +501,11 @@
       "hq_address": "7200 Suter Road, Coopersburg, PA 18036",
       "country": "USA",
       "parent": null,
-      "notes": "US-headquartered and still carries forced_labor_uflpa_origin_direct. Useful counterweight to any assumption that exposure tracks country of headquarters. Reject 'Lutronic Corporation'."
+      "notes": "US-headquartered and still carries forced_labor_uflpa_origin_direct. Useful counterweight to any assumption that exposure tracks country of headquarters. Reject 'Lutronic Corporation'.",
+      "reject_patterns": [
+        "lutronic"
+      ],
+      "anchor_entity_ids": []
     }
   ]
 }
