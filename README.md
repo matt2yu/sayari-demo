@@ -125,24 +125,48 @@ clients.
 ## Running it
 
 ```bash
-# credentials
-cp .env.example .env        # fill in SAYARI_CLIENT_ID / SAYARI_CLIENT_SECRET
+cp .env.example .env        # SAYARI_CLIENT_ID / SAYARI_CLIENT_SECRET
 
-# backend — Python 3.12 is required, see note below
 uv python install 3.12
-uv sync --directory backend
-uv run --directory backend python -m pipeline.run     # builds the snapshot
-uv run --directory backend uvicorn app.main:app --reload
+cd backend && uv sync
 
-# frontend
-cd frontend && npm install && npm run dev
+uv run uvicorn app.main:app --reload        # http://localhost:8000
+cd ../frontend && npm install && npm run dev # http://localhost:5173
 ```
 
-The frontend runs against the committed sample snapshot without credentials, so the
-UI is reviewable without an API key.
+**That is enough to review the app.** The API falls back to the committed
+`sample.snapshot.json`, so the UI works with no Sayari credentials at all.
+
+To rebuild the data against the live API:
+
+```bash
+cd backend
+uv run python -m pipeline.run                  # full run, ~800 calls
+uv run python -m pipeline.run --from enrich    # resume from one stage
+uv run python -m pipeline.run --check          # verify stage freshness
+uv run pytest                                  # 75 tests, no network
+```
 
 > **Python 3.12 is required.** The `sayari` package declares `>=3.8,<4.0` but ships
 > classifiers only through 3.12 and is untested above it.
+
+### The pipeline
+
+Five stages, each persisting its own artifact so a later stage can be re-run
+without repeating the API calls before it:
+
+| Stage | Does | Notable because |
+|---|---|---|
+| `resolve` | brand → candidate entities | queries with *and* without the address hint; the hint improves match strength but changes the result set |
+| `adjudicate` | keep/reject each candidate | rejections are published, not swallowed |
+| `enrich` | profiles, risk, resolved chains | separates seed from network risk, drops deprecated factors |
+| `external` | join to US restriction regimes | the Scenario 1 enrichment |
+| `classify` | verdict per buyer persona | the thesis |
+
+`--check` exists because stages communicate through files. Each artifact records
+the fingerprint of what it consumed, so a stage that ran against stale input is
+detectable rather than inferred from mtimes — which look fresh even when the
+content behind them is not.
 
 ---
 

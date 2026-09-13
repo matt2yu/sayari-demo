@@ -17,11 +17,12 @@ Three things happen here that the raw API response does not give you:
 
 from __future__ import annotations
 
+import json
 from typing import Any
 
 from . import ontology
 from .client import SayariClient
-from .paths import fingerprint, read_stage, write_stage
+from .paths import CACHE, fingerprint, read_stage, write_stage
 
 # Ownership edges, used to decide whether a resolved chain is an ownership story
 # or a trade story. Sayari's own owned_by_* factors use this set.
@@ -31,6 +32,10 @@ OWNERSHIP_EDGES = frozenset({
     "has_owner", "owner_of", "has_partner", "partner_of",
 })
 TRADE_EDGES = frozenset({"ships_to", "receives_from", "shipper_of", "notify_party_of", "carrier_of"})
+
+# How many chains per product get their node names resolved. Only ownership
+# chains are rendered as evidence, and no product shows more than a handful.
+MAX_RESOLVED_CHAINS_PER_PRODUCT = 6
 
 
 def _as_dict(obj: Any) -> dict[str, Any]:
@@ -45,11 +50,29 @@ def _as_dict(obj: Any) -> dict[str, Any]:
 
 
 class _NameCache:
-    """Entity id -> display name. Chains repeat nodes heavily, so this saves calls."""
+    """Entity id -> display name, persisted across runs.
+
+    Chains repeat nodes heavily within a run, and entity labels barely change
+    between runs, so this is the difference between a re-run costing hundreds of
+    calls and costing almost none. Risk data is never cached here -- only labels,
+    countries and the sanctioned flag, which is what the chain renderer needs.
+    """
 
     def __init__(self, client: SayariClient) -> None:
         self._client = client
-        self._cache: dict[str, dict[str, Any]] = {}
+        self._path = CACHE / "entity_names.json"
+        self._dirty = False
+        try:
+            self._cache: dict[str, dict[str, Any]] = json.loads(self._path.read_text())
+        except (OSError, ValueError):
+            self._cache = {}
+
+    def save(self) -> None:
+        if not self._dirty:
+            return
+        CACHE.mkdir(parents=True, exist_ok=True)
+        self._path.write_text(json.dumps(self._cache, ensure_ascii=False))
+        self._dirty = False
 
     def get(self, entity_id: str) -> dict[str, Any]:
         if entity_id not in self._cache:
@@ -58,6 +81,7 @@ class _NameCache:
             # retrievable via entity_summary. Rendering one as a hop in an ownership
             # chain would read as "owned by 10013160/170524/3167957".
             if "/" in entity_id:
+                self._dirty = True
                 self._cache[entity_id] = {
                     "id": entity_id, "label": "(shipment record)", "is_shipment": True,
                     "countries": [], "sanctioned": False, "seed_risks": [],
@@ -66,9 +90,11 @@ class _NameCache:
             try:
                 summary = self._client.entity_summary(entity_id)
             except Exception:  # noqa: BLE001
+                self._dirty = True
                 self._cache[entity_id] = {"id": entity_id, "label": entity_id, "unresolved": True}
                 return self._cache[entity_id]
             risk = _as_dict(summary.risk)
+            self._dirty = True
             self._cache[entity_id] = {
                 "id": entity_id,
                 # Chinese-registry labels are in Hanzi; the translation is what makes
@@ -88,28 +114,41 @@ def _parse_path(path: str) -> tuple[list[str], list[str]]:
     return parts[0::2], parts[1::2]
 
 
-def _describe_chain(path: str, names: _NameCache) -> dict[str, Any]:
+def classify_path(path: str) -> str:
+    """ownership | trade | mixed, from the path string alone.
+
+    The edge names are already in the traversal_path, so this costs nothing. That
+    matters: resolving every node of every chain is thousands of entity_summary
+    calls, and the UI only renders ownership chains. Knowing the kind up front
+    lets us fetch names for the handful of chains we actually show.
+    """
+    _, edges = _parse_path(path)
+    kinds = set(edges)
+    if kinds & OWNERSHIP_EDGES and not kinds & TRADE_EDGES:
+        return "ownership"
+    if kinds & TRADE_EDGES and not kinds & OWNERSHIP_EDGES:
+        return "trade"
+    return "mixed"
+
+
+def _describe_chain(path: str, names: _NameCache, resolve_names: bool) -> dict[str, Any]:
+    """Render one path. When resolve_names is False the hops carry edges and ids
+    but no labels -- enough to show the shape without paying for the lookups."""
     node_ids, edges = _parse_path(path)
     hops = []
     for index, node_id in enumerate(node_ids[1:], start=1):
-        info = names.get(node_id)
+        info = names.get(node_id) if resolve_names else {}
         hops.append({
             "hop": index,
             "edge": edges[index - 1] if index - 1 < len(edges) else None,
             "id": node_id,
-            "label": info["label"],
+            "label": info.get("label"),
             "countries": info.get("countries", []),
             "sanctioned": info.get("sanctioned", False),
             "seed_risks": info.get("seed_risks", []),
+            "resolved": resolve_names,
         })
-    kinds = set(edges)
-    if kinds & OWNERSHIP_EDGES and not kinds & TRADE_EDGES:
-        kind = "ownership"
-    elif kinds & TRADE_EDGES and not kinds & OWNERSHIP_EDGES:
-        kind = "trade"
-    else:
-        kind = "mixed"
-    return {"kind": kind, "hops": hops, "raw": path}
+    return {"kind": classify_path(path), "hops": hops, "raw": path}
 
 
 def enrich_one(
@@ -182,11 +221,24 @@ def enrich_one(
         if described["is_context"]:
             context.append(entry)
             continue
-        # Resolve the graph path so the flag is evidence rather than a label.
-        entry["chains"] = [_describe_chain(p, names) for p in record["paths"][:3]]
+        entry["chains"] = [
+            {"kind": classify_path(p), "raw": p} for p in record["paths"][:3]
+        ]
         reportable.append(entry)
 
     reportable.sort(key=lambda f: (f["risk_type"] != "seed", f["id"]))
+
+    # Names are fetched only for the chains the UI renders. Ownership chains are
+    # the finding (EZVIZ -> Hikvision -> CETC); trade chains are shown as shape
+    # only. Resolving everything cost thousands of calls per run and rate-limited
+    # us, for labels nobody ever saw.
+    budget = MAX_RESOLVED_CHAINS_PER_PRODUCT
+    for flag in reportable:
+        for index, chain in enumerate(flag["chains"]):
+            wanted = chain["kind"] == "ownership" and budget > 0
+            flag["chains"][index] = _describe_chain(chain["raw"], names, wanted)
+            if wanted:
+                budget -= 1
 
     return {
         **{k: row[k] for k in ("id", "brand", "product", "category", "legal_name",
@@ -214,6 +266,7 @@ def run(client: SayariClient) -> list[dict[str, Any]]:
         print(f"  enrich   {enriched['brand']:10} fam={enriched['family_size']:>2} "
               f"flow={enriched['family_flow']:>9,} flags={len(enriched['flags']):>2} "
               f"(seed {seeds}) dropped={len(enriched['dropped_flags'])}")
+    names.save()
     write_stage("03_enriched", rows, consumed=fingerprint(families))
     return rows
 
