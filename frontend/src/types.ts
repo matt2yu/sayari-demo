@@ -170,5 +170,9 @@ export interface Meta {
   personas: Persona[];
   regimes: Regime[];
   caveats: string[];
-  api: { total_calls: number; by_endpoint: Record<string, number> };
+  api: {
+    total_calls: number;
+    by_endpoint: Record<string, number>;
+    usage_last_30d?: Record<string, number>;
+  };
 }
