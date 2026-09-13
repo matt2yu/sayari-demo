@@ -113,6 +113,105 @@ behind them is not.
 
 ---
 
+## How the data actually moves
+
+The diagram above is the shape of the system. This one is the lineage: which
+endpoint is called, what comes back, and what each field is used for.
+
+```mermaid
+flowchart LR
+    PROD["<b>data/products.json</b><br/>25 brands · aliases · anchors"]
+
+    subgraph R["① RESOLVE &nbsp;·&nbsp; 115 calls"]
+        direction TB
+        RES["<b>GET /v1/resolution</b><br/>×2 per name: with and<br/>without the address hint"]
+        SUP["<b>POST /v1/trade/search/suppliers</b><br/>the trade-side entity, which<br/>resolution alone never returns"]
+    end
+
+    ADJ["<b>② ADJUDICATE</b> · 0 calls<br/>126 kept · 114 rejected"]
+
+    subgraph E["③ ENRICH &nbsp;·&nbsp; 128 calls"]
+        direction TB
+        SUM["<b>GET /v1/entity_summary/:id</b><br/>×126, one per family member"]
+        ONT["<b>GET /v1/ontology/risk_factors</b><br/>×1 → 721 definitions"]
+        HOP["<b>GET /v1/entity_summary/:node</b><br/>ownership-chain hops only<br/>322 cached to disk"]
+    end
+
+    subgraph S["④ SANCTIONS &nbsp;·&nbsp; 24 calls"]
+        direction TB
+        RI["<b>GET /v1/entity/:id</b><br/>×12 counterparties<br/>attributes.risk_intelligence"]
+        SHIP["<b>POST /v1/trade/search/shipments</b><br/>×12 · limit 3000<br/>2,696 shipments, counted in full"]
+    end
+
+    subgraph X["⑤ EXTERNAL &nbsp;·&nbsp; the enrichment"]
+        direction TB
+        OFAC["<b>OFAC SDN.CSV</b><br/>live from Treasury<br/>18,575 records"]
+        SHARE["<b>GET /v1/entity/:id</b><br/>relationships_limit=50<br/>→ shares.percentage"]
+        ENC["<b>Encoded + cited</b><br/>FCC Covered · §889 · §1260H<br/>fcc.gov and dhs.gov return 403"]
+    end
+
+    OUT["<b>⑥ CLASSIFY</b> · 0 calls<br/>one verdict per buyer profile"]
+
+    PROD --> RES
+    PROD --> SUP
+    RES -->|"entity_id · score<br/>match_strength"| ADJ
+    SUP -->|"trade entity ids"| ADJ
+
+    ADJ -->|"126 entity ids"| SUM
+    SUM -->|"risk · trade_count<br/>countries · sanctioned"| E2["<b>risk split</b><br/>seed vs network<br/>262 deprecated dropped"]
+    ONT -->|"risk_type · level<br/>description · enabled"| E2
+    SUM -->|"risk.metadata<br/>.traversal_path"| CHAIN["<b>ownership chains</b><br/>EZVIZ → Hikvision → CETC"]
+    HOP -->|"label · sanctioned"| CHAIN
+
+    CHAIN --> RI
+    CHAIN --> SHIP
+    RI -->|"from_date =<br/>designation date"| DATED["<b>dated evidence</b><br/>0 of 2,696 shipments<br/>post-designation"]
+    SHIP -->|"arrival_date · hs_codes<br/>product_descriptions"| DATED
+
+    E2 --> OUT
+    DATED --> OUT
+    CHAIN --> SHARE
+    OFAC -->|"name → program<br/>RUSSIA-EO14024"| OUT
+    SHARE -->|"60% → meets §889<br/>subsidiary or affiliate"| OUT
+    ENC -->|"who each regime binds"| OUT
+
+    classDef file fill:#1d2433,stroke:#6b7a94,stroke-width:1px,color:#e8eaef
+    classDef apicall fill:#16202e,stroke:#4d82c0,stroke-width:1.5px,color:#e8eaef
+    classDef ext fill:#2a2119,stroke:#c98a34,stroke-width:1.5px,color:#e8eaef
+    classDef derived fill:#15251c,stroke:#34c98a,stroke-width:1.5px,color:#e8eaef
+    classDef logic fill:#171b23,stroke:#39435a,stroke-width:1px,color:#e8eaef
+    class PROD file
+    class RES,SUP,SUM,ONT,HOP,RI,SHIP,SHARE apicall
+    class OFAC,ENC ext
+    class E2,CHAIN,DATED derived
+    class ADJ,OUT logic
+```
+
+Reading it as a story:
+
+1. **Resolution is queried twice per name**, with and without the address hint. The
+   hint raises match strength but also *changes the result set*, and the trade-side
+   entity it drops is the one carrying the shipment history. Trade search finds that
+   node; resolution alone never returns it.
+2. **`match_strength` drives adjudication**, not the verdict. 114 candidates are
+   discarded here, each with a recorded reason.
+3. **`entity_summary.risk` is the core payload.** Its `metadata.traversal_path` is
+   the ownership chain, expressed as entity ids; resolving those ids is what turns
+   `owned_by_usa_bis_entity` into *EZVIZ → Hikvision → CETC*.
+4. **The ontology decides what counts.** `risk_type` splits seed from network, and
+   `enabled` removes 262 deprecated flags before anything is reported.
+5. **Designation dates come from `attributes.risk_intelligence`**, not from a
+   sanctions list. Without them the shipment data says "ships to a sanctioned party";
+   with them it says all 2,696 shipments predate the designation.
+6. **`shares.percentage` decides severity.** §889 covers a named company "and any
+   subsidiary or affiliate", so whether an ownership link is a bar depends on the
+   size of the stake. Hikvision holds 60% of EZVIZ.
+7. **OFAC SDN is the only list fetched live**, and it corroborates rather than
+   originates: Sayari says the counterparty is sanctioned, Treasury's file confirms
+   it by name and supplies the programme (`RUSSIA-EO14024`).
+
+---
+
 ## What the enrichment adds
 
 Sayari says what an entity is connected to. The external regimes say **who is barred

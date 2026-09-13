@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertTriangle,
+  BadgeAlert,
   ArrowRight,
   Check,
   ExternalLink,
@@ -12,6 +13,7 @@ import {
 import type { Chain, Persona, ProductDetail } from "../types";
 import { STATUS } from "../status";
 import { logoFor } from "../brands";
+import { LISTING_EFFECT } from "../risk";
 
 function Section({
   icon: Icon,
@@ -88,6 +90,17 @@ export function DetailPanel({
   const verdict = detail.verdicts[persona];
   const seed = detail.flags.filter((f) => f.risk_type === "seed");
   const network = detail.flags.filter((f) => f.risk_type !== "seed");
+  // A seed flag means the entity is on the list itself, with nothing in between.
+  // That is the strongest evidence in the dataset, but it has no chain to draw,
+  // so without its own block it reads as weaker than an inherited listing purely
+  // because there is less to look at. TP-Link is exactly this case.
+  const directListings = detail.flags.filter(
+    (f) =>
+      f.risk_type === "seed" &&
+      detail.regime_hits.some(
+        (h) => h.how === "seed_risk" && h.factor === f.id,
+      ),
+  );
   const ownership = detail.flags.flatMap((f) =>
     (f.chains ?? [])
       .filter((c) => c.kind === "ownership" && c.hops.some((h) => h.label))
@@ -197,6 +210,80 @@ export function DetailPanel({
               </p>
             )}
           </Section>
+
+          {directListings.length > 0 && (
+            <Section
+              icon={BadgeAlert}
+              title="Listed directly"
+              hint="The entity is named on the list itself. Nothing is inferred and no relationship is traversed, which is what makes this a prohibition rather than a risk signal."
+            >
+              {directListings.map((flag) => {
+                const carriers = detail.family.filter((m) =>
+                  flag.carried_by.includes(m.id),
+                );
+                const hit = detail.regime_hits.find(
+                  (h) => h.how === "seed_risk" && h.factor === flag.id,
+                );
+                const effect = hit ? LISTING_EFFECT[hit.regime] : undefined;
+                return (
+                  <div
+                    key={flag.id}
+                    className="mb-3 rounded-lg border border-stop/35 bg-stop/5 p-3 last:mb-0"
+                  >
+                    {/* The badge states what the listing DOES, not that it
+                        exists -- the paragraph already says the entity is on the
+                        list. Sayari's severity level is deliberately absent here:
+                        "high" appears on unrestricted products throughout the
+                        grid, so showing it beside a prohibition would imply the
+                        severity scale decides the verdict. It does not. */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-sm font-medium text-fg">
+                        {flag.label ?? flag.id}
+                      </span>
+                      {effect && (
+                        <span className="rounded border border-stop/45 bg-stop/10 px-1.5 py-px text-[10px] uppercase tracking-wide text-stop">
+                          {effect.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    {carriers.map((m) => (
+                      <p key={m.id} className="mt-2 text-xs text-fg">
+                        {m.label}
+                        {m.translated_label && m.translated_label !== m.label && (
+                          <span className="text-faint"> · {m.translated_label}</span>
+                        )}
+                        <span className="text-faint">
+                          {" "}
+                          · {m.countries.slice(0, 3).join(", ")}
+                        </span>
+                      </p>
+                    ))}
+
+                    {effect && (
+                      <p
+                        className={`mt-2 text-xs leading-relaxed ${
+                          effect.isSanction ? "text-stop" : "text-check"
+                        }`}
+                      >
+                        {effect.effect}
+                      </p>
+                    )}
+                    {flag.description && (
+                      <p className="mt-2 text-[11px] leading-relaxed text-faint">
+                        {flag.description}
+                      </p>
+                    )}
+                    {flag.sources.length > 0 && (
+                      <p className="mt-1.5 text-[10px] text-faint">
+                        Source: {flag.sources.join("; ")}
+                      </p>
+                    )}
+                  </div>
+                );
+              })}
+            </Section>
+          )}
 
           {ownership.length > 0 && (
             <Section

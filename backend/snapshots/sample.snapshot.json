@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T03:03:24.897086+00:00",
+ "generated_at": "2026-09-13T03:28:48.699065+00:00",
  "product_count": 25,
  "personas": [
   {
@@ -634,10 +634,8 @@
    "complete": false
   },
   "this_invocation": {
-   "total_calls": 6,
-   "by_endpoint": {
-    "entity": 6
-   },
+   "total_calls": 0,
+   "by_endpoint": {},
    "retries": {}
   },
   "account_usage_last_30d": {
@@ -9475,7 +9473,7 @@
        "citation": "10 U.S.C. 113 note; procurement bar under Sec. 805, FY2024 NDAA",
        "binds": "Department of Defense procurement only",
        "severity": "prohibited",
-       "detail": "Sayari records this entity on the list directly (usa_section_1260h)"
+       "detail": "TP-LINK TECHNOLOGIES CO.,LTD. is itself on the USA NDAA Section 1260H List."
       }
      ],
      "coverage_warning": null

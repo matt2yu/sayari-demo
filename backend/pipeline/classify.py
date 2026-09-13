@@ -135,7 +135,32 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
                    if after else "All of them predate the designation date.")
             )
         else:
-            detail = f"Sayari records this entity on the list directly ({hit['factor']})"
+            # A seed listing is the strongest evidence there is: the entity is on
+            # the list itself, not reached through anything. Say which entity and
+            # which list, otherwise it reads as weaker than an ownership chain
+            # purely because there is no chain to draw.
+            # Prefer the registry label over the translation here. A family
+            # member is the brand's own entity and is usually Latin-named, and
+            # TP-Link's translation is "Pulian Technology Co., Ltd." -- correct,
+            # but unrecognisable to a reader looking at a TP-Link card.
+            # Translations matter for chain hops, which are often Chinese
+            # registry entries; they do not help here.
+            listed = next(
+                (m.get("label") or m.get("translated_label")
+                 for m in row.get("family", [])
+                 if m["id"] in (hit.get("entity_ids") or [])),
+                None,
+            )
+            source = next(
+                (", ".join(f["sources"]) for f in row.get("flags", [])
+                 if f["id"] == hit.get("factor") and f.get("sources")),
+                hit["authority"],
+            )
+            detail = (
+                f"{listed} is itself on the {source}."
+                if listed else
+                f"This entity is itself on the {source}."
+            )
         reasons.append({
             "authority": hit["authority"],
             "citation": hit["citation"],
