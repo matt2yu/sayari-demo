@@ -90,8 +90,8 @@ LIST_STEMS = {
 }
 
 
-def ofac_sdn_names(refresh: bool = False) -> set[str]:
-    """Live OFAC SDN download, cached after first fetch."""
+def ofac_sdn_records(refresh: bool = False) -> dict[str, dict[str, Any]]:
+    """Live OFAC SDN download, keyed by normalised name. Cached after first fetch."""
     CACHE.mkdir(parents=True, exist_ok=True)
     path = CACHE / "ofac_sdn.csv"
     if refresh or not path.exists():
@@ -101,11 +101,28 @@ def ofac_sdn_names(refresh: bool = False) -> set[str]:
                              timeout=120.0, follow_redirects=True)
         response.raise_for_status()
         path.write_bytes(response.content)
-    names = set()
+    # SDN.CSV columns: ent_num, name, type, program, title, call_sign, vessel
+    # fields..., remarks. We keep the fields that change what a reader concludes:
+    # the sanctions programme (a Russia EO is a different fact from a narcotics
+    # designation), the party type, and the remarks, which carry aliases and the
+    # designation context. Downloading 5.7MB to use only the name column would be
+    # fetching data for no reason.
+    records: dict[str, dict[str, Any]] = {}
     for row in csv.reader(io.StringIO(path.read_text(errors="replace"))):
-        if len(row) > 1 and len(row[1].strip()) > 6:
-            names.add(normalise(row[1].strip().strip('"')))
-    return names
+        if len(row) < 4:
+            continue
+        name = row[1].strip().strip('"')
+        if len(name) <= 6:
+            continue
+        clean = lambda value: None if value.strip(' "') in ("-0-", "") else value.strip(' "')
+        records.setdefault(normalise(name), {
+            "sdn_name": name,
+            "ent_num": clean(row[0]),
+            "type": clean(row[2]),
+            "program": clean(row[3]),
+            "remarks": clean(row[11]) if len(row) > 11 else None,
+        })
+    return records
 
 
 def _listed_as(label: str | None) -> list[str]:
@@ -113,7 +130,7 @@ def _listed_as(label: str | None) -> list[str]:
     return [listed for stem, listed in LIST_STEMS.items() if token_match(stem, label)]
 
 
-def assess(row: dict[str, Any], sdn: set[str]) -> dict[str, Any]:
+def assess(row: dict[str, Any], sdn: dict[str, dict[str, Any]]) -> dict[str, Any]:
     """Find every regime hit for one product, with the evidence that supports it."""
     hits: list[dict[str, Any]] = []
 
@@ -152,6 +169,31 @@ def assess(row: dict[str, Any], sdn: set[str]) -> dict[str, Any]:
                     add(OFAC, "owner", owner=hop["label"], matched="OFAC SDN",
                         hops=hop["hop"], edge=hop["edge"], via_factor=flag["id"])
 
+    # 4. Cross-check sanctioned trade counterparties against the live OFAC SDN
+    #    download. This is the point of fetching it: Sayari says the party is
+    #    sanctioned, and the US Treasury list either corroborates that by name or
+    #    it does not. Independent confirmation is worth more than either source
+    #    alone, and a disagreement is worth showing rather than hiding.
+    for finding in row.get("sanctioned_trade", []):
+        label = finding.get("label")
+        record = sdn.get(normalise(label))
+        finding["ofac_sdn_confirmed"] = record is not None
+        finding["ofac_sdn"] = record
+        finding["corroboration"] = (
+            f"Confirmed against the live OFAC SDN download under programme "
+            f"{record['program']}." if record and record.get("program") else
+            "Confirmed by name against the live OFAC SDN download." if record else
+            "Sayari records this party as sanctioned, but its name does not match an "
+            "OFAC SDN entry. It may be listed by another authority, or under a "
+            "different transliteration."
+        )
+        if record:
+            add(OFAC, "trade_counterparty", counterparty=label,
+                matched="OFAC SDN", edge=finding.get("edge"),
+                program=record.get("program"),
+                shipments=finding.get("shipment_total"),
+                post_designation=finding.get("count_after", 0))
+
     # Dedupe: the same owner surfaces through several risk factors.
     seen, unique = set(), []
     for hit in hits:
@@ -164,8 +206,8 @@ def assess(row: dict[str, Any], sdn: set[str]) -> dict[str, Any]:
 
 
 def run(refresh_sdn: bool = False) -> list[dict[str, Any]]:
-    sdn = ofac_sdn_names(refresh=refresh_sdn)
-    enriched = read_stage("03_enriched")
+    sdn = ofac_sdn_records(refresh=refresh_sdn)
+    enriched = read_stage("03b_sanctions")
     rows = [assess(row, sdn) for row in enriched]
     for row in rows:
         regimes = sorted({h["regime"] for h in row["regime_hits"]})

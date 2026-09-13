@@ -141,3 +141,13 @@ footer summary { cursor: pointer; padding: 6px 0; }
 footer ul { margin: 6px 0 12px; padding-left: 18px; }
 footer li { margin-bottom: 6px; }
 .provenance { color: #6b7280; font-size: 11px; }
+
+/* sanctioned trade */
+.shipsplit { display: flex; gap: 14px; margin: 8px 0 4px; font-size: 12px; }
+.shipsplit b { font-size: 15px; }
+.shipsplit .after { color: var(--dim); }
+.shipsplit .after.hot { color: var(--red); }
+.shipsplit .before { color: var(--dim); }
+.assessment { color: var(--green); font-size: 12px; border-left: 2px solid #2a4a3a; padding-left: 12px; margin: 4px 0; }
+
+.cite.ok { color: var(--green); }

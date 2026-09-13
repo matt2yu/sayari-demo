@@ -112,6 +112,73 @@ export function DetailPanel({
           </section>
         )}
 
+        {/* 2b. Trade to sanctioned parties, dated against designation.
+                Undated, this reads as "ships to an OFAC-SDN entity". Dated, most
+                of it turns out to predate designation entirely. */}
+        {detail.sanctioned_trade?.length > 0 && (
+          <section>
+            <h3>Trade with sanctioned parties</h3>
+            <p className="hint">
+              Shipments between this brand's entities and a sanctioned counterparty,
+              counted in full and dated against that party's designation. Trade
+              predating a designation was lawful at the time.
+            </p>
+            {detail.sanctioned_trade.map((finding) => (
+              <div className="chainblock" key={finding.id}>
+                <div className="hop hot">
+                  <span className="edge">{finding.edge}</span>
+                  <span className="node">{finding.label}</span>
+                  <span className="cc">{finding.countries.join(", ")}</span>
+                  <span className="badge">sanctioned</span>
+                </div>
+
+                <div className="shipsplit">
+                  <span className={finding.count_after > 0 ? "after hot" : "after"}>
+                    <b>{finding.count_after.toLocaleString()}</b> on/after designation
+                  </span>
+                  <span className="before">
+                    <b>{finding.count_before.toLocaleString()}</b> before
+                  </span>
+                  {finding.count_undatable > 0 && (
+                    <span className="before">
+                      <b>{finding.count_undatable.toLocaleString()}</b> undated
+                    </span>
+                  )}
+                </div>
+
+                <p className={finding.count_after > 0 ? "warn" : "assessment"}>
+                  {finding.assessment}
+                </p>
+
+                <div className="cite">
+                  {finding.examined.toLocaleString()} of{" "}
+                  {finding.shipment_total.toLocaleString()} shipments examined
+                  {finding.complete ? " (complete)" : " (partial sample)"}
+                  {finding.designated_on && ` · designated ${finding.designated_on}`}
+                  {finding.latest_shipment &&
+                    ` · latest shipment ${finding.latest_shipment}`}
+                </div>
+
+                {finding.listings.filter((l) => l.list).length > 0 && (
+                  <div className="cite">
+                    Listed on:{" "}
+                    {[
+                      ...new Set(finding.listings.map((l) => l.list).filter(Boolean)),
+                    ].join("; ")}
+                  </div>
+                )}
+
+                {/* Independent corroboration against the live US Treasury file,
+                    rather than taking one source's word for it. */}
+                <div className={finding.ofac_sdn_confirmed ? "cite ok" : "cite"}>
+                  {finding.ofac_sdn_confirmed ? "✓ " : "• "}
+                  {finding.corroboration}
+                </div>
+              </div>
+            ))}
+          </section>
+        )}
+
         {/* 3. Seed vs network is the distinction that keeps this honest. */}
         <section>
           <h3>Risk flags</h3>

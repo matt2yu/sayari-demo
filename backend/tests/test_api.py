@@ -39,12 +39,15 @@ def test_tp_link_is_unrestricted_for_consumers_and_prohibited_for_dod(products):
 
 def test_ezviz_detail_exposes_the_ownership_chain():
     detail = client.get("/api/products/ezviz").json()
+    # Trade-chain hops are deliberately left unresolved (label is None) because the
+    # UI never renders them; only ownership chains carry names.
     owners = {
         hop["label"]
         for flag in detail["flags"]
         for chain in flag.get("chains", [])
         if chain["kind"] == "ownership"
         for hop in chain["hops"]
+        if hop.get("label")
     }
     assert any("Hikvision" in o for o in owners)
     assert any("China Electronics Technology Group" in o for o in owners)
@@ -135,3 +138,36 @@ def test_every_regime_states_who_it_binds():
 
 def test_unknown_product_is_404():
     assert client.get("/api/products/nope").status_code == 404
+
+
+def test_sanctioned_trade_is_served_with_full_counts():
+    """Nine brands reach a sanctioned counterparty through trade edges."""
+    detail = client.get("/api/products/tcl").json()
+    findings = detail["sanctioned_trade"]
+    assert findings, "TCL reaches sanctioned parties via ships_to"
+    for finding in findings:
+        assert finding["shipment_total"] > 0
+        assert finding["examined"] == finding["shipment_total"], "must count, not sample"
+        assert finding["assessment"]
+
+
+def test_no_sanctions_claim_is_made_without_dating_it(products):
+    """Undated, this finding reads 'ships to an OFAC-SDN entity'. Every finding
+    must either carry a designation date or say that it has none."""
+    for card in products["products"]:
+        detail = client.get(f"/api/products/{card['id']}").json()
+        for finding in detail.get("sanctioned_trade", []):
+            if finding["designated_on"] is None:
+                assert "cannot be placed" in finding["assessment"]
+            else:
+                assert finding["count_after"] + finding["count_before"] + \
+                       finding["count_undatable"] == finding["examined"]
+
+
+def test_lawful_historic_trade_is_not_presented_as_a_violation(products):
+    for card in products["products"]:
+        detail = client.get(f"/api/products/{card['id']}").json()
+        for finding in detail.get("sanctioned_trade", []):
+            if finding["count_after"] == 0 and finding["shipment_total"] > 0:
+                assert "not evidence of a violation" in finding["assessment"] \
+                    or "cannot be placed" in finding["assessment"]
