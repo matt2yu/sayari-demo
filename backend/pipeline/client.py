@@ -202,7 +202,7 @@ class SayariClient:
         """
         # get_headers() carries the Authorization header and refreshes the token
         # when needed, so raw calls stay on the SDK's single auth path.
-        headers = {**self._sdk._client_wrapper.get_headers(), "Accept": "application/json"}  # noqa: SLF001
+        headers = {**self._sdk._client_wrapper.get_headers(), "Accept": "application/json"}
         response = httpx.get(f"{BASE_URL}{path}", headers=headers, timeout=60.0)
         response.raise_for_status()
         return response.json()

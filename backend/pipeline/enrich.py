@@ -65,7 +65,7 @@ class _NameCache:
                 return self._cache[entity_id]
             try:
                 summary = self._client.entity_summary(entity_id)
-            except Exception:
+            except Exception:  # noqa: BLE001
                 self._cache[entity_id] = {"id": entity_id, "label": entity_id, "unresolved": True}
                 return self._cache[entity_id]
             risk = _as_dict(summary.risk)
@@ -126,7 +126,7 @@ def enrich_one(
     for candidate in row["family"]:
         try:
             summary = client.entity_summary(candidate["id"])
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001
             # One unreachable entity must not discard the other 24 brands' work.
             # Recorded rather than swallowed: a family we only partly retrieved is
             # a coverage gap, and the UI has to be able to say so.

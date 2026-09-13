@@ -21,15 +21,31 @@ from .paths import SNAPSHOT, read_stage
 
 STAGES = ["resolve", "adjudicate", "enrich", "external", "classify"]
 
+# Shipped in the snapshot and rendered in the UI, not buried in the report. Every
+# one of these bounds a claim the app makes.
+CAVEATS = [
+    ("Sayari trade data is largely pre-shipment bills of lading from a freight "
+     "consortium, not confirmed customs clearance. A bill of lading records an "
+     "intent to ship."),
+    ("Trade coverage spans 77 countries and 25 of them are sea-only, including US "
+     "imports, China, Germany, the UK and Spain. Air and land freight from those "
+     "origins is structurally invisible."),
+    ("Network risk factors are refreshed roughly every two weeks, so a value here "
+     "can be that stale."),
+    "Forced-labour trade factors only consider activity in the last 730 days.",
+    ("A flag reached by traversing the graph describes a relationship, not a "
+     "property of the brand."),
+]
+
 
 def _usage(client: SayariClient) -> dict[str, Any]:
     """Measured API consumption, so the writeup can state cost rather than estimate."""
     try:
-        today = dt.date.today()
+        today = dt.datetime.now(dt.UTC).date()
         response = client.usage(from_=today - dt.timedelta(days=30), to=today)
         usage = response.usage
         return usage if isinstance(usage, dict) else usage.dict()
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         return {"error": f"{type(exc).__name__}: {exc}"}
 
 
@@ -48,19 +64,7 @@ def build_snapshot(client: SayariClient, rows: list[dict[str, Any]]) -> dict[str
                     for regime in external.REGIMES],
         "glossary": glossary,
         "api": {**client.call_report(), "usage_last_30d": _usage(client)},
-        "caveats": [
-            "Sayari trade data is largely pre-shipment bills of lading from a freight "
-            "consortium, not confirmed customs clearance. A bill of lading records an "
-            "intent to ship.",
-            "Trade coverage spans 77 countries and 25 of them are sea-only, including "
-            "US imports, China, Germany, the UK and Spain. Air and land freight from "
-            "those origins is structurally invisible.",
-            "Network risk factors are refreshed roughly every two weeks, so a value "
-            "here can be that stale.",
-            "Forced-labour trade factors only consider activity in the last 730 days.",
-            "A flag reached by traversing the graph describes a relationship, not a "
-            "property of the brand.",
-        ],
+        "caveats": CAVEATS,
         "products": rows,
     }
 
