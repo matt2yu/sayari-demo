@@ -124,7 +124,11 @@ def test_meta_publishes_caveats_and_measured_api_cost():
     meta = client.get("/api/meta").json()
     assert len(meta["caveats"]) >= 4
     assert any("bills of lading" in c for c in meta["caveats"])
-    assert "total_calls" in meta["api"]
+    # Two distinct figures, kept apart on purpose: what this snapshot cost, and
+    # what the account was metered over 30 days (which includes development).
+    assert meta["api"]["snapshot_cost"]["total"] > 0
+    assert meta["api"]["snapshot_cost"]["by_stage"]
+    assert "account_usage_last_30d" in meta["api"]
     assert {r["key"] for r in meta["regimes"]} == {
         "section_889", "fcc_covered", "section_1260h", "ofac_sdn"
     }

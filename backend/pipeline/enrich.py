@@ -255,6 +255,7 @@ def enrich_one(
 
 
 def run(client: SayariClient) -> list[dict[str, Any]]:
+    before = sum(client.calls.values())
     factors = ontology.load(client)
     names = _NameCache(client)
     families = read_stage("02_families")
@@ -267,7 +268,8 @@ def run(client: SayariClient) -> list[dict[str, Any]]:
               f"flow={enriched['family_flow']:>9,} flags={len(enriched['flags']):>2} "
               f"(seed {seeds}) dropped={len(enriched['dropped_flags'])}")
     names.save()
-    write_stage("03_enriched", rows, consumed=fingerprint(families))
+    write_stage("03_enriched", rows, consumed=fingerprint(families),
+                calls={"total": sum(client.calls.values()) - before})
     return rows
 
 

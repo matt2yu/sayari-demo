@@ -199,6 +199,7 @@ def assess(client: SayariClient, row: dict[str, Any], names: _NameCache) -> dict
 
 
 def run(client: SayariClient) -> list[dict[str, Any]]:
+    before = sum(client.calls.values())
     enriched = read_stage("03_enriched")
     names = _NameCache(client)
     rows = []
@@ -211,7 +212,8 @@ def run(client: SayariClient) -> list[dict[str, Any]]:
             print(f"  sanctions {row['brand']:10} {n} counterpart(ies), "
                   f"{total:,} shipments")
     names.save()
-    write_stage("03b_sanctions", rows, consumed=fingerprint(enriched))
+    write_stage("03b_sanctions", rows, consumed=fingerprint(enriched),
+                calls={"total": sum(client.calls.values()) - before})
     return rows
 
 

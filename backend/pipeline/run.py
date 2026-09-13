@@ -23,10 +23,14 @@ from .paths import (
     check_chain,
     fingerprint,
     read_stage,
+    read_stage_meta,
     write_stage,
 )
 
 STAGES = ["resolve", "adjudicate", "enrich", "sanctions", "external", "classify"]
+
+ARTIFACT_NAMES = ["01_candidates", "02_families", "03_enriched",
+                  "03b_sanctions", "04_external", "05_classified"]
 
 # Shipped in the snapshot and rendered in the UI, not buried in the report. Every
 # one of these bounds a claim the app makes.
@@ -46,7 +50,12 @@ CAVEATS = [
 
 
 def _usage(client: SayariClient) -> dict[str, Any]:
-    """Measured API consumption, so the writeup can state cost rather than estimate."""
+    """What Sayari metered on the whole account over 30 days.
+
+    This is NOT the cost of building the snapshot -- it includes every exploratory
+    call made while developing, so it runs several times higher. Reported under its
+    own name so the two are never confused.
+    """
     try:
         today = dt.datetime.now(dt.UTC).date()
         response = client.usage(from_=today - dt.timedelta(days=30), to=today)
@@ -54,6 +63,28 @@ def _usage(client: SayariClient) -> dict[str, Any]:
         return usage if isinstance(usage, dict) else usage.dict()
     except Exception as exc:  # noqa: BLE001
         return {"error": f"{type(exc).__name__}: {exc}"}
+
+
+def _snapshot_cost() -> dict[str, Any]:
+    """API calls actually spent building this snapshot, summed across stages.
+
+    Stages are routinely re-run individually, so the calls made by the *last*
+    invocation are meaningless as a cost figure -- resuming from `classify` reports
+    zero, which reads as "this used no API" for a deliverable about API usage. Each
+    stage records its own count when it writes, and this totals them.
+    """
+    per_stage, total = {}, 0
+    for name in ARTIFACT_NAMES:
+        try:
+            calls = (read_stage_meta(name).get("calls") or {}).get("total")
+        except FileNotFoundError:
+            continue
+        if calls is None:
+            continue
+        per_stage[name] = calls
+        total += calls
+    return {"total": total, "by_stage": per_stage,
+            "complete": len(per_stage) == len(ARTIFACT_NAMES)}
 
 
 def build_snapshot(client: SayariClient, rows: list[dict[str, Any]]) -> dict[str, Any]:
@@ -70,7 +101,11 @@ def build_snapshot(client: SayariClient, rows: list[dict[str, Any]]) -> dict[str
         "regimes": [{k: v for k, v in regime.items() if k != "entities"}
                     for regime in external.REGIMES],
         "glossary": glossary,
-        "api": {**client.call_report(), "usage_last_30d": _usage(client)},
+        "api": {
+            "snapshot_cost": _snapshot_cost(),
+            "this_invocation": client.call_report(),
+            "account_usage_last_30d": _usage(client),
+        },
         "caveats": CAVEATS,
         "products": rows,
     }
@@ -110,12 +145,9 @@ def main(start: str = "resolve", refresh_sdn: bool = False) -> dict[str, Any]:
     restricted = sum(1 for r in rows if r["worst_status"] != "no_restriction")
     print(f"\nwrote {SNAPSHOT}")
     print(f"  {resolved}/{len(rows)} resolved, {restricted} with a restriction for some buyer")
-    print(f"  {snapshot['api']['total_calls']} API calls this run")
+    cost = snapshot["api"]["snapshot_cost"]
+    print(f"  {cost['total']} API calls to build this snapshot {cost['by_stage']}")
     return snapshot
-
-
-ARTIFACT_NAMES = ["01_candidates", "02_families", "03_enriched",
-                  "03b_sanctions", "04_external", "05_classified"]
 
 
 def rehydrate() -> int:
