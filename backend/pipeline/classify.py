@@ -33,9 +33,6 @@ PERSONAS = [
         # household -- so listing it here would tell a consumer they are prohibited
         # from something they are not.
         "regimes": ["ofac_sdn"],
-        # ...and only where the product's own entity is listed. A brand having once
-        # shipped to a sanctioned counterparty is a supply-chain diligence question
-        # for a business, not something that restricts a household from buying a TV.
         "applies_to": ["direct", "seed_risk", "owner"],
     },
     {
@@ -62,19 +59,34 @@ PERSONAS = [
 
 PROHIBITED, REVIEW, NO_RESTRICTION = "prohibited", "review", "no_restriction"
 
-# A hit on the entity itself prohibits. A hit reached through ownership is a
-# diligence trigger: Section 889's reach to "subsidiaries and affiliates" is a legal
-# question about a specific corporate relationship, not something a name match
-# settles. Calling it prohibited would overstate what the data supports.
-HOW_SEVERITY = {
-    "direct": PROHIBITED,
-    "seed_risk": PROHIBITED,
-    "owner": REVIEW,
-    # The brand is not the sanctioned party here -- a counterparty it shipped to is.
-    # Every such relationship in this dataset also predates the designation, so
-    # treating it as a prohibition on the brand would be plainly wrong.
-    "trade_counterparty": REVIEW,
-}
+# Severity depends on how the hit was reached AND which regime reached it, because
+# the regimes do not extend equally far.
+#
+#   direct / seed_risk  the entity is itself on the list.
+#   owner               reached through ownership. Section 889 names Hikvision and
+#                       extends by its own terms to "subsidiaries and affiliates",
+#                       so an ownership link there is a bar for the buyer class it
+#                       binds. The FCC Covered List restricts authorisation of the
+#                       equipment rather than the corporate group, so the identical
+#                       link is a diligence trigger there, not a prohibition.
+HOW_SEVERITY = {"direct": PROHIBITED, "seed_risk": PROHIBITED, "owner": REVIEW}
+
+# Section 889 covers a named company "or any subsidiary or affiliate". Whether an
+# ownership link meets that depends on the size of the stake, which stage 4 reads
+# from the graph rather than assuming. Hikvision holds 48-60% of EZVIZ across
+# Sayari's source records, which is a subsidiary on any reading.
+AFFILIATE_THRESHOLD_PCT = 25
+
+
+def _severity(hit: dict[str, Any]) -> str:
+    if hit["how"] != "owner":
+        return HOW_SEVERITY.get(hit["how"], REVIEW)
+    if hit["regime"] != "section_889":
+        # The FCC Covered List restricts authorisation of the equipment, not the
+        # corporate group, so an ownership link is a diligence trigger there.
+        return REVIEW
+    stake = hit.get("stake_pct")
+    return PROHIBITED if stake is not None and stake >= AFFILIATE_THRESHOLD_PCT else REVIEW
 
 
 def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]:
@@ -83,6 +95,12 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
         h for h in row["regime_hits"]
         if h["regime"] in persona["regimes"]
         and (allowed_how is None or h["how"] in allowed_how)
+        # Trade with a party that was sanctioned only *after* the shipments is not a
+        # restriction on anyone. Every such relationship in this dataset ended before
+        # designation, and counting them let the weakest finding here outweigh the
+        # strongest: it flagged seven brands and buried the two that actually matter.
+        # It stays on the product page as context.
+        and not (h["how"] == "trade_counterparty" and not h.get("post_designation"))
     ]
     if not applicable:
         return {
@@ -92,15 +110,19 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
             "coverage_warning": _coverage_warning(row),
         }
 
-    severities = {HOW_SEVERITY.get(h["how"], REVIEW) for h in applicable}
+    severities = {_severity(h) for h in applicable}
     status = PROHIBITED if PROHIBITED in severities else REVIEW
 
     reasons = []
     for hit in applicable:
         if hit["how"] == "owner":
-            detail = (f"{hit['owner']} is {hit['hops']} ownership hop"
-                      f"{'s' if hit['hops'] > 1 else ''} upstream and is listed as "
-                      f"{hit['matched']}")
+            hops = hit["hops"]
+            stake = hit.get("stake_pct")
+            detail = (
+                f"Owned {hops} {'hop' if hops == 1 else 'hops'} upstream by "
+                f"{hit['owner']}, which is on this list"
+                + (f", holding {stake}% of the shares." if stake else ".")
+            )
         elif hit["how"] == "direct":
             detail = f"{hit['entity']} is listed as {hit['matched']}"
         elif hit["how"] == "trade_counterparty":
@@ -118,7 +140,7 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
             "authority": hit["authority"],
             "citation": hit["citation"],
             "binds": hit["binds"],
-            "severity": HOW_SEVERITY.get(hit["how"], REVIEW),
+            "severity": _severity(hit),
             "detail": detail,
         })
 

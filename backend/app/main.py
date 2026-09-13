@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import json
 import threading
+from collections import Counter
 from typing import Any
 
 from fastapi import FastAPI, HTTPException
@@ -51,6 +52,20 @@ def load_snapshot() -> dict[str, Any]:
     )
 
 
+# Sayari's published severities, worst first.
+_LEVEL_ORDER = ["critical", "high", "elevated", "relevant"]
+
+
+def _highest_level(flags: list[dict[str, Any]]) -> str | None:
+    present = {f.get("level") for f in flags}
+    return next((lvl for lvl in _LEVEL_ORDER if lvl in present), None)
+
+
+def _top_categories(flags: list[dict[str, Any]], limit: int = 3) -> list[str]:
+    counts: Counter[str] = Counter(c for f in flags for c in f.get("categories") or [])
+    return [c for c, _ in counts.most_common(limit)]
+
+
 @app.get("/api/products")
 def list_products() -> dict[str, Any]:
     """Card data for the grid. Deliberately excludes chains and rejected candidates,
@@ -68,6 +83,12 @@ def list_products() -> dict[str, Any]:
         "family_flow": product["family_flow"],
         "flag_count": len(product["flags"]),
         "seed_flag_count": sum(1 for f in product["flags"] if f["risk_type"] == "seed"),
+        # Sayari's own risk assessment, kept separate from the verdict. A product
+        # can carry high-severity flags and still restrict nobody: "no restriction"
+        # is a statement about law, not about risk, and conflating them would be
+        # the same overstatement this project exists to avoid.
+        "risk_level": _highest_level(product["flags"]),
+        "risk_categories": _top_categories(product["flags"]),
         "worst_status": product["worst_status"],
         "verdicts": product["verdicts"],
     } for product in snapshot["products"]]

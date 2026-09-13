@@ -34,6 +34,8 @@ export interface ProductCard {
   family_flow: number;
   flag_count: number;
   seed_flag_count: number;
+  risk_level: string | null;
+  risk_categories: string[];
   worst_status: Status;
   verdicts: Record<string, Verdict>;
 }
