@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T01:48:29.413479+00:00",
+ "generated_at": "2026-09-13T02:18:43.473335+00:00",
  "product_count": 25,
  "personas": [
   {
@@ -8,6 +8,11 @@
    "blurb": "Buying for a private household.",
    "regimes": [
     "ofac_sdn"
+   ],
+   "applies_to": [
+    "direct",
+    "seed_risk",
+    "owner"
    ]
   },
   {
@@ -894,6 +899,7 @@
     }
    ],
    "dropped_flags": [],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -1148,6 +1154,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -3018,6 +3025,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -3461,6 +3469,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -5958,6 +5967,178 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 14,
+     "examined": 14,
+     "complete": true,
+     "latest_shipment": "2022-12-24",
+     "count_after": 0,
+     "count_before": 14,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-12-24",
+       "departure_date": null,
+       "supplier": [
+        "HANGZHOU EZVIZ NETWORK CO.,LTD"
+       ],
+       "descriptions": [
+        "Television cameras; n.e.c. in item no 8525.8",
+        "ЗАПИСЫВАЮЩИЕ ВИДЕОКАМЕРЫ, СПОСОБНЫЕ ТОЛЬКО К ЗАПИСИ ЗВУКА И ИЗОБРАЖЕНИЯ, ПОЛУЧЕННЫХ САМОЙ КАМЕРОЙ, НЕРАДИАЦИОННОСТОЙКИЕ, НЕ ПРЕДНАЗНАЧЕНЫ ДЛЯ НЕГЛАСНОГО ПОЛУЧЕНИЯ ИНФОРМАЦИИ, НЕ ЗАКАМУФЛИРОВАНЫ ПОД ПРЕДМЕТЫ ИНОГО ФУНКЦИОНАЛЬНОГО НАЗНАЧЕНИЯ, НЕ ИМЕЮТЗ"
+       ],
+       "hs_codes": [
+        "code='852589' description='Television cameras; n.e.c. in item no 8525.8' imputed=None"
+       ],
+       "_total": 14
+      },
+      {
+       "arrival_date": "2022-12-24",
+       "departure_date": null,
+       "supplier": [
+        "HANGZHOU EZVIZ NETWORK CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the transmission or reception of voice, images or other data (including wired/wireless networks), n.e.c. in item no. 8517.6",
+        "ВИДЕОФОНЫ, ДЛЯ ИСПОЛЬЗОВАНИЯ В БЫТОВЫХ СИСТЕМАХ КОНТРОЛЯ ДОСТУПА. НЕ ЯВЛЯЮТСЯ РАДИОЭЛЕКТРОННЫМИ ИЛИ ВЫСОКОЧАСТОТНЫМИ СРЕДСТВАМИ:"
+       ],
+       "hs_codes": [
+        "code='851769' description='Communication apparatus (excluding telephone sets or base stations); machines for the transmission or reception of voice, images or other data (including wired/wireless networks), n.e.c. in item no. 8517.6' imputed=None"
+       ],
+       "_total": 14
+      },
+      {
+       "arrival_date": "2022-12-24",
+       "departure_date": null,
+       "supplier": [
+        "HANGZHOU EZVIZ NETWORK CO.,LTD"
+       ],
+       "descriptions": [
+        "Television cameras; n.e.c. in item no 8525.8",
+        "ЗАПИСЫВАЮЩИЕ ВИДЕОКАМЕРЫ, СПОСОБНЫЕ ТОЛЬКО К ЗАПИСИ ЗВУКА И ИЗОБРАЖЕНИЯ, ПОЛУЧЕННЫХ САМОЙ КАМЕРОЙ, НЕРАДИАЦИОННОСТОЙКИЕ, НЕ ПРЕДНАЗНАЧЕНЫ ДЛЯ НЕГЛАСНОГО ПОЛУЧЕНИЯ ИНФОРМАЦИИ, НЕ ЗАКАМУФЛИРОВАНЫ ПОД ПРЕДМЕТЫ ИНОГО ФУНКЦИОНАЛЬНОГО НАЗНАЧЕНИЯ, НЕ ИМЕЮТЗ"
+       ],
+       "hs_codes": [
+        "code='852589' description='Television cameras; n.e.c. in item no 8525.8' imputed=None"
+       ],
+       "_total": 14
+      },
+      {
+       "arrival_date": "2022-12-24",
+       "departure_date": null,
+       "supplier": [
+        "HANGZHOU EZVIZ NETWORK CO.,LTD"
+       ],
+       "descriptions": [
+        "Television cameras; n.e.c. in item no 8525.8",
+        "ЗАПИСЫВАЮЩИЕ ВИДЕОКАМЕРЫ, СПОСОБНЫЕ ТОЛЬКО К ЗАПИСИ ЗВУКА И ИЗОБРАЖЕНИЯ, ПОЛУЧЕННЫХ САМОЙ КАМЕРОЙ, НЕРАДИАЦИОННОСТОЙКИЕ, НЕ ПРЕДНАЗНАЧЕНЫ ДЛЯ НЕГЛАСНОГО ПОЛУЧЕНИЯ ИНФОРМАЦИИ, НЕ ЗАКАМУФЛИРОВАНЫ ПОД ПРЕДМЕТЫ ИНОГО ФУНКЦИОНАЛЬНОГО НАЗНАЧЕНИЯ, НЕ ИМЕЮТЗ"
+       ],
+       "hs_codes": [
+        "code='852589' description='Television cameras; n.e.c. in item no 8525.8' imputed=None"
+       ],
+       "_total": 14
+      },
+      {
+       "arrival_date": "2022-12-24",
+       "departure_date": null,
+       "supplier": [
+        "HANGZHOU EZVIZ NETWORK CO.,LTD"
+       ],
+       "descriptions": [
+        "Television cameras; n.e.c. in item no 8525.8",
+        "ЗАПИСЫВАЮЩИЕ ВИДЕОКАМЕРЫ, СПОСОБНЫЕ ТОЛЬКО К ЗАПИСИ ЗВУКА И ИЗОБРАЖЕНИЯ, ПОЛУЧЕННЫХ САМОЙ КАМЕРОЙ, НЕРАДИАЦИОННОСТОЙКИЕ, НЕ ПРЕДНАЗНАЧЕНЫ ДЛЯ НЕГЛАСНОГО ПОЛУЧЕНИЯ ИНФОРМАЦИИ, НЕ ЗАКАМУФЛИРОВАНЫ ПОД ПРЕДМЕТЫ ИНОГО ФУНКЦИОНАЛЬНОГО НАЗНАЧЕНИЯ, НЕ ИМЕЮТЗ"
+       ],
+       "hs_codes": [
+        "code='852589' description='Television cameras; n.e.c. in item no 8525.8' imputed=None"
+       ],
+       "_total": 14
+      }
+     ],
+     "assessment": "All 14 shipments predate the designation date of 2024-02-23 (latest 2022-12-24), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    }
+   ],
    "regime_hits": [
     {
      "regime": "section_889",
@@ -5982,6 +6163,19 @@
      "hops": 1,
      "edge": "has_shareholder",
      "via_factor": "owned_by_chinese_soe"
+    },
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 14,
+     "post_designation": 0
     }
    ],
    "verdicts": {
@@ -6001,6 +6195,13 @@
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
        "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+      },
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (14 shipments). All of them predate the designation date."
       }
      ],
      "coverage_warning": null
@@ -6022,6 +6223,13 @@
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
        "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+      },
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (14 shipments). All of them predate the designation date."
       }
      ],
      "coverage_warning": null
@@ -6043,6 +6251,13 @@
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
        "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+      },
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (14 shipments). All of them predate the designation date."
       }
      ],
      "coverage_warning": null
@@ -6573,6 +6788,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -6846,6 +7062,7 @@
     }
    ],
    "dropped_flags": [],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -7597,6 +7814,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -8901,6 +9119,313 @@
      "dropped_because": "docs: no longer shown in the Sayari UI"
     }
    ],
+   "sanctioned_trade": [
+    {
+     "id": "DL4g98ZCDHM_WUHChdJrUg",
+     "label": "LLC TR-Link",
+     "countries": [
+      "RUS"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "formerly_sanctioned",
+      "sanctioned",
+      "sanctioned_che_seco",
+      "sanctioned_eu_ec_regulation_833_2014",
+      "sanctioned_eu_sanctions",
+      "sanctioned_ukr_nsdc"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_eu_ec_regulation_833_2014",
+       "list": null,
+       "program": null,
+       "from_date": "2025-10-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": null,
+       "from_date": "2025-10-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-10-24",
+       "to_date": null
+      },
+      {
+       "type": "formerly_sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-10-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2025-10-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2025-10-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-11-06",
+       "to_date": "2035-11-06"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-11-06",
+       "to_date": "2035-11-06"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25, 33, 35, 36, 37, 39, 40 and 41",
+       "from_date": "2025-12-13",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_che_seco",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25 and 33",
+       "from_date": "2025-12-13",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25 and 33",
+       "from_date": "2025-12-13",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_che_seco",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25, 33, 35, 36, 37, 39, 40 and 41",
+       "from_date": "2025-12-13",
+       "to_date": null
+      }
+     ],
+     "designated_on": "2025-10-24",
+     "shipment_total": 1554,
+     "examined": 1554,
+     "complete": true,
+     "latest_shipment": "2022-01-19",
+     "count_after": 0,
+     "count_before": 1554,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-01-19",
+       "departure_date": null,
+       "supplier": [
+        "TP-LINK LIANZHOU CO.,LTD."
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "ОБРАЗЕЦ ИНЖЕКТОРА (АДАПТЕРА) POE МОДЕЛИ TL-POE150S ДЛЯ ПРОВЕДЕНИЯ РАБОТ ПО ОЦЕНКЕ (ПОДТВЕРЖДЕНИЯ) СООТВЕТСТВИЯ ПРОДУКЦИИ."
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 1554
+      },
+      {
+       "arrival_date": "2022-01-19",
+       "departure_date": null,
+       "supplier": [
+        "TP-LINK LIANZHOU CO.,LTD."
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "ОБРАЗЕЦ БЕСПРОВОДНОГО СЕТЕВОГО PCI-E АДАПТЕРА МОДЕЛИ ARCHER TX3000E ДЛЯ ПРОВЕДЕНИЯ РАБОТ ПО ОЦЕНКЕ (ПОДТВЕРЖДЕНИЯ) СООТВЕТСТВИЯ ПРОДУКЦИИ."
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 1554
+      },
+      {
+       "arrival_date": "2022-01-19",
+       "departure_date": null,
+       "supplier": [
+        "TP-LINK LIANZHOU CO.,LTD."
+       ],
+       "descriptions": [
+        "ОБРАЗЕЦ ТЕМИНАЛА ОПТИЧЕСКОЙ ЛИНИИ (ЛИНЕЙНЫЙ ТЕРМИНАЛ) GPON OLT МОДЕЛИ DS-P7001-08 ДЛЯ ПРОВЕДЕНИЯ РАБОТ ПО ОЦЕНКЕ (ПОДТВЕРЖДЕНИЯ) СООТВЕТСТВИЯ ПРОДУКЦИИ.",
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 1554
+      },
+      {
+       "arrival_date": "2022-01-19",
+       "departure_date": null,
+       "supplier": [
+        "TP-LINK LIANZHOU CO.,LTD."
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "ОБРАЗЕЦ БЕСПРОВОДНОЙ ТОЧКИ ДОСТУПА В КОМПЛЕКТЕ С АДАПТЕРОМ ПИТАНИЯ МОДЕЛИ EAP225 ДЛЯ ВНУТРЕННИХ НУЖД КОМПАНИИ. ОБРАЗЕЦ ДЛЯ ТЕСТИРОВАНИЯ."
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 1554
+      },
+      {
+       "arrival_date": "2022-01-19",
+       "departure_date": null,
+       "supplier": [
+        "TP-LINK LIANZHOU CO.,LTD."
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "ОБРАЗЕЦ СЕТЕВОГО WI-FI USB АДАПТЕРА МОДЕЛИ ARCHER T3U ДЛЯ ПРОВЕДЕНИЯ РАБОТ ПО ОЦЕНКЕ (ПОДТВЕРЖДЕНИЯ) СООТВЕТСТВИЯ ПРОДУКЦИИ."
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 1554
+      }
+     ],
+     "assessment": "All 1554 shipments predate the designation date of 2025-10-24 (latest 2022-01-19), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": false,
+     "ofac_sdn": null,
+     "corroboration": "Sayari records this party as sanctioned, but its name does not match an OFAC SDN entry. It may be listed by another authority, or under a different transliteration."
+    },
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 1,
+     "examined": 1,
+     "complete": true,
+     "latest_shipment": "2023-02-17",
+     "count_after": 0,
+     "count_before": 1,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2023-02-17",
+       "departure_date": null,
+       "supplier": [
+        "TP-LINK LIANZHOU CO.,LTD."
+       ],
+       "descriptions": [
+        "Containers (Including Containers For The Transport Of Fluids) Specially Designed And Equipped For Carriage By One Or More Modes Of Transport: -Other",
+        "Containers; (including containers for transport of fluids) specially designed and equipped for carriage by one or more modes of transport"
+       ],
+       "hs_codes": [
+        "code='8609009009' description='Containers (Including Containers For The Transport Of Fluids) Specially Designed And Equipped For Carriage By One Or More Modes Of Transport: -Other' imputed=None",
+        "code='860900' description='Containers; (including containers for transport of fluids) specially designed and equipped for carriage by one or more modes of transport' imputed=None"
+       ],
+       "_total": 1
+      }
+     ],
+     "assessment": "All 1 shipments predate the designation date of 2024-02-23 (latest 2023-02-17), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    }
+   ],
    "regime_hits": [
     {
      "regime": "section_1260h",
@@ -8913,6 +9438,19 @@
      ],
      "factor": "usa_section_1260h",
      "level": "high"
+    },
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 1,
+     "post_designation": 0
     }
    ],
    "verdicts": {
@@ -8923,15 +9461,31 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (1 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (1 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "dod": {
@@ -8944,6 +9498,13 @@
        "binds": "Department of Defense procurement only",
        "severity": "prohibited",
        "detail": "Sayari records this entity on the list directly (usa_section_1260h)"
+      },
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (1 shipments). All of them predate the designation date."
       }
      ],
      "coverage_warning": null
@@ -10784,6 +11345,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -12975,6 +13537,246 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [
+    {
+     "id": "5n77tkCoit25jZZid2pzhg",
+     "label": "OCS-CENTER LIMITED",
+     "countries": [
+      "RUS",
+      "POL"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "formerly_sanctioned",
+      "sanctioned",
+      "sanctioned_che_seco",
+      "sanctioned_eu_ec_regulation_833_2014",
+      "sanctioned_eu_sanctions",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-10-30",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-10-30",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-10-30",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-10-30",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-10-30",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-10-30",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_ec_regulation_833_2014",
+       "list": null,
+       "program": null,
+       "from_date": "2025-05-21",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": null,
+       "from_date": "2025-05-21",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-05-21",
+       "to_date": null
+      },
+      {
+       "type": "formerly_sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-05-21",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2025-05-21",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2025-05-21",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_che_seco",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25 and 33",
+       "from_date": "2025-06-03",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25 and 33",
+       "from_date": "2025-06-03",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_che_seco",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25, 33, 35, 36, 37, 39, 40 and 41",
+       "from_date": "2025-06-03",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25, 33, 35, 36, 37, 39, 40 and 41",
+       "from_date": "2025-06-03",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-07-08",
+       "to_date": "2035-07-08"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-07-08",
+       "to_date": "2035-07-08"
+      }
+     ],
+     "designated_on": "2024-10-30",
+     "shipment_total": 706,
+     "examined": 706,
+     "complete": true,
+     "latest_shipment": "2022-03-01",
+     "count_after": 0,
+     "count_before": 706,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-03-01",
+       "departure_date": null,
+       "supplier": [
+        "ASUS GLOBAL PTE LTD"
+       ],
+       "descriptions": [
+        "Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display",
+        "НОУТБУК В КОМПЛЕКТЕ С БЛОКОМ ПИТАНИЯ, РУКОВОДСТВОМ ПОЛЬЗОВАТЕЛЯ (17.3\"/INTEL CORE I5 11400H(2.7GHZ)/8192MB/512SSDGB/WI-FI/BT):"
+       ],
+       "hs_codes": [
+        "code='847130' description='Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display' imputed=None"
+       ],
+       "_total": 706
+      },
+      {
+       "arrival_date": "2022-03-01",
+       "departure_date": null,
+       "supplier": [
+        "ASUS GLOBAL PTE LTD"
+       ],
+       "descriptions": [
+        "Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display",
+        "НОУТБУК (13.3\"/ INTEL CORE I7 1165G7/ 16384MБ/ 512ГБ SSD), СО ВСТРОЕННЫМИ МОДУЛЯМИ БЕСПРОВОДНОЙ СВЯЗИ WI-FI, BLUETOOTH, В КОМПЛЕКТЕ СО СТИЛУСОМ, КАБЕЛЕМ ПИТАНИЯ, АДАПТЕРОМ ПИТАНИЯ, РУКОВОДСТВОМ ПОЛЬЗОВАТЕЛЯ:"
+       ],
+       "hs_codes": [
+        "code='847130' description='Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display' imputed=None"
+       ],
+       "_total": 706
+      },
+      {
+       "arrival_date": "2022-03-01",
+       "departure_date": null,
+       "supplier": [
+        "ASUS GLOBAL PTE LTD"
+       ],
+       "descriptions": [
+        "Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display",
+        "НОУТБУКИ ROG G713RM-KH097W (17.3\"/AMD RYZEN 7 6800H/16384MB/1024GB SSD/BLUETOOTH, WI-FI) В КОМПЛЕКТЕ С РЮКЗАКОМ ДЛЯ ПЕРЕНОСКИ, БЛОКОМ ПИТАНИЯ, ДИСКОМ С ПО И РУКОВОДСТВОМ ПОЛЬЗОВАТЕЛЯ:"
+       ],
+       "hs_codes": [
+        "code='847130' description='Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display' imputed=None"
+       ],
+       "_total": 706
+      },
+      {
+       "arrival_date": "2022-03-01",
+       "departure_date": null,
+       "supplier": [
+        "ASUS GLOBAL PTE LTD"
+       ],
+       "descriptions": [
+        "Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display",
+        "НОУТБУК (13.3\"/ INTEL CORE I3 1115G4/ 8192MБ/ 256ГБ SSD), СО ВСТРОЕННЫМИ МОДУЛЯМИ БЕСПРОВОДНОЙ СВЯЗИ WI-FI, BLUETOOTH, В КОМПЛЕКТЕ С КАБЕЛЕМ ПИТАНИЯ, АДАПТЕРОМ ПИТАНИЯ, РУКОВОДСТВОМ ПОЛЬЗОВАТЕЛЯ:"
+       ],
+       "hs_codes": [
+        "code='847130' description='Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display' imputed=None"
+       ],
+       "_total": 706
+      },
+      {
+       "arrival_date": "2022-03-01",
+       "departure_date": null,
+       "supplier": [
+        "ASUS GLOBAL PTE LTD"
+       ],
+       "descriptions": [
+        "Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display",
+        "НОУТБУК (13.3\"/ INTEL CORE I5 1135G7/ 8192MБ/ 512ГБ SSD), СО ВСТРОЕННЫМИ МОДУЛЯМИ БЕСПРОВОДНОЙ СВЯЗИ WI-FI, BLUETOOTH, В КОМПЛЕКТЕ СО СТИЛУСОМ, КАБЕЛЕМ ПИТАНИЯ, АДАПТЕРОМ ПИТАНИЯ, РУКОВОДСТВОМ ПОЛЬЗОВАТЕЛЯ:"
+       ],
+       "hs_codes": [
+        "code='847130' description='Automatic data processing machines; portable, weighing not more than 10kg, consisting of at least a central processing unit, a keyboard and a display' imputed=None"
+       ],
+       "_total": 706
+      }
+     ],
+     "assessment": "All 706 shipments predate the designation date of 2024-10-30 (latest 2022-03-01), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": false,
+     "ofac_sdn": null,
+     "corroboration": "Sayari records this party as sanctioned, but its name does not match an OFAC SDN entry. It may be listed by another authority, or under a different transliteration."
+    }
+   ],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -14535,6 +15337,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -16470,7 +17273,193 @@
      "dropped_because": "api: enabled=false"
     }
    ],
-   "regime_hits": [],
+   "sanctioned_trade": [
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 34,
+     "examined": 34,
+     "complete": true,
+     "latest_shipment": "2022-03-11",
+     "count_after": 0,
+     "count_before": 34,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-03-11",
+       "departure_date": null,
+       "supplier": [
+        "UBIQUITI (TAIWAN) SALES LIMITED"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "СЕТЕВЫЕ УСТРОЙСТВА ОБРАБОТКИ ИНФОРМАЦИИ, ДЛЯ ИСПОЛЬЗОВАНИЯ В СЕТЯХ ПЕРЕДАЧИ ДАННЫХ ОБЩЕГО ПОЛЬЗОВАНИЯ, НЕ ЯВЛЯЕТСЯ ТОВАРОМ ВОЕННОГО НАЗНАЧЕНИЯ"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 34
+      },
+      {
+       "arrival_date": "2022-03-11",
+       "departure_date": null,
+       "supplier": [
+        "UBIQUITI (TAIWAN) SALES LIMITED"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "СЕТЕВЫЕ УСТРОЙСТВА ОБРАБОТКИ ИНФОРМАЦИИ, ДЛЯ ИСПОЛЬЗОВАНИЯ В СЕТЯХ ПЕРЕДАЧИ ДАННЫХ ОБЩЕГО ПОЛЬЗОВАНИЯ, НЕ ЯВЛЯЕТСЯ ТОВАРОМ ВОЕННОГО НАЗНАЧЕНИЯ"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 34
+      },
+      {
+       "arrival_date": "2022-03-11",
+       "departure_date": null,
+       "supplier": [
+        "UBIQUITI (TAIWAN) SALES LIMITED"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "СЕТЕВЫЕ УСТРОЙСТВА ОБРАБОТКИ ИНФОРМАЦИИ, ДЛЯ ИСПОЛЬЗОВАНИЯ В СЕТЯХ ПЕРЕДАЧИ ДАННЫХ ОБЩЕГО ПОЛЬЗОВАНИЯ, НЕ ЯВЛЯЕТСЯ ТОВАРОМ ВОЕННОГО НАЗНАЧЕНИЯ"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 34
+      },
+      {
+       "arrival_date": "2022-03-11",
+       "departure_date": null,
+       "supplier": [
+        "UBIQUITI (TAIWAN) SALES LIMITED"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "СЕТЕВЫЕ УСТРОЙСТВА ОБРАБОТКИ ИНФОРМАЦИИ, ДЛЯ ИСПОЛЬЗОВАНИЯ В СЕТЯХ ПЕРЕДАЧИ ДАННЫХ ОБЩЕГО ПОЛЬЗОВАНИЯ, НЕ ЯВЛЯЕТСЯ ТОВАРОМ ВОЕННОГО НАЗНАЧЕНИЯ"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 34
+      },
+      {
+       "arrival_date": "2022-03-11",
+       "departure_date": null,
+       "supplier": [
+        "UBIQUITI (TAIWAN) SALES LIMITED"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "СЕТЕВЫЕ УСТРОЙСТВА ОБРАБОТКИ ИНФОРМАЦИИ, ДЛЯ ИСПОЛЬЗОВАНИЯ В СЕТЯХ ПЕРЕДАЧИ ДАННЫХ ОБЩЕГО ПОЛЬЗОВАНИЯ, НЕ ЯВЛЯЕТСЯ ТОВАРОМ ВОЕННОГО НАЗНАЧЕНИЯ"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 34
+      }
+     ],
+     "assessment": "All 34 shipments predate the designation date of 2024-02-23 (latest 2022-03-11), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    }
+   ],
+   "regime_hits": [
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 34,
+     "post_designation": 0
+    }
+   ],
    "verdicts": {
     "consumer": {
      "status": "no_restriction",
@@ -16479,25 +17468,49 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (34 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (34 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "dod": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (34 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     }
    },
-   "worst_status": "no_restriction"
+   "worst_status": "review"
   },
   {
    "id": "tenda",
@@ -17419,7 +18432,318 @@
      "dropped_because": "api: enabled=false"
     }
    ],
-   "regime_hits": [],
+   "sanctioned_trade": [
+    {
+     "id": "36-LzarbjWea0KS2cgXNyg",
+     "label": "BULAT LLC",
+     "countries": [
+      "RUS"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2024-10-08",
+       "to_date": "2034-10-08"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2024-10-08",
+       "to_date": "2034-10-08"
+      }
+     ],
+     "designated_on": "2024-10-08",
+     "shipment_total": 7,
+     "examined": 7,
+     "complete": true,
+     "latest_shipment": "2022-08-03",
+     "count_after": 0,
+     "count_before": 7,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-08-03",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "МАШИНЫ ДЛЯ ПРИЕМА, ПРЕОБРАЗОВАНИЯ И ПЕРЕДАЧИ ИЛИ ВОССТАНОВЛЕНИЯ ГОЛОСА, ИЗОБРАЖЕНИЙ ИЛИ ДРУГИХ ДАННЫХ:"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 7
+      },
+      {
+       "arrival_date": "2022-07-09",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "МАШИНЫ ДЛЯ ПРИЕМА, ПРЕОБРАЗОВАНИЯ И ПЕРЕДАЧИ ИЛИ ВОССТАНОВЛЕНИЯ ГОЛОСА, ИЗОБРАЖЕНИЙ ИЛИ ДРУГИХ ДАННЫХ:"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 7
+      },
+      {
+       "arrival_date": "2022-07-07",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "МАШИНЫ ДЛЯ ПРИЕМА, ПРЕОБРАЗОВАНИЯ И ПЕРЕДАЧИ ИЛИ ВОССТАНОВЛЕНИЯ ГОЛОСА, ИЗОБРАЖЕНИЙ ИЛИ ДРУГИХ ДАННЫХ:"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 7
+      },
+      {
+       "arrival_date": "2022-06-01",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "МАШИНЫ ДЛЯ ПРИЕМА, ПРЕОБРАЗОВАНИЯ И ПЕРЕДАЧИ ДАННЫХ. НЕ ВОЕННОГО НАЗНАЧЕНИЯ"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 7
+      },
+      {
+       "arrival_date": "2022-04-25",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "МАШИНЫ ДЛЯ ПРИЕМА, ПРЕОБРАЗОВАНИЯ И ПЕРЕДАЧИ ДАННЫХ. НЕ ВОЕННОГО НАЗНАЧЕНИЯ."
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None"
+       ],
+       "_total": 7
+      }
+     ],
+     "assessment": "All 7 shipments predate the designation date of 2024-10-08 (latest 2022-08-03), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": false,
+     "ofac_sdn": null,
+     "corroboration": "Sayari records this party as sanctioned, but its name does not match an OFAC SDN entry. It may be listed by another authority, or under a different transliteration."
+    },
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "export_controls_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 199,
+     "examined": 199,
+     "complete": true,
+     "latest_shipment": "2023-01-08",
+     "count_after": 0,
+     "count_before": 199,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2023-01-08",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "Devices Of Computers, Switches For Telephone Or Telegraph Wire Communications, Instrumentation Systems For The Wired Connection To The Carrier Frequency, Or For Digital Line Systems: -- Machines For The Reception, Conversion And Transmission Or Regenera"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None",
+        "code='8517620003' description='Devices Of Computers, Switches For Telephone Or Telegraph Wire Communications, Instrumentation Systems For The Wired Connection To The Carrier Frequency, Or For Digital Line Systems: -- Machines For The Reception, Conversion And Transmission Or Regenera' imputed=None"
+       ],
+       "_total": 199
+      },
+      {
+       "arrival_date": "2023-01-08",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "Devices Of Computers, Switches For Telephone Or Telegraph Wire Communications, Instrumentation Systems For The Wired Connection To The Carrier Frequency, Or For Digital Line Systems: -- Machines For The Reception, Conversion And Transmission Or Regenera"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None",
+        "code='8517620003' description='Devices Of Computers, Switches For Telephone Or Telegraph Wire Communications, Instrumentation Systems For The Wired Connection To The Carrier Frequency, Or For Digital Line Systems: -- Machines For The Reception, Conversion And Transmission Or Regenera' imputed=None"
+       ],
+       "_total": 199
+      },
+      {
+       "arrival_date": "2023-01-08",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "Devices Of Computers, Switches For Telephone Or Telegraph Wire Communications, Instrumentation Systems For The Wired Connection To The Carrier Frequency, Or For Digital Line Systems: -- Machines For The Reception, Conversion And Transmission Or Regenera"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None",
+        "code='8517620003' description='Devices Of Computers, Switches For Telephone Or Telegraph Wire Communications, Instrumentation Systems For The Wired Connection To The Carrier Frequency, Or For Digital Line Systems: -- Machines For The Reception, Conversion And Transmission Or Regenera' imputed=None"
+       ],
+       "_total": 199
+      },
+      {
+       "arrival_date": "2023-01-08",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "Electrical Apparatus For Line Telephony Or Line Telegraphy, Including Line Telephone Sets With Cordless Handsets And Telecommunication Apparatus For Carrier-Current Line Systems Or For Digital Line Systems, Videophones: ---Other"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None",
+        "code='8517620009' description='Electrical Apparatus For Line Telephony Or Line Telegraphy, Including Line Telephone Sets With Cordless Handsets And Telecommunication Apparatus For Carrier-Current Line Systems Or For Digital Line Systems, Videophones: ---Other' imputed=None"
+       ],
+       "_total": 199
+      },
+      {
+       "arrival_date": "2023-01-08",
+       "departure_date": null,
+       "supplier": [
+        "SHENZHEN TENDA TECHNOLOGY CO.,LTD"
+       ],
+       "descriptions": [
+        "Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus",
+        "Electrical Apparatus For Line Telephony Or Line Telegraphy, Including Line Telephone Sets With Cordless Handsets And Telecommunication Apparatus For Carrier-Current Line Systems Or For Digital Line Systems, Videophones: ---Other"
+       ],
+       "hs_codes": [
+        "code='851762' description='Communication apparatus (excluding telephone sets or base stations); machines for the reception, conversion and transmission or regeneration of voice, images or other data, including switching and routing apparatus' imputed=None",
+        "code='8517620009' description='Electrical Apparatus For Line Telephony Or Line Telegraphy, Including Line Telephone Sets With Cordless Handsets And Telecommunication Apparatus For Carrier-Current Line Systems Or For Digital Line Systems, Videophones: ---Other' imputed=None"
+       ],
+       "_total": 199
+      }
+     ],
+     "assessment": "All 199 shipments predate the designation date of 2024-02-23 (latest 2023-01-08), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    }
+   ],
+   "regime_hits": [
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 199,
+     "post_designation": 0
+    }
+   ],
    "verdicts": {
     "consumer": {
      "status": "no_restriction",
@@ -17428,25 +18752,49 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (199 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (199 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "dod": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (199 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     }
    },
-   "worst_status": "no_restriction"
+   "worst_status": "review"
   },
   {
    "id": "irobot",
@@ -17758,6 +19106,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -18364,6 +19713,220 @@
      "is_context": false,
      "known": true,
      "dropped_because": "docs: no longer shown in the Sayari UI"
+    }
+   ],
+   "sanctioned_trade": [
+    {
+     "id": "brKrXehpN-clNDWiIWcHjQ",
+     "label": "ATLAS, LLC",
+     "countries": [
+      "RUS"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "formerly_sanctioned",
+      "owned_by_sanctioned_entity",
+      "owned_by_sanctioned_ukr_nsdc_entity",
+      "psa_owned_by_sanctioned_entity",
+      "psa_owned_by_sanctioned_ukr_nsdc_entity",
+      "sanctioned",
+      "sanctioned_che_seco",
+      "sanctioned_eu_ec_regulation_833_2014",
+      "sanctioned_eu_sanctions",
+      "sanctioned_ukr_nsdc"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_eu_ec_regulation_833_2014",
+       "list": null,
+       "program": null,
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": null,
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "formerly_sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_eu_sanctions",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "EU-RUS",
+       "from_date": "2024-12-17",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_che_seco",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25, 33, 35, 36, 37, 39, 40 and 41",
+       "from_date": "2024-12-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_che_seco",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25 and 33",
+       "from_date": "2024-12-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25, 33, 35, 36, 37, 39, 40 and 41",
+       "from_date": "2024-12-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Ordinance of 4 March 2022 on measures related to the situation in Ukraine (RS 946.231.176.72), annexes 2, 8, 9, 10, 11, 12,13, 14, 14a, 15, 15a, 15b, 15c, 25 and 33",
+       "from_date": "2024-12-24",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-07-08",
+       "to_date": "2035-07-08"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-07-08",
+       "to_date": "2035-07-08"
+      }
+     ],
+     "designated_on": "2024-12-17",
+     "shipment_total": 19,
+     "examined": 19,
+     "complete": true,
+     "latest_shipment": "2022-09-02",
+     "count_after": 0,
+     "count_before": 19,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-09-02",
+       "departure_date": null,
+       "supplier": [
+        "ROBOROCK (HK) LIMITED"
+       ],
+       "descriptions": [
+        "Parts of vacuum cleaners",
+        "ЧАСТИ ПРЕДНАЗНАЧЕННЫЕ ИСКЛЮЧИТЕЛЬНО ИЛИ В ОСНОВНОМ ДЛЯ ПЫЛЕСОСОВ."
+       ],
+       "hs_codes": [
+        "code='850870' description='Parts of vacuum cleaners' imputed=None"
+       ],
+       "_total": 19
+      },
+      {
+       "arrival_date": "2022-09-02",
+       "departure_date": null,
+       "supplier": [
+        "ROBOROCK (HK) LIMITED"
+       ],
+       "descriptions": [
+        "Fans; n.e.c. in item no. 8414.51",
+        "ЗАПАСНЫЕ ЧАСТИ ПЫЛЕСОСОВ, ПРЕДНАЗНАЧЕННЫЕ ДЛЯ РЕМОНТА И СЕРВИСНОГО ОБСЛУЖИВАНИЯ РАНЕЕ ВВЕЗЕННЫХ РОБОТОВ-ПЫЛЕСОСОВ, ВВОЗЯТСЯ УПОЛНОМОЧЕННЫМ ПРЕДСТАВИТЕЛЕМ ИЗГОТОВИТЕЛЯ"
+       ],
+       "hs_codes": [
+        "code='841459' description='Fans; n.e.c. in item no. 8414.51' imputed=None"
+       ],
+       "_total": 19
+      },
+      {
+       "arrival_date": "2022-09-02",
+       "departure_date": null,
+       "supplier": [
+        "ROBOROCK (HK) LIMITED"
+       ],
+       "descriptions": [
+        "ЭЛЕКТРИЧЕСКИЕ ДВИГАТЕЛИ, СИНХРОННЫЕ НОМИНАЛЬНОЙ ВЫХОДНОЙ МОЩНОСТЬЮ НЕ БОЛЕЕ 18 ВТ: ВВОЗЯТСЯ ДЛЯ РЕМОНТА И ТЕХ. ОБСЛУЖИВАНИЯ РАНЕЕ ВВЕЗЕННЫХ ПЫЛЕСОСОВ.",
+        "Electric motors; of an output not exceeding 37.5W"
+       ],
+       "hs_codes": [
+        "code='850110' description='Electric motors; of an output not exceeding 37.5W' imputed=None"
+       ],
+       "_total": 19
+      },
+      {
+       "arrival_date": "2022-09-02",
+       "departure_date": null,
+       "supplier": [
+        "ROBOROCK (HK) LIMITED"
+       ],
+       "descriptions": [
+        "Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L",
+        "ПРИБОРЫ ЭЛЕКТРИЧЕСКИЕ БЫТОВЫЕ ДЛЯ ЧИСТКИ И УБОРКИ ПОЛОВ ПОМЕЩЕНИЙ: РОБОТ-ПЫЛЕСОС, В КОМПЛЕКТЕ С СЕТЕВЫМ АДАПТЕРОМ И ЗАРЯДНОЙ СТАНЦИЕЙ."
+       ],
+       "hs_codes": [
+        "code='850811' description='Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L' imputed=None"
+       ],
+       "_total": 19
+      },
+      {
+       "arrival_date": "2022-09-02",
+       "departure_date": null,
+       "supplier": [
+        "ROBOROCK (HK) LIMITED"
+       ],
+       "descriptions": [
+        "Electrical apparatus; photosensitive semiconductor devices, diodes other than light emitting diodes and photovoltaic cells whether or not assembled in modules or made up into panels",
+        "ФОТОЧУВСТВИТЕЛЬНЫЕ ПОЛУПРОВОДНИКОВЫЕ ПРИБОРЫ: ИНФРАКРАСНЫЕ/ЛАЗЕРНЫЕ ДАТЧИКИ. ПРЕДНАЗНАЧЕННЫЕ ДЛЯ РЕМОНТА И СЕРВИСНОГО ОБСЛУЖИВАНИЯ РАНЕЕ ВВЕЗЕННЫХ РОБОТОВ-ПЫЛЕСОСОВ, ВВОЗЯТСЯ УПОЛНОМОЧЕННЫМ ПРЕДСТАВИТЕЛЕМ ИЗГОТОВИТЕЛЯ."
+       ],
+       "hs_codes": [
+        "code='854149' description='Electrical apparatus; photosensitive semiconductor devices, diodes other than light emitting diodes and photovoltaic cells whether or not assembled in modules or made up into panels' imputed=None"
+       ],
+       "_total": 19
+      }
+     ],
+     "assessment": "All 19 shipments predate the designation date of 2024-12-17 (latest 2022-09-02), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": false,
+     "ofac_sdn": null,
+     "corroboration": "Sayari records this party as sanctioned, but its name does not match an OFAC SDN entry. It may be listed by another authority, or under a different transliteration."
     }
    ],
    "regime_hits": [],
@@ -19367,7 +20930,193 @@
      "dropped_because": "api: enabled=false"
     }
    ],
-   "regime_hits": [],
+   "sanctioned_trade": [
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 6,
+     "examined": 6,
+     "complete": true,
+     "latest_shipment": "2022-10-28",
+     "count_after": 0,
+     "count_before": 6,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2022-10-28",
+       "departure_date": null,
+       "supplier": [
+        "ECOVACS ROBOTICS HOLDINGS LIMITED"
+       ],
+       "descriptions": [
+        "ПЫЛЕСОСЫ-РОБОТЫ СО ВСТРОЕННЫМ ЭЛЕКТРОДВИГАТЕЛЕМ МОЩНОСТЬЮ ДО 1500 ВТ С ПЫЛЕСБОРНИКОМ НЕ БОЛЕЕ 20 Л, С ВОЗМОЖНОСТЬЮ РЕГУЛИРОВАНИЯ РАБОТЫ С МОБИЛЬНОГО УСТРОЙСТВА ПО WI-FI, БЕСПРОВОДНОЙ СТАНДАРТ IEEE 802.11, РАБОТАЮЩИЙ В ПОЛОСЕ РАДИОЧАСТОТ 2400 - 2483,5",
+        "Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L"
+       ],
+       "hs_codes": [
+        "code='850811' description='Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2022-10-28",
+       "departure_date": null,
+       "supplier": [
+        "ECOVACS ROBOTICS HOLDINGS LIMITED"
+       ],
+       "descriptions": [
+        "ПЫЛЕСОСЫ-РОБОТЫ СО ВСТРОЕННЫМ ЭЛЕКТРОДВИГАТЕЛЕМ МОЩНОСТЬЮ ДО 1500 ВТ С ПЫЛЕСБОРНИКОМ НЕ БОЛЕЕ 20 Л, С ВОЗМОЖНОСТЬЮ РЕГУЛИРОВАНИЯ РАБОТЫ С МОБИЛЬНОГО УСТРОЙСТВА ПО WI-FI, БЕСПРОВОДНОЙ СТАНДАРТ IEEE 802.11, РАБОТАЮЩИЙ В ПОЛОСЕ РАДИОЧАСТОТ 2400 - 2483,5",
+        "Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L"
+       ],
+       "hs_codes": [
+        "code='850811' description='Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2022-10-28",
+       "departure_date": null,
+       "supplier": [
+        "ECOVACS ROBOTICS HOLDINGS LIMITED"
+       ],
+       "descriptions": [
+        "ПЫЛЕСОСЫ-РОБОТЫ СО ВСТРОЕННЫМ ЭЛЕКТРОДВИГАТЕЛЕМ МОЩНОСТЬЮ ДО 1500 ВТ С ПЫЛЕСБОРНИКОМ НЕ БОЛЕЕ 20 Л, С ВОЗМОЖНОСТЬЮ РЕГУЛИРОВАНИЯ РАБОТЫ С МОБИЛЬНОГО УСТРОЙСТВА ПО WI-FI, БЕСПРОВОДНОЙ СТАНДАРТ IEEE 802.11, РАБОТАЮЩИЙ В ПОЛОСЕ РАДИОЧАСТОТ 2400 - 2483,5",
+        "Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L"
+       ],
+       "hs_codes": [
+        "code='850811' description='Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2022-10-28",
+       "departure_date": null,
+       "supplier": [
+        "ECOVACS ROBOTICS HOLDINGS LIMITED"
+       ],
+       "descriptions": [
+        "ПЫЛЕСОСЫ-РОБОТЫ СО ВСТРОЕННЫМ ЭЛЕКТРОДВИГАТЕЛЕМ МОЩНОСТЬЮ ДО 1500 ВТ С ПЫЛЕСБОРНИКОМ НЕ БОЛЕЕ 20 Л, С ВОЗМОЖНОСТЬЮ РЕГУЛИРОВАНИЯ РАБОТЫ С МОБИЛЬНОГО УСТРОЙСТВА ПО WI-FI, БЕСПРОВОДНОЙ СТАНДАРТ IEEE 802.11, РАБОТАЮЩИЙ В ПОЛОСЕ РАДИОЧАСТОТ 2400 - 2483,5",
+        "Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L"
+       ],
+       "hs_codes": [
+        "code='850811' description='Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2022-10-28",
+       "departure_date": null,
+       "supplier": [
+        "ECOVACS ROBOTICS HOLDINGS LIMITED"
+       ],
+       "descriptions": [
+        "ПЫЛЕСОСЫ-РОБОТЫ СО ВСТРОЕННЫМ ЭЛЕКТРОДВИГАТЕЛЕМ МОЩНОСТЬЮ ДО 1500 ВТ С ПЫЛЕСБОРНИКОМ НЕ БОЛЕЕ 20 Л, С ВОЗМОЖНОСТЬЮ РЕГУЛИРОВАНИЯ РАБОТЫ С МОБИЛЬНОГО УСТРОЙСТВА ПО WI-FI, БЕСПРОВОДНОЙ СТАНДАРТ IEEE 802.11, РАБОТАЮЩИЙ В ПОЛОСЕ РАДИОЧАСТОТ 2400 - 2483,5",
+        "Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L"
+       ],
+       "hs_codes": [
+        "code='850811' description='Vacuum cleaners, with self-contained electric motor, of a power not exceeding 1,500 W and having a dust bag or other receptacle capacity not exceeding 20L' imputed=None"
+       ],
+       "_total": 6
+      }
+     ],
+     "assessment": "All 6 shipments predate the designation date of 2024-02-23 (latest 2022-10-28), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    }
+   ],
+   "regime_hits": [
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 6,
+     "post_designation": 0
+    }
+   ],
    "verdicts": {
     "consumer": {
      "status": "no_restriction",
@@ -19376,25 +21125,49 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "dod": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     }
    },
-   "worst_status": "no_restriction"
+   "worst_status": "review"
   },
   {
    "id": "dreame",
@@ -20177,6 +21950,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -22964,7 +24738,363 @@
      "dropped_because": "api: enabled=false"
     }
    ],
-   "regime_hits": [],
+   "sanctioned_trade": [
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 69,
+     "examined": 69,
+     "complete": true,
+     "latest_shipment": "2023-07-11",
+     "count_after": 0,
+     "count_before": 69,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2023-07-11",
+       "departure_date": null,
+       "supplier": [
+        "TCL MOKA INTERNATIONAL LIMITED"
+       ],
+       "descriptions": [
+        "Microphones and stands therefor",
+        "КОМПЛЕКТУЮЩИЕ ДЛЯ ПРОМЫШЛЕННОГО ПРОИЗBОДСТВА ЖК-ТЕЛЕВИЗОРОВ: , COMPONENTS FOR INDUSTRIAL LCD TV PRODUCTION:"
+       ],
+       "hs_codes": [
+        "code='851810' description='Microphones and stands therefor' imputed=None",
+        "code='8518109600' description='прочие' imputed=None"
+       ],
+       "_total": 69
+      },
+      {
+       "arrival_date": "2023-07-11",
+       "departure_date": null,
+       "supplier": [
+        "TCL MOKA INTERNATIONAL LIMITED"
+       ],
+       "descriptions": [
+        "Flat panel display modules, whether or not incorporating touch-sensitive screens; of liquid crystals, with drivers or control circuits",
+        "КОМПЛЕКТУЮЩИЕ ДЛЯ ПРОМЫШЛЕННОГО ПРОИЗВОДCТВА ЖК-ТЕЛЕВИЗОРОВ: , COMPONENTS FOR INDUSTRIAL LCD TV PRODUCTION:"
+       ],
+       "hs_codes": [
+        "code='852491' description='Flat panel display modules, whether or not incorporating touch-sensitive screens; of liquid crystals, with drivers or control circuits' imputed=None",
+        "code='8524910027' description='прочие' imputed=None"
+       ],
+       "_total": 69
+      },
+      {
+       "arrival_date": "2023-07-11",
+       "departure_date": null,
+       "supplier": [
+        "TCL MOKA INTERNATIONAL LIMITED"
+       ],
+       "descriptions": [
+        "для телевизионных камер подсубпозиций 8525 80 110 0 и 8525 80 190 0 и для аппаратуры товарных позиций 8527 и 8528",
+        "Reception and transmission apparatus; for use with the apparatus of heading no. 8524 to 8528, excluding aerials and aerial reflectors"
+       ],
+       "hs_codes": [
+        "code='8529909200' description='для телевизионных камер подсубпозиций 8525 80 110 0 и 8525 80 190 0 и для аппаратуры товарных позиций 8527 и 8528' imputed=None",
+        "code='852990' description='Reception and transmission apparatus; for use with the apparatus of heading no. 8524 to 8528, excluding aerials and aerial reflectors' imputed=None"
+       ],
+       "_total": 69
+      },
+      {
+       "arrival_date": "2023-07-11",
+       "departure_date": null,
+       "supplier": [
+        "TCL MOKA INTERNATIONAL LIMITED"
+       ],
+       "descriptions": [
+        "Flat panel display modules, whether or not incorporating touch-sensitive screens; of liquid crystals, with drivers or control circuits",
+        "КОМПЛЕКТУЮЩИЕ ДЛЯ ПРОМЫШЛЕННОГО ПРОИЗВОДСТВА ЖК-ТЕЛЕВИЗОРОВ: , COMPONENTS FOR INDUSTRIAL LCD TV PRODUCTION:"
+       ],
+       "hs_codes": [
+        "code='852491' description='Flat panel display modules, whether or not incorporating touch-sensitive screens; of liquid crystals, with drivers or control circuits' imputed=None",
+        "code='8524910027' description='прочие' imputed=None"
+       ],
+       "_total": 69
+      },
+      {
+       "arrival_date": "2023-07-11",
+       "departure_date": null,
+       "supplier": [
+        "TCL MOKA INTERNATIONAL LIMITED"
+       ],
+       "descriptions": [
+        "Microphones and stands therefor",
+        "КОМПЛЕКТУЮЩИЕ ДЛЯ ПРОМЫШЛЕННОГО ПРОИЗВОДСТВА ЖК-ТЕЛЕВИЗОРОВ: , COMPONENTS FOR INDUSTRIAL LCD TV PRODUCTION:"
+       ],
+       "hs_codes": [
+        "code='851810' description='Microphones and stands therefor' imputed=None",
+        "code='8518109600' description='прочие' imputed=None"
+       ],
+       "_total": 69
+      }
+     ],
+     "assessment": "All 69 shipments predate the designation date of 2024-02-23 (latest 2023-07-11), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    },
+    {
+     "id": "KCHphag9Uabfl2fhBeJG8A",
+     "label": "ABSOLUT TRADE LLC",
+     "countries": [
+      "RUS"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_gbr_fcdo",
+      "sanctioned_ukr_nsdc"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "The Russia (Sanctions) (EU Exit) Regulations 2019",
+       "from_date": "2025-10-15",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_gbr_fcdo",
+       "list": null,
+       "program": "The Russia (Sanctions) (EU Exit) Regulations 2019",
+       "from_date": "2025-10-15",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "The Russia (Sanctions) (EU Exit) Regulations 2019",
+       "from_date": "2025-10-15",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "The Russia (Sanctions) (EU Exit) Regulations 2019",
+       "from_date": "2025-10-15",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_gbr_fcdo",
+       "list": null,
+       "program": "The Russia (Sanctions) (EU Exit) Regulations 2019",
+       "from_date": "2025-10-15",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_gbr_fcdo",
+       "list": null,
+       "program": "The Russia (Sanctions) (EU Exit) Regulations 2019",
+       "from_date": "2025-10-15",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-12-26",
+       "to_date": "2035-12-26"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-12-26",
+       "to_date": "2035-12-26"
+      }
+     ],
+     "designated_on": "2025-10-15",
+     "shipment_total": 81,
+     "examined": 81,
+     "complete": true,
+     "latest_shipment": "2024-05-28",
+     "count_after": 0,
+     "count_before": 81,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2024-05-28",
+       "departure_date": null,
+       "supplier": [
+        "TCL OVERSEAS MARKETING LIMITED"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Cereals"
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='10' description='Cereals' imputed=None"
+       ],
+       "_total": 81
+      },
+      {
+       "arrival_date": "2024-05-28",
+       "departure_date": null,
+       "supplier": [
+        "TCL OVERSEAS MARKETING LIMITED"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "\"СПЛИТ-СИСТЕМЫ\" (УСТАНОВКИ ДЛЯ КОНДИЦИОНИРОВАНИЯ ВОЗДУХА ОКОННОГО, НАСТЕННОГО, ПОТОЛОЧНОГО ИЛИ НАПОЛЬНОГО ТИПА, ОБОРУДОВАННЫЕ ВЕНТИЛЯТОРОМ С ДВИГАТЕЛЕМ И ПРИБОРАМИ ДЛЯ ИЗМЕНЕНИЯ ТЕМПЕРАТУРЫ И ВЛАЖНОСТИ ВОЗДУХА)"
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None"
+       ],
+       "_total": 81
+      },
+      {
+       "arrival_date": "2024-05-28",
+       "departure_date": null,
+       "supplier": [
+        "TCL OVERSEAS MARKETING LIMITED"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "\"СПЛИТ-СИСТЕМЫ\" (УСТАНОВКИ ДЛЯ КОНДИЦИОНИРОВАНИЯ ВОЗДУХА ОКОННОГО, НАСТЕННОГО, ПОТОЛОЧНОГО ИЛИ НАПОЛЬНОГО ТИПА, ОБОРУДОВАННЫЕ ВЕНТИЛЯТОРОМ С ДВИГАТЕЛЕМ И ПРИБОРАМИ ДЛЯ ИЗМЕНЕНИЯ ТЕМПЕРАТУРЫ И ВЛАЖНОСТИ ВОЗДУХА)"
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None"
+       ],
+       "_total": 81
+      },
+      {
+       "arrival_date": "2024-05-28",
+       "departure_date": null,
+       "supplier": [
+        "TCL OVERSEAS MARKETING LIMITED"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "\"СПЛИТ-СИСТЕМЫ\" (УСТАНОВКИ ДЛЯ КОНДИЦИОНИРОВАНИЯ ВОЗДУХА ОКОННОГО, НАСТЕННОГО, ПОТОЛОЧНОГО ИЛИ НАПОЛЬНОГО ТИПА, ОБОРУДОВАННЫЕ ВЕНТИЛЯТОРОМ С ДВИГАТЕЛЕМ И ПРИБОРАМИ ДЛЯ ИЗМЕНЕНИЯ ТЕМПЕРАТУРЫ И ВЛАЖНОСТИ ВОЗДУХА)"
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None"
+       ],
+       "_total": 81
+      },
+      {
+       "arrival_date": "2024-05-28",
+       "departure_date": null,
+       "supplier": [
+        "TCL OVERSEAS MARKETING LIMITED"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Chemical products n.e.c."
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='38' description='Chemical products n.e.c.' imputed=None"
+       ],
+       "_total": 81
+      }
+     ],
+     "assessment": "All 81 shipments predate the designation date of 2025-10-15 (latest 2024-05-28), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": false,
+     "ofac_sdn": null,
+     "corroboration": "Sayari records this party as sanctioned, but its name does not match an OFAC SDN entry. It may be listed by another authority, or under a different transliteration."
+    }
+   ],
+   "regime_hits": [
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 69,
+     "post_designation": 0
+    }
+   ],
    "verdicts": {
     "consumer": {
      "status": "no_restriction",
@@ -22973,25 +25103,49 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (69 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (69 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "dod": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (69 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     }
    },
-   "worst_status": "no_restriction"
+   "worst_status": "review"
   },
   {
    "id": "hisense",
@@ -24841,7 +26995,198 @@
      "dropped_because": "api: enabled=false"
     }
    ],
-   "regime_hits": [],
+   "sanctioned_trade": [
+    {
+     "id": "4hd0iru38Eciku4w_g3jwg",
+     "label": "OBLTRANSTERMINAL",
+     "countries": [
+      "RUS",
+      "CHN"
+     ],
+     "edge": "ships_to",
+     "hops": 1,
+     "via_factor": "sanctioned_adjacent",
+     "seed_risks": [
+      "sanctioned",
+      "sanctioned_ukr_nsdc",
+      "sanctioned_usa_ofac_sdn"
+     ],
+     "listings": [
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_usa_ofac_sdn",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": "Executive Order 14024 (Russia)",
+       "from_date": "2024-02-23",
+       "to_date": null
+      },
+      {
+       "type": "sanctioned_ukr_nsdc",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      },
+      {
+       "type": "sanctioned",
+       "list": null,
+       "program": null,
+       "from_date": "2025-04-18",
+       "to_date": "2035-04-18"
+      }
+     ],
+     "designated_on": "2024-02-23",
+     "shipment_total": 6,
+     "examined": 6,
+     "complete": true,
+     "latest_shipment": "2023-02-20",
+     "count_after": 0,
+     "count_before": 6,
+     "count_undatable": 0,
+     "after_designation": [],
+     "before_designation": [
+      {
+       "arrival_date": "2023-02-20",
+       "departure_date": null,
+       "supplier": [
+        "HISENSE INTERNATIONAL CO., LTD"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\""
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='8415109000' description='Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\"' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2023-02-20",
+       "departure_date": null,
+       "supplier": [
+        "HISENSE INTERNATIONAL CO., LTD"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\""
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='8415109000' description='Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\"' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2023-02-20",
+       "departure_date": null,
+       "supplier": [
+        "HISENSE INTERNATIONAL CO., LTD"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\""
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='8415109000' description='Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\"' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2023-02-20",
+       "departure_date": null,
+       "supplier": [
+        "HISENSE INTERNATIONAL CO., LTD"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\""
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='8415109000' description='Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\"' imputed=None"
+       ],
+       "_total": 6
+      },
+      {
+       "arrival_date": "2023-02-20",
+       "departure_date": null,
+       "supplier": [
+        "HISENSE INTERNATIONAL CO., LTD"
+       ],
+       "descriptions": [
+        "Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"",
+        "Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\""
+       ],
+       "hs_codes": [
+        "code='841510' description='Air conditioning machines; comprising a motor-driven fan and elements for changing the temperature and humidity, of a kind designed to be fixed to a window, wall, ceiling or floor, self-contained or \"split-system\"' imputed=None",
+        "code='8415109000' description='Air Conditioning Machines, Comprising A Motor-Driven Fan And Elements For Changing The Temperature And Humidity, Including Those Machines In Which The Humidity Cannot Be Separetely Regulated: \" --\"Split -System\"' imputed=None"
+       ],
+       "_total": 6
+      }
+     ],
+     "assessment": "All 6 shipments predate the designation date of 2024-02-23 (latest 2023-02-20), so this was ordinary trade at the time and is not evidence of a violation.",
+     "ofac_sdn_confirmed": true,
+     "ofac_sdn": {
+      "sdn_name": "OBLTRANSTERMINAL",
+      "ent_num": "47601",
+      "type": null,
+      "program": "RUSSIA-EO14024",
+      "remarks": "Secondary sanctions risk: See Section 11 of Executive Order 14024.; Tax ID No. 5053042571 (Russia); Registration Number 1165053050579 (Russia)."
+     },
+     "corroboration": "Confirmed against the live OFAC SDN download under programme RUSSIA-EO14024."
+    }
+   ],
+   "regime_hits": [
+    {
+     "regime": "ofac_sdn",
+     "authority": "OFAC Specially Designated Nationals",
+     "binds": "all US persons -- blocking sanctions",
+     "citation": "31 CFR 501",
+     "how": "trade_counterparty",
+     "counterparty": "OBLTRANSTERMINAL",
+     "matched": "OFAC SDN",
+     "edge": "ships_to",
+     "program": "RUSSIA-EO14024",
+     "shipments": 6,
+     "post_designation": 0
+    }
+   ],
    "verdicts": {
     "consumer": {
      "status": "no_restriction",
@@ -24850,25 +27195,49 @@
      "coverage_warning": null
     },
     "enterprise": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "federal_contractor": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     },
     "dod": {
-     "status": "no_restriction",
-     "headline": "No restriction identified",
-     "reasons": [],
+     "status": "review",
+     "headline": "Diligence required: OFAC Specially Designated Nationals",
+     "reasons": [
+      {
+       "authority": "OFAC Specially Designated Nationals",
+       "citation": "31 CFR 501",
+       "binds": "all US persons -- blocking sanctions",
+       "severity": "review",
+       "detail": "Shipped to OBLTRANSTERMINAL, on the OFAC SDN list under programme RUSSIA-EO14024 (6 shipments). All of them predate the designation date."
+      }
+     ],
      "coverage_warning": null
     }
    },
-   "worst_status": "no_restriction"
+   "worst_status": "review"
   },
   {
    "id": "vizio",
@@ -25568,6 +27937,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -26705,6 +29075,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -27848,6 +30219,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -28176,6 +30548,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
@@ -29868,6 +32241,7 @@
      "dropped_because": "api: enabled=false"
     }
    ],
+   "sanctioned_trade": [],
    "regime_hits": [],
    "verdicts": {
     "consumer": {
