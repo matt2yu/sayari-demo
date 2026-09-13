@@ -17,7 +17,7 @@ from typing import Any
 
 from . import adjudicate, classify, enrich, external, ontology, resolve
 from .client import SayariClient
-from .paths import SNAPSHOT, read_stage
+from .paths import SNAPSHOT, check_chain, read_stage
 
 STAGES = ["resolve", "adjudicate", "enrich", "external", "classify"]
 
@@ -104,10 +104,41 @@ def main(start: str = "resolve", refresh_sdn: bool = False) -> dict[str, Any]:
     return snapshot
 
 
+ARTIFACT_NAMES = ["01_candidates", "02_families", "03_enriched",
+                  "04_external", "05_classified"]
+
+
+def check() -> bool:
+    """Print the stage chain and whether each ran against current input.
+
+    Re-running stages out of order leaves mtimes that look fresh over stale
+    content, so each artifact records the fingerprint of what it consumed and this
+    verifies the chain rather than trusting timestamps.
+    """
+    report = check_chain(ARTIFACT_NAMES)
+    print(f"{'stage':16} {'rows':>5}  {'status':7}  written")
+    print("-" * 64)
+    healthy = True
+    for entry in report:
+        if entry["status"] != "ok":
+            healthy = False
+        written = (entry.get("written_at") or "")[:19]
+        print(f"{entry['stage']:16} {entry.get('rows', '-')!s:>5}  "
+              f"{entry['status']:7}  {written}")
+    if not healthy:
+        print("\nA STALE stage ran against an older version of its input. "
+              "Re-run from the first stale stage:  --from <stage>")
+    return healthy
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--from", dest="start", default="resolve", choices=STAGES)
     parser.add_argument("--refresh-sdn", action="store_true",
                         help="re-download the OFAC SDN list instead of using the cache")
+    parser.add_argument("--check", action="store_true",
+                        help="verify stage freshness without running anything")
     args = parser.parse_args()
+    if args.check:
+        raise SystemExit(0 if check() else 1)
     main(start=args.start, refresh_sdn=args.refresh_sdn)

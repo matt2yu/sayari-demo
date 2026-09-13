@@ -1,0 +1,143 @@
+:root {
+  --bg: #0f1115;
+  --panel: #171a21;
+  --line: #252a34;
+  --text: #e6e8ec;
+  --dim: #98a0ae;
+  --red: #e5484d;
+  --amber: #f0a202;
+  --green: #3aa76d;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.app { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+.loading, .error { padding: 48px 20px; color: var(--dim); }
+.error { color: var(--amber); max-width: 640px; }
+
+h1 { font-size: 26px; margin: 0 0 8px; letter-spacing: -0.02em; }
+.thesis { color: var(--dim); max-width: 68ch; margin: 0 0 24px; }
+.thesis strong { color: var(--text); }
+
+/* persona switch */
+.personas { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.persona {
+  background: var(--panel); color: var(--dim); border: 1px solid var(--line);
+  padding: 8px 14px; border-radius: 999px; cursor: pointer; font-size: 13px;
+}
+.persona:hover { color: var(--text); }
+.persona.on { background: var(--text); color: var(--bg); border-color: var(--text); font-weight: 600; }
+
+.summary {
+  display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  padding: 10px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 20px;
+  color: var(--dim); font-size: 13px;
+}
+.summary b { color: var(--text); }
+
+/* grid */
+.grid {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+}
+.card {
+  width: 100%; text-align: left; cursor: pointer;
+  background: var(--panel); border: 1px solid var(--line); border-left-width: 3px;
+  border-radius: 8px; padding: 12px; color: inherit; font: inherit;
+  display: flex; flex-direction: column; gap: 4px; min-height: 118px;
+}
+.card:hover { border-color: #3a4150; }
+.card.prohibited { border-left-color: var(--red); }
+.card.review { border-left-color: var(--amber); }
+.card.no_restriction { border-left-color: var(--line); }
+
+.brand { font-weight: 600; font-size: 15px; }
+.product { color: var(--dim); font-size: 12px; }
+.why { font-size: 11px; color: var(--dim); }
+.gap { font-size: 11px; color: var(--amber); }
+.meta { font-size: 11px; color: #6b7280; margin-top: auto; }
+
+.chip {
+  display: inline-block; align-self: flex-start; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 2px 7px; border-radius: 4px; border: 1px solid;
+}
+.chip.prohibited { color: var(--red); border-color: var(--red); }
+.chip.review { color: var(--amber); border-color: var(--amber); }
+.chip.no_restriction { color: var(--green); border-color: #2a4a3a; }
+
+/* detail */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6);
+  display: flex; justify-content: flex-end; z-index: 10;
+}
+.panel {
+  background: var(--panel); width: min(720px, 100%); height: 100%;
+  overflow-y: auto; padding: 24px 28px 64px; border-left: 1px solid var(--line);
+  position: relative;
+}
+.close {
+  position: absolute; top: 14px; right: 18px; background: none; border: none;
+  color: var(--dim); font-size: 26px; cursor: pointer; line-height: 1;
+}
+.panel h2 { margin: 0 0 2px; font-size: 22px; }
+.panel h2 small { color: var(--dim); font-weight: 400; font-size: 14px; }
+.legal { color: var(--dim); font-size: 12px; margin: 0 0 20px; }
+.panel section { border-top: 1px solid var(--line); padding-top: 16px; margin-top: 20px; }
+.panel h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--dim); margin: 0 0 10px; }
+.panel h4 { font-size: 12px; color: var(--dim); margin: 14px 0 6px; font-weight: 600; }
+.hint { color: var(--dim); font-size: 12px; margin: 0 0 10px; }
+
+.verdicts { width: 100%; border-collapse: collapse; margin-bottom: 14px; }
+.verdicts th { text-align: left; font-weight: 500; padding: 5px 8px 5px 0; font-size: 13px; }
+.verdicts td { padding: 5px 8px 5px 0; }
+.verdicts tr.current { background: #1e222b; }
+.reasoncell { color: var(--dim); font-size: 12px; }
+
+.reason { border-left: 2px solid var(--line); padding: 6px 0 6px 12px; margin-bottom: 10px; font-size: 13px; }
+.cite { color: #6b7280; font-size: 11px; margin-top: 3px; }
+.scope { color: #6b7280; font-size: 11px; }
+.warn { color: var(--amber); font-size: 12px; border-left: 2px solid var(--amber); padding-left: 12px; }
+
+.chainblock { margin-bottom: 14px; }
+.flagname { font-size: 12px; color: var(--dim); margin-bottom: 6px; }
+.chain { list-style: none; margin: 0; padding: 0; }
+.hop {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+  padding: 6px 0 6px 16px; border-left: 2px solid var(--line); font-size: 13px;
+}
+.hop.hot { border-left-color: var(--red); }
+.edge { color: #6b7280; font-family: ui-monospace, SFMono-Regular, monospace; font-size: 11px; }
+.node { font-weight: 500; }
+.cc { color: #6b7280; font-size: 11px; }
+.badge {
+  font-size: 10px; text-transform: uppercase; color: var(--red);
+  border: 1px solid var(--red); border-radius: 4px; padding: 1px 5px;
+}
+
+.flag { margin-bottom: 12px; font-size: 13px; }
+.flag p { color: var(--dim); margin: 4px 0 0; font-size: 12px; }
+.lvl { font-size: 10px; text-transform: uppercase; padding: 1px 5px; border-radius: 3px; border: 1px solid var(--line); color: var(--dim); }
+.lvl.critical, .lvl.high { color: var(--red); border-color: var(--red); }
+.lvl.elevated { color: var(--amber); border-color: var(--amber); }
+
+.family, .rejected { list-style: none; padding: 0; margin: 0; font-size: 12px; }
+.family li, .rejected li { padding: 4px 0; border-bottom: 1px solid #1e222b; display: flex; flex-wrap: wrap; gap: 8px; }
+.via { color: #6b7280; font-size: 10px; text-transform: uppercase; }
+.rejected .label { color: var(--dim); }
+.rejected .reason { color: #6b7280; border: none; padding: 0; margin: 0; }
+
+footer { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 16px; color: var(--dim); font-size: 12px; }
+footer summary { cursor: pointer; padding: 6px 0; }
+footer ul { margin: 6px 0 12px; padding-left: 18px; }
+footer li { margin-bottom: 6px; }
+.provenance { color: #6b7280; font-size: 11px; }

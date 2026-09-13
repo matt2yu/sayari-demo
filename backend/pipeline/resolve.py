@@ -123,7 +123,7 @@ def run(client: SayariClient) -> list[dict[str, Any]]:
             candidates.setdefault(candidate["id"], candidate)
         rows.append({"product": product, "candidates": list(candidates.values())})
         print(f"  resolve  {product['brand']:10} {len(candidates):>3} candidates")
-    write_stage("01_candidates", rows)
+    write_stage("01_candidates", rows)  # stage 1 consumes products.json, not an artifact
     return rows
 
 
