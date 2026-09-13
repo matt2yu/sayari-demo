@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-13T02:37:14.349516+00:00",
+ "generated_at": "2026-09-13T02:45:30.201832+00:00",
  "product_count": 25,
  "personas": [
   {
@@ -634,17 +634,9 @@
    "complete": false
   },
   "this_invocation": {
-   "total_calls": 267,
-   "by_endpoint": {
-    "resolution": 90,
-    "trade_suppliers": 25,
-    "entity_summary": 128,
-    "entity": 12,
-    "trade_shipments": 12
-   },
-   "retries": {
-    "entity_summary": 2
-   }
+   "total_calls": 0,
+   "by_endpoint": {},
+   "retries": {}
   },
   "account_usage_last_30d": {
    "entity": 16,
@@ -6213,7 +6205,7 @@
        "citation": "47 CFR 1.50002",
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
-       "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
       },
       {
        "authority": "OFAC Specially Designated Nationals",
@@ -6234,14 +6226,14 @@
        "citation": "Pub. L. 115-232; 48 CFR 52.204-25",
        "binds": "federal agencies and federal contractors",
        "severity": "review",
-       "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
       },
       {
        "authority": "FCC Covered List",
        "citation": "47 CFR 1.50002",
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
-       "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
       },
       {
        "authority": "OFAC Specially Designated Nationals",
@@ -6262,14 +6254,14 @@
        "citation": "Pub. L. 115-232; 48 CFR 52.204-25",
        "binds": "federal agencies and federal contractors",
        "severity": "review",
-       "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
       },
       {
        "authority": "FCC Covered List",
        "citation": "47 CFR 1.50002",
        "binds": "equipment authorisation -- import and marketing of new devices",
        "severity": "review",
-       "detail": "Hangzhou Hikvision Digital Technology Co., Ltd. is 1 ownership hop upstream and is listed as Hangzhou Hikvision Digital Technology"
+       "detail": "Owned 1 hop upstream by Hangzhou Hikvision Digital Technology Co., Ltd., which is on this list."
       },
       {
        "authority": "OFAC Specially Designated Nationals",

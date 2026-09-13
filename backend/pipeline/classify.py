@@ -98,9 +98,11 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
     reasons = []
     for hit in applicable:
         if hit["how"] == "owner":
-            detail = (f"{hit['owner']} is {hit['hops']} ownership hop"
-                      f"{'s' if hit['hops'] > 1 else ''} upstream and is listed as "
-                      f"{hit['matched']}")
+            hops = hit["hops"]
+            detail = (
+                f"Owned {hops} {'hop' if hops == 1 else 'hops'} upstream by "
+                f"{hit['owner']}, which is on this list."
+            )
         elif hit["how"] == "direct":
             detail = f"{hit['entity']} is listed as {hit['matched']}"
         elif hit["how"] == "trade_counterparty":
