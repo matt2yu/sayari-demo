@@ -21,7 +21,7 @@ from typing import Any
 
 from . import ontology
 from .client import SayariClient
-from .paths import read_stage, write_stage
+from .paths import fingerprint, read_stage, write_stage
 
 # Ownership edges, used to decide whether a resolved chain is an ownership story
 # or a trade story. Sayari's own owned_by_* factors use this set.
@@ -205,15 +205,16 @@ def enrich_one(
 def run(client: SayariClient) -> list[dict[str, Any]]:
     factors = ontology.load(client)
     names = _NameCache(client)
+    families = read_stage("02_families")
     rows = []
-    for row in read_stage("02_families"):
+    for row in families:
         enriched = enrich_one(row, client, factors, names)
         rows.append(enriched)
         seeds = sum(1 for f in enriched["flags"] if f["risk_type"] == "seed")
         print(f"  enrich   {enriched['brand']:10} fam={enriched['family_size']:>2} "
               f"flow={enriched['family_flow']:>9,} flags={len(enriched['flags']):>2} "
               f"(seed {seeds}) dropped={len(enriched['dropped_flags'])}")
-    write_stage("03_enriched", rows)
+    write_stage("03_enriched", rows, consumed=fingerprint(families))
     return rows
 
 
