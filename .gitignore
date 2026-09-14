@@ -1,3 +1,12 @@
+# Sayari's own interview materials. Their process, not ours to publish: the
+# repo link goes to the interview team, it should not double as a public copy
+# of their assessment.
+FDE_Assessment_Instructions.pdf
+Sayari_Interview_Exercise_List.xlsx
+
+# The write-up. Committed only when the submission is ready.
+report/
+
 # Credentials — never commit
 .env
 .env.local
