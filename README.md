@@ -101,15 +101,14 @@ repeating the API calls before it. **267 Sayari calls build the entire snapshot.
 | `external` | join families and owners to restriction regimes | 0 | **The Scenario 1 enrichment.** OFAC SDN fetched live from Treasury. |
 | `classify` | one verdict per buyer profile | 0 | A statute is cited, or nothing renders. |
 
-**Why a snapshot rather than live calls per request.** The landing page needs 25
+**Why a snapshot instead of live calls per request.** The landing page needs 25
 entity families and several calls each. Serving a versioned snapshot keeps the demo
 fast and working even when the key rate-limits, and lets a reviewer read the JSON
 directly. The pipeline is the SDK path, and it is real.
 
 `pipeline.run --check` exists because stages communicate through files. Each artifact
-records a fingerprint of what it consumed, so a stage that ran against stale input is
-detectable rather than inferred from mtimes, which look fresh even when the content
-behind them is not.
+records a fingerprint of what it consumed, so stale input is detectable directly.
+mtimes cannot do this: they look fresh even when the content behind them is not.
 
 ---
 
@@ -247,9 +246,10 @@ before committing to them:
 | **Import-dense** | Everything ships. 5.1M shipment records across the list |
 | **Genuinely hidden** | The findings are unreachable from the product page and require graph traversal |
 
-The list is in [`data/products.csv`](data/products.csv), which mirrors the
-`name,address,country` format of the exercise's own sheets, and
-[`data/products.json`](data/products.json) with the resolution metadata.
+[`data/products.json`](data/products.json) is the source of record, carrying the
+resolution metadata. [`data/products.csv`](data/products.csv) is generated from it
+by [`data/make_csv.py`](data/make_csv.py) and mirrors the `name,address,country`
+format of the exercise's own sheets.
 
 ---
 
@@ -319,10 +319,10 @@ publishing the catch is more credible than never mentioning it.
 
 ## Future work
 
-Documented rather than built, per the exercise's note about scope:
+Documented, not built, per the exercise's note about scope:
 
 - **Product Blueprint traversal.** `/v1/supply_chain/upstream` with a `product` filter
-  would trace each device's actual component value chain rather than relying on
+  would trace each device's actual component value chain instead of leaning on
   precomputed sub-tier risk factors.
 - **Monitoring.** A real deployment would save these 25 as a Sayari *project* and use
   the notification endpoints to alert on risk changes, rather than rebuilding a

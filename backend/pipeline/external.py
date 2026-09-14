@@ -125,13 +125,6 @@ def ofac_sdn_records(refresh: bool = False) -> dict[str, dict[str, Any]]:
     return records
 
 
-# Section 889 covers a named company "or any subsidiary or affiliate". Whether an
-# ownership link clears that bar is a question about the size of the stake, so we
-# read it rather than assume it. Below the threshold the link is a diligence
-# trigger; at or above it, the statutory language is met on its face.
-AFFILIATE_THRESHOLD_PCT = 25
-
-
 def shareholding_pct(client: Any, owned_id: str, owner_label: str) -> int | None:
     """Largest reported stake the named owner holds in this entity, if published."""
     try:
@@ -212,8 +205,7 @@ def assess(
     # 4. Cross-check sanctioned trade counterparties against the live OFAC SDN
     #    download. This is the point of fetching it: Sayari says the party is
     #    sanctioned, and the US Treasury list either corroborates that by name or
-    #    it does not. Independent confirmation is worth more than either source
-    #    alone, and a disagreement is worth showing rather than hiding.
+    #    it does not. A disagreement between the two is worth showing.
     for finding in row.get("sanctioned_trade", []):
         label = finding.get("label")
         record = sdn.get(normalise(label))

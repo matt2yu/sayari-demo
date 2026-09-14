@@ -212,6 +212,12 @@ class SayariClient:
         return self._guard("usage", "standard", lambda: self._sdk.info.get_usage(**kwargs))
 
     # ------------------------------------------------------------ advanced tier
+    #
+    # No stage calls these four. Ownership chains come from
+    # `risk.metadata.traversal_path`, which entity_summary already returns inline,
+    # so re-querying /v1/ubo would re-derive an answer we have at one extra call
+    # per entity. They stay because each one documents an API behaviour that cost
+    # real time to find, and the next person to need a traversal will want it.
 
     def traversal(self, entity_id: str, **kwargs: Any) -> Any:
         """GET /v1/traversal/{id}. `limit` max is 50; 50+ returns 422, and traversal
