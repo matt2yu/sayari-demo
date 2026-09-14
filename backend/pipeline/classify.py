@@ -1,14 +1,13 @@
 """Stage 5 -- verdict per buyer persona.
 
-The thesis of the whole deliverable: "legal" is not a property of the product, it
-is a property of the buyer. The same router is unremarkable in a house and
-prohibited in a defence contractor's office. So there is no single verdict -- there
-are four, and switching between them is what makes the point.
+"Legal" is a property of the buyer, not the product. The same router is
+unremarkable in a house and prohibited in a defence contractor's office, so there
+is no single verdict here. There are four.
 
-Two rules govern everything here:
+Two rules govern everything in this module:
 
   A verdict cites a statute or it does not render. No ethical language, no scoring
-  of morality. We report legal restriction by buyer class, nothing else.
+  of morality, only legal restriction by buyer class.
 
   Absence of evidence is reported as absence of evidence. Ring has zero flags only
   because Amazon imports on its behalf, so its verdict carries a coverage warning
@@ -29,9 +28,9 @@ PERSONAS = [
         "label": "Consumer",
         "blurb": "Buying for a private household.",
         # Only OFAC reaches a private individual. The FCC Covered List bars new
-        # equipment *authorisation* -- it binds the importer and the seller, not the
-        # household -- so listing it here would tell a consumer they are prohibited
-        # from something they are not.
+        # equipment *authorisation*, binding the importer and the seller rather
+        # than the household, so listing it here would tell a consumer they are
+        # prohibited from something they are not.
         "regimes": ["ofac_sdn"],
         "applies_to": ["direct", "seed_risk", "owner"],
     },
@@ -82,8 +81,6 @@ def _severity(hit: dict[str, Any]) -> str:
     if hit["how"] != "owner":
         return HOW_SEVERITY.get(hit["how"], REVIEW)
     if hit["regime"] != "section_889":
-        # The FCC Covered List restricts authorisation of the equipment, not the
-        # corporate group, so an ownership link is a diligence trigger there.
         return REVIEW
     stake = hit.get("stake_pct")
     return PROHIBITED if stake is not None and stake >= AFFILIATE_THRESHOLD_PCT else REVIEW
@@ -135,16 +132,10 @@ def _verdict_for(persona: dict[str, Any], row: dict[str, Any]) -> dict[str, Any]
                    if after else "All of them predate the designation date.")
             )
         else:
-            # A seed listing is the strongest evidence there is: the entity is on
-            # the list itself, not reached through anything. Say which entity and
-            # which list, otherwise it reads as weaker than an ownership chain
-            # purely because there is no chain to draw.
-            # Prefer the registry label over the translation here. A family
-            # member is the brand's own entity and is usually Latin-named, and
-            # TP-Link's translation is "Pulian Technology Co., Ltd." -- correct,
-            # but unrecognisable to a reader looking at a TP-Link card.
-            # Translations matter for chain hops, which are often Chinese
-            # registry entries; they do not help here.
+            # Registry label, not the translation. TP-Link translates to "Pulian
+            # Technology Co., Ltd.", which is correct and unrecognisable on a
+            # TP-Link card. Translations earn their place on chain hops, which are
+            # often Chinese registry entries, not here.
             listed = next(
                 (m.get("label") or m.get("translated_label")
                  for m in row.get("family", [])
