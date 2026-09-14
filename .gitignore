@@ -7,6 +7,9 @@ Sayari_Interview_Exercise_List.xlsx
 # The write-up. Committed only when the submission is ready.
 report/
 
+# Internal cleanup brief. Delete once the polish pass is done.
+HANDOFF.md
+
 # Credentials — never commit
 .env
 .env.local
